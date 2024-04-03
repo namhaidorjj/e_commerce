@@ -40,7 +40,7 @@ export default function Header() {
   }, [router.asPath]);
 
   return (
-    <div className="w-full flex flex-col h-full  ">
+    <div className="w-full flex flex-col h-full">
       <div className="justify-between h-[90px] flex w-full items-center">
         <div className="flex pl-20  gap-5">
           <button

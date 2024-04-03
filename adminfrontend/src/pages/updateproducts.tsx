@@ -2,14 +2,16 @@
 
 import React from "react";
 import { LeftNavBar } from "../components/LeftNavBar";
-import { TestingProduct } from "../components/TestingProduct";
-export default function products() {
+import { UpdateProduct } from "../components/UpdateProduct";
+
+const UpdateProducts = () => {
   return (
     <div className="flex">
       <LeftNavBar />
       <div className="bg-gray-200 w-screen">
-        <TestingProduct />
+        <UpdateProduct />
       </div>
     </div>
   );
-}
+};
+export default UpdateProducts;

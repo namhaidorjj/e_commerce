@@ -9,6 +9,8 @@ const ColorSchema: Schema = new Schema({
   bagId: { type: Schema.Types.ObjectId, ref: "Bag", required: true },
   bagCode: { type: String, required: true, unique: true },
   images: { type: [String], required: true },
+  consumer: { type: String },
+  status: { type: String },
   CreatedAt: { type: Date, default: new Date() },
   UpdatedAt: { type: Date, default: new Date() },
 });
