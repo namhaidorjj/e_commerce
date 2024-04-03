@@ -20,9 +20,13 @@ interface Bag {
   adminColor: string;
   color: string;
 }
+interface colors {
+  colors: string;
+}
 
 export default function GucciMain() {
   const [products, setProducts] = useState<Bag[]>([]);
+  const [colors, setColors] = useState<colors[]>([]);
   const [loading, setloading] = useState(false);
   const { searchValue, setSearchValue } = useContext(SearchValueContext);
   const [domData, setDomData] = useState<Bag[]>([]);
@@ -39,19 +43,19 @@ export default function GucciMain() {
       setloading(false);
     }
   };
-
+  console.log("first", colors);
   useEffect(() => {
     fetchProducts();
   }, []);
   const filteringBySearchValue = useMemo(async () => {
     setDomData(
       products.filter((el) => {
-        return (
-          el.bagName?.toLowerCase().includes(searchValue.toLowerCase()) ||
-          el.colors[0].color.toLowerCase().includes(searchValue.toLowerCase())
-        );
+        return el.bagName?.toLowerCase().includes(searchValue.toLowerCase());
       })
     );
+    colors.filter((el) => {
+      return el.colors.toLowerCase().includes(searchValue.toLowerCase());
+    });
   }, [searchValue]);
   return (
     <div className="bg-white">
