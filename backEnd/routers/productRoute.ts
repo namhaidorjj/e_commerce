@@ -15,6 +15,7 @@ import {
   LVBag,
   bagCreate,
 } from "../controllers/bagController";
+import { signUp } from "../controllers/userController";
 
 export const router = Router();
 // Creating bag ===================
@@ -31,3 +32,4 @@ router.route("/productUpdate/:id").put(productUpdate);
 router.route("/gucciBag").get(GucciBag);
 router.route("/hermesBag").get(HermesBag);
 router.route("/lvbag").get(LVBag);
+router.route("/createUser").post(signUp);

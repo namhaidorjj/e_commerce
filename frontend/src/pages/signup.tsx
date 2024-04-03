@@ -1,10 +1,12 @@
 /** @format */
 
-// import { SignUp } from "@/components/Signup";
-import { Inter } from "next/font/google";
+import React from "react";
+import { SignUp } from "@/components/user/SignUp";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
-  return <div className="">{/* <SignUp /> */}</div>;
+export default function signup() {
+  return (
+    <div>
+      <SignUp />
+    </div>
+  );
 }
