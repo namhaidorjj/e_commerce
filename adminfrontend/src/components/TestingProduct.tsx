@@ -7,6 +7,14 @@ import { useRouter } from "next/router";
 import { instance } from "@/instance";
 import { Loading } from "../components/sub_components/Loading";
 
+type ErrorType = {
+  response: {
+    data: {
+      message: string;
+    };
+  };
+};
+
 export const TestingProduct = () => {
   const router = useRouter();
   const [bagName, setBagName] = useState("");
@@ -78,7 +86,7 @@ export const TestingProduct = () => {
       setColors([]);
       setImages(null);
     } catch (error) {
-      alert(error?.response?.data.message);
+      alert((error as ErrorType)?.response?.data.message);
     } finally {
       setLoading(false);
     }
