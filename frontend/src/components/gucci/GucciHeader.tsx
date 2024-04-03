@@ -36,8 +36,8 @@ export const GucciHeader = () => {
     }
   };
   return (
-    <div className="flex justify-center pl-20 h-[90px] w-full border border-t items-center">
-      <div className="w-1/3 shadow-2xl bg-[#f8f8f8] flex items-center border rounded-sm">
+    <div className="flex justify-center lg:pl-20 h-[90px] w-full border border-t items-center">
+      <div className="lg:w-1/3 shadow-2xl bg-[#f8f8f8] flex items-center border rounded-sm">
         <img
           className="w-4 h-4 ml-4 mr-4"
           src="assets/icons/search.svg"
