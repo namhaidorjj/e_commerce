@@ -7,6 +7,8 @@ import { SearchVisiblityContext } from "../../contexts/SearchUs";
 import { SearchUsBar } from "./SearchUsBar";
 import { useRouter } from "next/router";
 import hermes from "@/pages/hermes";
+import { LoginSheet } from "./LoginSheet";
+
 
 export default function Header() {
   const router = useRouter();
@@ -61,15 +63,20 @@ export default function Header() {
             className="text-[#000000] text-xs hidden lg:flex lg:items-center">
             Call Us
           </button>
+
           <button className="text-[#000000] text-xs hidden lg:flex lg:items-center">
             Wishlist
           </button>
           <button onClick={handleLoginPage}>
             <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
           </button>
+
+          <button className="text-[#000000] text-xs">Wishlist</button>
+          <LoginSheet />
+
           <button className="flex gap-1 justify-center items-center">
             <img className="w-4 h-4" src="assets/icons/basket.svg" alt="" />
-            <p className="bg-black w-[15px] mb-3 rounded-xl text-white flex text-xs h-[15px] items-center justify-center">
+            <p className="bg-black w-[15px] mb-3 rounded-xl animate-pulse text-white flex text-xs h-[15px] items-center justify-center">
               0
             </p>
           </button>

@@ -20,72 +20,59 @@ export const getUser = async (req: Request, res: Response) => {
 };
 
 // SignUp User post ===================================================
-export const singUp = async (req: Request, res: Response) => {
-  const {
-    userName,
-    email,
-    password,
-    phoneNumber,
-    address,
-    zipCode,
-    cartId,
-    createdAt,
-  } = req.body;
+export const signUp = async (req: Request, res: Response) => {
+  console.log("first");
+  const { email, password } = req.body;
+  console.log("user", req.body);
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
-      userName,
       email,
-      password: hashedPassword,
-      phoneNumber,
-      address,
-      zipCode,
-      cartId,
-      createdAt,
+      password,
     });
-    console.log(user);
-    res.status(201).json({ message: "Success created account" });
+
+    res.status(201).json({ user, message: "Success created account" });
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Failed to create account" });
   }
 };
 
-// SignIn User post ===================================================
-export const singIn = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  console.log(req.body);
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "Email not found" });
-    }
+// SignUn User post ===================================================
+// export const singIn = async (req: Request, res: Response) => {
+//   const { email, password } = req.body;
+//   console.log(req.body);
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(400).json({ message: "Email not found" });
+//     }
 
-    const checkPassword = await bcrypt.compare(password, user.password);
-    if (!checkPassword) {
-      return res.status(400).json({ message: "Password does not match" });
-    }
+//     const checkPassword = await bcrypt.compare(password, user.password);
+//     if (!checkPassword) {
+//       return res.status(400).json({ message: "Password does not match" });
+//     }
 
-    const accessToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
-      expiresIn: "1h",
-    });
+//     const accessToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
+//       expiresIn: "1h",
+//     });
 
-    const refreshToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
-      expiresIn: "1d",
-    });
+//     const refreshToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
+//       expiresIn: "1d",
+//     });
 
-    res
-      .status(200)
-      .cookie("refreshToken", refreshToken)
-      .header({ Authorization: accessToken })
-      .send(user);
-    // res.status(200).json({ message: "Success enter" });
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: "Failed" });
-  }
-};
+//     res
+//       .status(200)
+//       .cookie("refreshToken", refreshToken)
+//       .header({ Authorization: accessToken })
+//       .send(user);
+//     // res.status(200).json({ message: "Success enter" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(400).json({ message: "Failed" });
+//   }
+// };
 
 // Updating User ===================================================
 export const userUpdate = async (req: Request, res: Response) => {

@@ -5,33 +5,20 @@ import { Schema, model } from "mongoose";
 const userSchema = new Schema({
   userName: {
     type: String,
-    required: [true, "Please check name"],
   },
   email: {
     type: String,
-    required: [true, "Please check email"],
+    required: [true, " Please check eMail"],
   },
   phoneNumber: {
     type: Number,
-    required: [true, "Please check phoneNumber"],
   },
   password: {
     type: String,
     minlength: 6,
-    required: [true, "Please check password"],
-  },
-  role: {
-    type: String,
-    enum: ["Admin", "User"],
-    default: "User",
+    required: [true, " Please check password"],
   },
   address: {
-    type: String,
-  },
-  zipCode: {
-    type: Number,
-  },
-  cartId: {
     type: String,
   },
   createdAt: {
