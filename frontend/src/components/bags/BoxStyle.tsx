@@ -14,7 +14,6 @@ interface Bag {
   _id: string;
 
   adminColor: string;
-
 }
 
 interface BoxStyleProps {
@@ -50,7 +49,7 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
   return (
     <div className="">
       <div className="relative w-full h-full ">
-        <div className="carousel-container  relative w-full h-full ">
+        <div className="carousel-container relative w-full h-full ">
           {bags.colors[selectedColor]?.images.map((image: any, idx: number) => (
             <img
               key={idx}
@@ -68,7 +67,7 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
             </button>
           </div>
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
-            <a href={`${bags._id}`}>{bags.bagName || "Hermes"}</a>
+            <a href={`${bags._id}`}>{bags.bagName}</a>
             <div className="flex gap-1">
               {bags.colors.map((color, index) => {
                 return (

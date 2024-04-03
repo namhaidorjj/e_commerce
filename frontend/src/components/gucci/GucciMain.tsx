@@ -54,17 +54,23 @@ export default function GucciMain() {
     );
   }, [searchValue]);
   return (
-    <div className="bg-white">
+    <div className="bg-white flex flex-col items-center">
       <GucciHeader />
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="grid grid-cols-4 gap">
+        <div className="grid lg:grid-cols-4 grid-cols-1 gap-0.5 lg:gap-0">
           {domData.map((bag) => (
             <BoxStyle bags={bag} />
           ))}
         </div>
       )}
+
+      <button
+        className="lg:bg-white py-3 px-5 rounded-xl my-10 lg:text-black lg:w-[250px] lg:border-[2px] lg:hover:bg-black lg:hover:text-white lg:hover:border-black
+      w-[150px] bg-black text-white">
+        Load All
+      </button>
     </div>
   );
 }
