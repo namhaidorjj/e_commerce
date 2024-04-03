@@ -29,11 +29,14 @@ export const PageStyle: React.FC<Props> = ({ bag }) => {
     setRemovedColor(colorIndex);
   };
   return (
-    <>
+    <div className="">
       <Header />
       <hr></hr>
+
+
       <div className="flex flex-col gap-15 lg:flex-row w-screen h-screen overflow-y-scroll relative">
         <div className="flex lg:flex-col w-auto lg:w-1/2 lg:h-auto lg:snap-y bg-white overflow-scroll snap-x snap-mandatory">
+
           {bag.colors?.[selectedColor]?.images.map((images) => (
             <img
               className="w-screen snap-center"
@@ -72,19 +75,21 @@ export const PageStyle: React.FC<Props> = ({ bag }) => {
             <h1 className="flex self-end pt-3 font-semibold text-lg text-stone-600">
               ${bag.price}
             </h1>
+
             <div className="flex justify-center lg:flex-col w-auto items-center pt-10 gap-2">
               <button className="btn w-[70%] p-1 justify-center items-center lg:w-[90%] rounded-3xl text-black bg-white  hover:bg-black hover:text-white shadow-md">
                 Add to shopping bag
               </button>
               <button className="btn w-[70%] p-1 justify-center items-center lg:w-[90%] rounded-3xl text-black bg-white  hover:bg-black hover:text-white shadow-md">
                 Add to bag
+
               </button>
             </div>
           </div>
         </div>
       </div>
-      <hr></hr>
+      <hr />
       <Footer />
-    </>
+    </div>
   );
 };

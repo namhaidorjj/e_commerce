@@ -6,8 +6,12 @@ import { ContactVisiblityContext } from "../../contexts/ContactUs";
 import { SearchVisiblityContext } from "../../contexts/SearchUs";
 import { SearchUsBar } from "./SearchUsBar";
 import { useRouter } from "next/router";
+
+import { Cart } from "./Cart";
+
 import hermes from "@/pages/hermes";
 import { LoginSheet } from "./LoginSheet";
+
 
 
 export default function Header() {
@@ -71,6 +75,9 @@ export default function Header() {
             <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
           </button>
 
+          <Cart variant="outline" />
+
+
           <button className="text-[#000000] text-xs">Wishlist</button>
           <LoginSheet />
 
@@ -80,6 +87,7 @@ export default function Header() {
               0
             </p>
           </button>
+
         </div>
       </div>
       {isContactVisible && <ContactUsBar />}
