@@ -29,11 +29,11 @@ export const PageStyle: React.FC<Props> = ({ bag }) => {
     setRemovedColor(colorIndex);
   };
   return (
-    <>
+    <div className="">
       <Header />
       <hr></hr>
-      <div className="flex w-screen h-screen overflow-y-scroll relative">
-        <div className="flex flex-col w-1/2 h-auto bg-white ">
+      <div className="flex w-screen h-screen overflow-y-scroll">
+        <div className="flex flex-col w-1/2 h-auto bg-white relative">
           {bag.colors?.[selectedColor]?.images.map((images) => (
             <img src={images} alt={`Color ${selectedColor + 1}`} />
           ))}
@@ -68,18 +68,18 @@ export const PageStyle: React.FC<Props> = ({ bag }) => {
               ${bag.price}
             </h1>
             <div className="flex flex-col w-auto items-center pt-10 gap-2">
-              <button className=" btn w-[90%] rounded-3xl text-white">
+              <button className=" btn w-[90%] border border-spacing-1 border-white bg-black p-2 rounded-3xl text-white">
                 add to shopping bag
               </button>
-              <button className=" btn w-[90%] rounded-3xl text-white">
+              <button className=" btn w-[90%] border border-spacing-1 border-white bg-black p-2 rounded-3xl text-white">
                 add to bag
               </button>
             </div>
           </div>
         </div>
       </div>
-      <hr></hr>
+      <hr />
       <Footer />
-    </>
+    </div>
   );
 };
