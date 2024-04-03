@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Loadingpage from "../pages/loading";
 import { useRouter } from "next/router";
@@ -13,9 +13,6 @@ export const TestingProduct = () => {
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
   const [bagType, setBagType] = useState("");
-
-  // const [coupon, setCoupon] = useState("");
-
   const [sale, setSale] = useState("");
   const [colorInput, setColorInput] = useState("");
   const [adminColorInput, setAdminColorInput] = useState("");
@@ -38,19 +35,17 @@ export const TestingProduct = () => {
   const [uploadedImage01, setUploadedImage01] = useState<string | undefined>();
   const [uploadedImage02, setUploadedImage02] = useState<string | undefined>();
   const [uploadedImage03, setUploadedImage03] = useState<string | undefined>();
-  // console.log(uploadedImage, "uploadedImage");
   const [imageLoading01, setImageLoading01] = useState(false);
   const [imageLoading02, setImageLoading02] = useState(false);
   const [imageLoading03, setImageLoading03] = useState(false);
-  // Edit declaration ===
-  const [bagEdit, setBagEdit] = useState();
-  const [isBagHere, setIsbagHere] = useState<boolean>(false);
 
   const handleBack = () => {
     router.push("/productnav");
   };
   // Creating New Bag Scene ============================================
-  const handleAddBag = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAddBag = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
     try {
       setLoading(true);
@@ -83,8 +78,7 @@ export const TestingProduct = () => {
       setColors([]);
       setImages(null);
     } catch (error) {
-      alert(error.response.data.message);
-      console.error("Error creating bag:", error);
+      alert(error?.response?.data.message);
     } finally {
       setLoading(false);
     }
@@ -92,10 +86,7 @@ export const TestingProduct = () => {
 
   //Uploading image and recieving to uploadedImage state =====================================
   // Upload01 ===
-  const uploadImage01 = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    inputIndex: number
-  ) => {
+  const uploadImage01 = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageLoading01(true);
     const config = { headers: { "Content-type": "multipart/form-data" } };
     const formData = new FormData();
@@ -114,10 +105,7 @@ export const TestingProduct = () => {
     }
   };
   // Upload02 ===
-  const uploadImage02 = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    inputIndex: number
-  ) => {
+  const uploadImage02 = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageLoading02(true);
     const config = { headers: { "Content-type": "multipart/form-data" } };
     const formData = new FormData();
@@ -136,10 +124,7 @@ export const TestingProduct = () => {
     }
   };
   //upload03 ===
-  const uploadImage03 = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    inputIndex: number
-  ) => {
+  const uploadImage03 = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageLoading03(true);
     const config = { headers: { "Content-type": "multipart/form-data" } };
     const formData = new FormData();
@@ -196,45 +181,6 @@ export const TestingProduct = () => {
     setColors(updatedColors);
   };
 
-  // Updating Bag Scene========================
-  const handleUpdateBag = async () => {
-    try {
-      console.log("Updating...");
-      setLoading(true);
-      const newBagData = {
-        bagName,
-        price,
-        brand,
-        bagType,
-        sale,
-        colors: colors.map((color) => ({
-          colorName: color.colorName,
-          adminColor: color.adminColor,
-          bagCode: color.bagCode,
-          consumer: color.consumer,
-          status: color.status,
-        })),
-      };
-      const response = await axios.put(
-        `http://localhost:8080/bagUpdate/${bagEdit._id}`,
-        newBagData
-      );
-      alert(response.data.message);
-      setBagName("");
-      setPrice("");
-      setBrand("");
-      setBagType("");
-      setSale("");
-      setColors([]);
-      setImages(null);
-      setConsumerInput("");
-      setStatusInput("");
-    } catch (error) {
-      console.error("Error updating bag:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
     <div>
       <div className="w-[800px] m-auto">
@@ -254,7 +200,7 @@ export const TestingProduct = () => {
               Цүнхний нэр:
               <input
                 type="text"
-                defaultValue={isBagHere ? bagEdit.bagName : bagName}
+                value={bagName}
                 onChange={(e) => setBagName(e.target.value)}
                 className="border px-2 py-1 rounded-lg"
               />
@@ -263,7 +209,7 @@ export const TestingProduct = () => {
               Үнэ:
               <input
                 type="number"
-                defaultValue={isBagHere ? bagEdit.price : price}
+                value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 className="border px-2 py-1 rounded-lg"
               />
@@ -271,7 +217,7 @@ export const TestingProduct = () => {
             <label className="flex justify-between">
               Брэнд:
               <select
-                value={isBagHere ? bagEdit.brand : brand}
+                value={brand}
                 onChange={(e) => setBrand(e.target.value)}
                 className="border cursor-pointer py-1 rounded-lg">
                 <option value="">Брэнд сонгох</option>
@@ -284,7 +230,7 @@ export const TestingProduct = () => {
             <label className="flex justify-between">
               Цүнхний төрөл:
               <select
-                value={isBagHere ? bagEdit.bagType : bagType}
+                value={bagType}
                 onChange={(e) => setBagType(e.target.value)}
                 className="border cursor pointer py-1 rounded-lg">
                 <option value="">Төрөл сонгох</option>
@@ -299,7 +245,7 @@ export const TestingProduct = () => {
               Хямдрал:
               <input
                 type="number"
-                defaultValue={isBagHere ? bagEdit.sale : sale}
+                value={sale}
                 onChange={(e) => setSale(e.target.value)}
                 className="border px-2 py-1 rounded-lg"
               />
@@ -317,9 +263,7 @@ export const TestingProduct = () => {
                     <div className="flex justify-between flex-col">
                       <input
                         type="text"
-                        defaultValue={
-                          isBagHere ? bagEdit.colors[0].color : colorInput
-                        }
+                        value={colorInput}
                         onChange={(e) => setColorInput(e.target.value)}
                         className="border w-[250px] px-2 py-1 ml-[16px] placeholder:text-xs placeholder:font-small rounded hover:shadow-md duration-300"
                         placeholder="Жишээ нь: Gold leather or Beige etc . . ."
@@ -331,11 +275,7 @@ export const TestingProduct = () => {
                     <div className="flex justify-between items-center w-[220px]">
                       <input
                         type="color"
-                        defaultValue={
-                          isBagHere
-                            ? bagEdit.colors[0].adminColor
-                            : adminColorInput
-                        }
+                        value={adminColorInput}
                         onChange={(e) => setAdminColorInput(e.target.value)}
                         className="border w-[100px] h-10 px-2 py-1 ml-[16px] placeholder:text-xs placeholder:font-small rounded hover:shadow-md duration-300"
                       />
@@ -360,11 +300,7 @@ export const TestingProduct = () => {
                       </div>
                     )}
                     <img
-                      src={
-                        isBagHere
-                          ? bagEdit.colors[0].images[0]
-                          : uploadedImage01
-                      }
+                      src={uploadedImage01}
                       alt=""
                       className="opacity-20 w-full h-full absolute"
                     />
@@ -373,9 +309,6 @@ export const TestingProduct = () => {
                       type="file"
                       accept="image/*"
                       className="opacity-0 absolute w-full h-full bg-black cursor-pointer"
-                      defaultValue={
-                        isBagHere ? bagEdit.colors[0].images[0] : ""
-                      }
                     />
                   </div>
 
@@ -394,11 +327,7 @@ export const TestingProduct = () => {
                       </div>
                     )}
                     <img
-                      src={
-                        isBagHere
-                          ? bagEdit.colors[0].images[1]
-                          : uploadedImage02
-                      }
+                      src={uploadedImage02}
                       alt=""
                       className="opacity-20 w-full h-full absolute"
                     />
@@ -407,9 +336,6 @@ export const TestingProduct = () => {
                       type="file"
                       accept="image/*"
                       className="opacity-0 absolute w-full h-full bg-black cursor-pointer"
-                      defaultValue={
-                        isBagHere ? bagEdit.colors[0].images[1] : ""
-                      }
                     />
                   </div>
                   <div className="group relative w-[200px] h-[150px] border rounded-xl border-dashed hover:shadow-lg duration-300">
@@ -427,11 +353,7 @@ export const TestingProduct = () => {
                       </div>
                     )}
                     <img
-                      src={
-                        isBagHere
-                          ? bagEdit.colors[0].images[2]
-                          : uploadedImage03
-                      }
+                      src={uploadedImage03}
                       alt=""
                       className="opacity-20 w-full h-full absolute"
                     />
@@ -440,9 +362,6 @@ export const TestingProduct = () => {
                       type="file"
                       accept="image/*"
                       className="opacity-0 absolute w-full h-full bg-black cursor-pointer"
-                      defaultValue={
-                        isBagHere ? bagEdit.colors[0].images[2] : ""
-                      }
                     />
                   </div>
                 </div>

@@ -8,14 +8,17 @@ import Loadingpage from "../pages/loading";
 import { DeleteModal } from "../components/sub_components/DeleteModal";
 
 const BASE_URL = "http://localhost:8080";
-interface Product {
+type Product = {
   _id: string;
   thumbnails: string;
   productName: string;
   price: number;
   qty: number;
-  createdAt: string;
-}
+  CreatedAt: string;
+  bagName: string;
+  brand: string;
+  colors: { color: string; adminColor: string }[];
+};
 
 export const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -57,10 +60,10 @@ export const ProductList = () => {
     setSelectedProductId(id);
     setSelectedProductIndex(index);
   };
-  const handleDelete = async (_id: any, index: any) => {
+
+  const handleDelete = async (_id: string, index: number) => {
     try {
-      await axios.delete(BASE_URL + `/productDelete/${_id}`);
-      console.log("Deleting");
+      await axios.delete(`${BASE_URL}/productDelete/${_id}`);
       const updatedProducts = [...products];
       updatedProducts.splice(index, 1);
       setProducts(updatedProducts);
@@ -123,13 +126,13 @@ export const ProductList = () => {
   // Search Input Scene ==================================
   const filteredProducts = products.filter((product) => {
     return (
-      product.bagName.toLowerCase().includes(searchInput.toLowerCase()) ||
-      product.price.toString().includes(searchInput.toLowerCase()) ||
-      product.brand.toLowerCase().includes(searchInput.toLowerCase()) ||
-      product.colors.some((color) =>
+      product.bagName?.toLowerCase().includes(searchInput.toLowerCase()) ||
+      product.price?.toString().includes(searchInput.toLowerCase()) ||
+      product.brand?.toLowerCase().includes(searchInput.toLowerCase()) ||
+      product.colors?.some((color) =>
         color.color.toLowerCase().includes(searchInput.toLocaleLowerCase())
       ) ||
-      product.colors.some((color) =>
+      product.colors?.some((color) =>
         color.adminColor.toLowerCase().includes(searchInput.toLocaleLowerCase())
       )
     );
