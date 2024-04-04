@@ -1,142 +1,239 @@
 /** @format */
 
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import { useRouter } from "next/router";
-import React from "react";
-import { LoginValidation } from "./LoginValidation";
+import React, { useState } from "react";
 import axios from "axios";
+import Header from "../Header";
+import { Footer } from "../Footer";
+import { instance } from "@/instance";
 
 export const Login = () => {
+  const [visible, setVisible] = useState(0);
   const router = useRouter();
 
-  const signUp = () => {
-    return router.push("./signUp");
-  };
-
-  const { values, errors, handleChange, handleBlur, handleSubmit } = useFormik({
+  const formik = useFormik({
     initialValues: {
+      userName: "",
+      phoneNumber: "",
       email: "",
       password: "",
+      confirmPassword: "",
+      address: "",
+      requiredCode: "",
     },
-    validationSchema: LoginValidation,
-    onSubmit: () => {},
+    validationSchema: Yup.object({
+      userName: Yup.string().min(2).max(30).required(),
+      phoneNumber: Yup.string().required(),
+      address: Yup.string().required(),
+      email: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required"),
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .required("Password is required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords must match")
+        .required("Confirm Password is required"),
+      requiredCode: Yup.number().min(6).required(),
+    }),
+    onSubmit: async (values) => {
+      try {
+        const code = values.requiredCode;
+        const res = await instance.post("http://localhost:8080/createUser", {
+          code,
+        });
+        alert("Unable to sign up. Please try again.");
+        try {
+          const user = {
+            email: values.email,
+            password: values.password,
+            userName: values.userName,
+            address: values.address,
+            phoneNumber: values.phoneNumber,
+          };
+
+          console.log(user);
+          const res = await axios.post("http://localhost:8080/createUser", {
+            user,
+          });
+          if (res.status === 201) {
+            return router.push("./login");
+          } else {
+            alert("Unable to sign up. Please try again.");
+          }
+        } catch (error) {
+          alert("An error occurred. Please try again later.");
+        }
+      } catch (error) {
+        alert("An error occurred. Please try again later.");
+      }
+    },
   });
-
-  // const loginUser = async () => {
-  //   try {
-  //     const user = {
-  //       email: values.email,
-  //       password: values.password,
-  //     };
-  //     console.log(user);
-  //     const res = await axios.post("http://localhost:8080/user", user);
-
-  //     if (res.status === 403) {
-  //       return alert("нэвтрэх нэр эсвэл нууц үг буруу");
-  //     }
-
-  //     if (res.status === 200) {
-  //       return router.push("./");
-  //     } else return alert("Бүртгэл олдсонгүй");
-  //   } catch (error) {
-  //     console.log("error");
-  //   }
-  // };
+  const handleNext = () => {
+    setVisible(visible + 1);
+  };
+  const sendMail = async () => {
+    const email = formik.values.email;
+    const res = await instance.post("http://localhost:8080/createUser", {
+      email,
+    });
+  };
 
   return (
-    <div className="w-full h-full">
-      <img className="absolute w-full h-full" src="assets/profile.jpg" alt="" />
-      <div className="w-1/3 pt-10 left-10 pl-36 text-white h-min-screen absolute">
-        <div>
-          <p>BagHouse</p>
-        </div>
-        <div className="pt-52">
-          <p className="text-2xl pb-2 font-bold">SHOP</p>
-          <div className="flex flex-col gap-2">
-            <div className=" flex  gap-2">
-              <p>Brands</p>
-            </div>
-            <div className="opacity-60 flex flex-col gap-2">
-              <p>Hermes</p>
-              <p>Gucci</p>
-              <p>Prada</p>
-              <p>LouisVuitton</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="w-1/3 p-10 gap-14 flex flex-col right-0 text-white absolute h-full bg-opacity-30 bg-black">
-        <div className="flex justify-end w-full">
-          <button className="flex items-center justify-center border rounded-xl w-[40px] h-[40px]">
-            <img className="fill-white	" src="assets/icons/close.svg" alt="" />
-          </button>
-        </div>
+    <form onSubmit={formik.handleSubmit}>
+      <Header />
+      <div className="w-auto p-10 gap-14 flex flex-col justify-center items-center text-white bg-opacity-30 bg-black">
         <div className="flex flex-col gap-2">
           <p className="text-bold text-[20px]">EXISTING MEMBER </p>
           <p className="text-xs text-[17px]">Welcome Back!</p>
         </div>
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            {/* <img className="w-6 h-6" src="assets/icons/loginMail.svg" alt="" /> */}
-            <input
-              id="email"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              type="text"
-              placeholder="Enter Email"
-              className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
-            />
+        {visible === 0 && (
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <input
+                type="email"
+                placeholder="Enter Email"
+                className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className=" border-dashed border-b border-white"></div>
+            {formik.touched.email && formik.errors.email ? (
+              <div>{formik.errors.email}</div>
+            ) : null}
+            <div className="flex items-center gap-3">
+              <input
+                type="password"
+                placeholder="Enter Password"
+                className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className=" border-dashed border-b border-white"></div>
+            {formik.touched.password && formik.errors.password ? (
+              <div>{formik.errors.password}</div>
+            ) : null}
+            <div className="flex items-center gap-3">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                name="confirmPassword"
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className=" border-dashed border-b border-white"></div>
+            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+              <div>{formik.errors.confirmPassword}</div>
+            ) : null}
+            <div className="w-full h-full justify-center items-center flex fexl-col">
+              <button
+                onClick={handleNext}
+                className="flex text-black w-[300px]  items-center justify-between pl-4 pr-4 rounded-3xl bg-white h-[50px]">
+                <p className="font-semibold">Next</p>
+                <img src="assets/icons/rightArrowBlack.svg" alt="" />
+              </button>
+            </div>
           </div>
-          <div className=" border-dashed border-b border-white"></div>
-          <div className="flex items-center gap-3">
-            {/* <img className="w-6 h-6" src="assets/icons/lock.svg" alt="" /> */}
-            <input
-              id="password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              type="password"
-              placeholder="Enter Password"
-              className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
-            />
-            <button>
-              <img className="w-5 h-5" src="assets/icons/openEYE.svg" alt="" />
-            </button>
+        )}
+        {visible === 1 && (
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <input
+                type="userName"
+                placeholder="User Name"
+                className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                name="userName"
+                value={formik.values.userName}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className=" border-dashed border-b border-white"></div>
+            {formik.touched.userName && formik.errors.userName ? (
+              <div>{formik.errors.userName}</div>
+            ) : null}
+            <div className="flex items-center gap-3">
+              <input
+                type="phoneNumber"
+                placeholder="Phone Number"
+                className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                name="phoneNumber"
+                value={formik.values.phoneNumber}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className=" border-dashed border-b border-white"></div>
+            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+              <div>{formik.errors.phoneNumber}</div>
+            ) : null}
+            <div className="flex items-center gap-3">
+              <input
+                type="address"
+                placeholder="Address"
+                className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                name="address"
+                value={formik.values.address}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className=" border-dashed border-b border-white"></div>
+            {formik.touched.address && formik.errors.address ? (
+              <div>{formik.errors.address}</div>
+            ) : null}
+            <div className="w-full h-full justify-center items-center flex fexl-col">
+              <button
+                onClick={() => {
+                  handleNext();
+                  sendMail();
+                }}
+                className="flex text-black w-[300px]  items-center justify-between pl-4 pr-4 rounded-3xl bg-white h-[50px]">
+                <p className="font-semibold">Next</p>
+                <img src="assets/icons/rightArrowBlack.svg" alt="" />
+              </button>
+            </div>
           </div>
-          <div className=" border-dashed border-b border-white"></div>
-        </div>
-        <div className="w-full h-full justify-center items-center flex fexl-col">
-          <button
-            // onClick={loginUser}
-            className="flex text-black w-[300px]  items-center justify-between pl-4 pr-4 rounded-3xl bg-white h-[50px]">
-            <p className="font-semibold">Continue</p>
-            <img src="assets/icons/rightArrowBlack.svg" alt="" />
-          </button>
-        </div>
-
-        <div className="flex  items-center w-full pl-10 pr-10 gap-1 h-full justify-center">
-          <p className="border-b w-full"></p>
-          <p>OR</p>
-          <p className="border-b w-full"></p>
-        </div>
-        <div className="flex items-center justify-center gap-3">
-          <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-            <img className="w-5 h-5" src="assets/icons/google.svg" alt="" />
-            {/* <GoogleOAuthProvider clientId="<your_client_id>"></GoogleOAuthProvider> */}
-          </button>
-          <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-            <img className="w-5 h-5" src="assets/icons/facebook.svg" alt="" />
-          </button>
-          <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-            <img className="w-5 h-5" src="assets/icons/apple.svg" alt="" />
-          </button>
-        </div>
-        <div className="flex gap-1 justify-center">
-          <p className="font-light">Didn't have account?</p>
-          <button onClick={signUp}>
-            <p className="text.bold border-b">Register Now</p>
-          </button>
-        </div>
+        )}
+        {visible === 3 && (
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <input
+                type="userName"
+                placeholder="User Name"
+                className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                name="userName"
+                value={formik.values.userName}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className=" border-dashed border-b border-white"></div>
+            {formik.touched.userName && formik.errors.userName ? (
+              <div>{formik.errors.userName}</div>
+            ) : null}
+            <div className="flex items-center gap-3">
+              <input
+                type="phoneNumber"
+                placeholder="Phone Number"
+                className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                name="phoneNumber"
+                value={formik.values.phoneNumber}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className=" border-dashed border-b border-white"></div>
+            {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+              <div>{formik.errors.phoneNumber}</div>
+            ) : null}
+          </div>
+        )}
       </div>
-    </div>
+      <Footer />
+    </form>
   );
 };
