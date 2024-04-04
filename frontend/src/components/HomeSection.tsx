@@ -22,7 +22,6 @@ export const HomeSection = () => {
           <div className=" hover:cursor-pointer">
             <p className=" font-mono text-base">BACK PACK</p>
           </div>
-          {/* <img src="assets/icons/pine.svg" alt="" /> */}
           <div className=" hover:cursor-pointer">
             <p className=" font-mono text-base">ACCESSORY BAG</p>
           </div>

@@ -22,14 +22,14 @@ export const Cart: React.FC<CartProps> = ({ variant }) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <button className="flex gap-1 justify-center items-center ">
+        <button className="flex gap-1 justify-center items-center">
           <img className="w-4 h-4" src="assets/icons/basket.svg" alt="" />
           <p className="bg-black w-[15px] mb-3 rounded-xl text-white flex text-xs h-[15px] items-center justify-center">
             0
           </p>
         </button>
       </SheetTrigger>
-      <SheetContent className="lg:min-w-[800px] w-full">
+      <SheetContent className="lg:min-w-[800px] w-full bg-white">
         <SheetHeader>
           <SheetTitle> MY ORDER</SheetTitle>
           <SheetDescription>

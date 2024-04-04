@@ -19,62 +19,36 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 
-// SignUp User post ===================================================
 export const signUp = async (req: Request, res: Response) => {
-  console.log("first");
   const { email, password } = req.body;
   console.log("user", req.body);
 
   try {
-    // const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       email,
-      password,
+      password: hashedPassword,
     });
 
-    res.status(201).json({ user, message: "Success created account" });
+    const accessToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
+      expiresIn: "1h",
+    });
+
+    const refreshToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
+      expiresIn: "1d",
+    });
+
+    res
+      .status(200)
+      .cookie("refreshToken", refreshToken)
+      .header({ Authorization: accessToken })
+      .send(user);
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Failed to create account" });
   }
 };
 
-// SignUn User post ===================================================
-// export const singIn = async (req: Request, res: Response) => {
-//   const { email, password } = req.body;
-//   console.log(req.body);
-//   try {
-//     const user = await User.findOne({ email });
-//     if (!user) {
-//       return res.status(400).json({ message: "Email not found" });
-//     }
-
-//     const checkPassword = await bcrypt.compare(password, user.password);
-//     if (!checkPassword) {
-//       return res.status(400).json({ message: "Password does not match" });
-//     }
-
-//     const accessToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
-//       expiresIn: "1h",
-//     });
-
-//     const refreshToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
-//       expiresIn: "1d",
-//     });
-
-//     res
-//       .status(200)
-//       .cookie("refreshToken", refreshToken)
-//       .header({ Authorization: accessToken })
-//       .send(user);
-//     // res.status(200).json({ message: "Success enter" });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(400).json({ message: "Failed" });
-//   }
-// };
-
-// Updating User ===================================================
 export const userUpdate = async (req: Request, res: Response) => {
   const {
     userName,
@@ -82,7 +56,6 @@ export const userUpdate = async (req: Request, res: Response) => {
     password,
     phoneNumber,
     address,
-    zipCode,
     cartId,
     createdAt,
     _id,
@@ -102,7 +75,6 @@ export const userUpdate = async (req: Request, res: Response) => {
           password,
           phoneNumber,
           address,
-          zipCode,
           cartId,
           createdAt,
         },
@@ -116,7 +88,6 @@ export const userUpdate = async (req: Request, res: Response) => {
   }
 };
 
-// Deleting User ===================================================
 export const userDelete = async (req: Request, res: Response) => {
   const _id = req.params.id;
 
