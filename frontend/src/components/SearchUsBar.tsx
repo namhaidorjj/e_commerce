@@ -1,12 +1,6 @@
 /** @format */
 
-import React, { useContext } from "react";
-import { SearchVisiblityContext } from "../../contexts/SearchUs";
-
 export const SearchUsBar = () => {
-  const { isSearchVisible, setIsSearchVisible } = useContext(
-    SearchVisiblityContext
-  );
   return (
     <div className="">
       <div className="absolute w-full h-1/2 bg-black opacity-70 bottom-0"></div>
@@ -20,9 +14,7 @@ export const SearchUsBar = () => {
               placeholder="Shop New This Spring"
             />
           </div>
-          <button
-            onClick={() => setIsSearchVisible(false)}
-            className="w-1/3 flex justify-center pt-8">
+          <button className="w-1/3 flex justify-center pt-8">
             <img className="w-3 h-3" src="assets/icons/close.svg" alt="" />
           </button>
         </div>

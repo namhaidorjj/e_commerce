@@ -33,21 +33,19 @@ export const PageStyle: React.FC<Props> = ({ bag }) => {
       <Header />
       <hr></hr>
 
-
       <div className="flex flex-col gap-15 lg:flex-row w-screen h-screen overflow-y-scroll relative">
         <div className="flex lg:flex-col w-auto lg:w-1/2 lg:h-auto lg:snap-y bg-white overflow-scroll snap-x snap-mandatory">
-
           {bag.colors?.[selectedColor]?.images.map((images) => (
             <img
-              className="w-screen snap-center"
+              className="w-screen lg:h-screen snap-center"
               src={images}
               alt={`Color ${selectedColor + 1}`}
             />
           ))}
         </div>
-        <div className="flex w-auto lg:flex-col h-1/2 items-center pt-6 justify-center lg:pt-44 absolute bottom-0 lg:right-0 test mb-5">
-          <div className="lg:w-[550px] flex flex-col justify-between gap-2 ring-offset-1 bottom-0 w-[200px]">
-            <p className="text-sm">{bag.colors?.[selectedColor].bagCode}</p>
+        <div className="flex lg:flex-col items-center pt-6 lg:w-1/2 lg:pt-44 absolute bottom-0 lg:right-0 test mb-5 justify-center">
+          <div className="lg:w-[550px] flex flex-col justify-between gap-2 ring-offset-1 bottom-0 w-4/5">
+            <h1 className="text-sm">{bag.colors?.[selectedColor].bagCode}</h1>
             <h1 className=" font-bold text-xl text-black">{bag.bagName}</h1>
             <div className="w-auto flex justify-between items-center">
               <p>colors</p>
@@ -77,12 +75,11 @@ export const PageStyle: React.FC<Props> = ({ bag }) => {
             </h1>
 
             <div className="flex justify-center lg:flex-col w-auto items-center pt-10 gap-2">
-              <button className="btn w-[70%] p-1 justify-center items-center lg:w-[90%] rounded-3xl text-black bg-white  hover:bg-black hover:text-white shadow-md">
-                Add to shopping bag
+              <button className="btn h-[60px] p-3 w-[90%] rounded-3xl text-black bg-white  hover:bg-black hover:text-white shadow-md border text-center">
+                Order
               </button>
-              <button className="btn w-[70%] p-1 justify-center items-center lg:w-[90%] rounded-3xl text-black bg-white  hover:bg-black hover:text-white shadow-md">
+              <button className="btn h-[60px] p-3 w-[90%] rounded-3xl text-black bg-white  hover:bg-black hover:text-white shadow-md border text-center">
                 Add to bag
-
               </button>
             </div>
           </div>

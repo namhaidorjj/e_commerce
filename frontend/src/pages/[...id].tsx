@@ -29,7 +29,7 @@ const BagPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   const { query } = useRouter();
-
+  console.log(query);
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);

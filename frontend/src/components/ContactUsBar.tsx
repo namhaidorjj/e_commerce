@@ -1,12 +1,6 @@
 /** @format */
 
-import React, { useContext, useState } from "react";
-import { ContactVisiblityContext } from "../../contexts/ContactUs";
-
 export const ContactUsBar = () => {
-  const { isContactVisible, setIsContactVisible } = useContext(
-    ContactVisiblityContext
-  );
   return (
     <div className="">
       <div className="absolute  w-full h-full bg-black opacity-70 top-0 left-0"></div>
@@ -14,7 +8,7 @@ export const ContactUsBar = () => {
         <div className="pt-[64px] pl-[150px] flex flex-col gap-10">
           <div className="flex justify-between pr-[150px]">
             <p>Call Us</p>
-            <button onClick={() => setIsContactVisible(false)}>
+            <button>
               <img className="text-xs" src="assets/icons/close.svg" alt="" />
             </button>
           </div>
