@@ -4,9 +4,9 @@ import React from "react";
 
 interface DeleteModalProps {
   handleDelete: (id: string, index: number) => void;
-  openDeleteModal: boolean;
-  productId: string | undefined;
-  productIndex: number | undefined;
+  openDeleteModal: (id: string, index: number) => void;
+  productId: string | null;
+  productIndex: number | null;
 }
 
 export const DeleteModal: React.FC<DeleteModalProps> = ({
@@ -16,18 +16,18 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
   productIndex,
 }) => {
   const closeDeleteModal = (e: React.MouseEvent<HTMLInputElement>) => {
-    if ((e.target as HTMLElement).classList.contains("bg-back-color")) {
-      openDeleteModal(false);
+    if ((e.target as HTMLDivElement).classList.contains("bg-back-color")) {
+      openDeleteModal("", 0);
     }
   };
 
   const closeModal = () => {
-    openDeleteModal(false);
+    openDeleteModal("", 0);
   };
   const handleDeleteClick = () => {
-    if (productId !== undefined && productIndex !== undefined) {
+    if (productId !== null && productIndex !== null) {
       handleDelete(productId, productIndex);
-      openDeleteModal(false);
+      openDeleteModal("", 0);
     }
   };
   return (

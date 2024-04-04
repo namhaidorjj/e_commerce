@@ -4,9 +4,6 @@ import { Footer } from "@/components/Footer";
 import Header from "@/components/Header";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Loading } from "@/components/Loading";
-import LoadingPage from "@/components/LoadingPage";
-import { BoxStyle } from "@/components/bags/BoxStyle";
 import GucciMain from "@/components/gucci/GucciMain";
 
 const BASE_URL = "http://localhost:8080";

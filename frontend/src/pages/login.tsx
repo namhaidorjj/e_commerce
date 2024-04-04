@@ -1,7 +1,6 @@
 /** @format */
 
 import { useRouter } from "next/router";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import React from "react";
 import { Login } from "@/components/user/Login";
 

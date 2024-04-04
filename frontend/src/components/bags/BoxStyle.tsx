@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 
 interface Bags {
-  _id: string;
   images: string[];
   bagName: string;
   adminColor: string;
@@ -11,6 +10,9 @@ interface Bags {
 interface Bag {
   bagName?: string;
   colors: Bags[];
+
+  _id: string;
+
   adminColor: string;
 }
 
@@ -42,11 +44,12 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
         : prevIndex + 1
     );
   };
+  console.log("bag", bags);
 
   return (
     <div className="">
       <div className="relative w-full h-full ">
-        <div className="carousel-container  relative w-full h-full ">
+        <div className="carousel-container relative w-full h-full ">
           {bags.colors[selectedColor]?.images.map((image: any, idx: number) => (
             <img
               key={idx}
@@ -64,7 +67,7 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
             </button>
           </div>
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
-            <h1>{bags.bagName || "Hermes"}</h1>
+            <a href={`${bags._id}`}>{bags.bagName}</a>
             <div className="flex gap-1">
               {bags.colors.map((color, index) => {
                 return (

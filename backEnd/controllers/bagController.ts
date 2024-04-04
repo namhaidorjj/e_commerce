@@ -2,12 +2,14 @@
 import Bag from "../models/bagModel";
 import Color from "../models/colorModel";
 import { Request, Response } from "express";
-import cloudinary from "../utils/cloudinary";
 
 export const GucciBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "Gucci" }).populate("colors");
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -17,7 +19,10 @@ export const GucciBag = async (req: Request, res: Response) => {
 export const HermesBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "Hermes" }).populate("colors");
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -27,7 +32,10 @@ export const HermesBag = async (req: Request, res: Response) => {
 export const LVBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "LV" }).populate("colors");
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -35,12 +43,25 @@ export const LVBag = async (req: Request, res: Response) => {
   }
 };
 
+
+export const bag = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    const bag = await Bag.findOne({ _id: id }).populate("colors");
+    res.status(200).json({ bag, message: "Successfully get file" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed by get bag" });
+  }
+};
+
 export const bagCreate = async (req: Request, res: Response) => {
   const { bagName, price, brand, bagType, sale, colors } = req.body;
-  // const uploadedImages = req.files;
-  // console.log(uploadedImages, "uploadedImages");
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
   try {
     let colorIds = [];
     let newBagId;
@@ -51,10 +72,8 @@ export const bagCreate = async (req: Request, res: Response) => {
       brand,
       bagType,
       sale,
-      // Array руу өнгөнүүдийг хийхэд бэлэн болгоно
       colors: [],
     });
-    // newBag-н ID-г нь тусад нь авч байна
     newBagId = newBag._id;
 
     for (const color of colors) {
@@ -64,8 +83,13 @@ export const bagCreate = async (req: Request, res: Response) => {
         bagId: newBagId,
         bagCode: color.bagCode,
         images: color.images,
+        consumer: color.consumer,
+        status: color.status,
       });
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
       colorIds.push(createColor._id);
     }
     await Bag.findByIdAndUpdate(newBagId, { colors: colorIds });
