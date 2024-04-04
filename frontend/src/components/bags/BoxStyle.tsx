@@ -10,7 +10,7 @@ interface Bags {
 interface Bag {
   bagName?: string;
   colors: Bags[];
-
+  brand: string;
   _id: string;
 
   adminColor: string;
@@ -67,7 +67,7 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
             </button>
           </div>
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
-            <a href={`${bags._id}`}>{bags.bagName}</a>
+            <a href={`?${bags.brand}:${bags._id}`}>{bags.bagName}</a>
             <div className="flex gap-1">
               {bags.colors.map((color, index) => {
                 return (
