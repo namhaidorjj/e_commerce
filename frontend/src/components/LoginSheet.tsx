@@ -53,6 +53,10 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     },
   });
 
+
+
+export function LoginSheet() {
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -60,9 +64,9 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
           <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
         </button>
       </SheetTrigger>
-      <SheetContent className="bg-[#282828]">
+      <SheetContent className="bg-white">
         <div className="w-full h-full">
-          <div className="p-10 gap-14 flex flex-col right-0 text-white absolute h-full ">
+          <div className="p-10 gap-14 flex flex-col right-0 text-black absolute h-full ">
             <div className="flex flex-col gap-2">
               <p className="text-bold text-[20px]">EXISTING MEMBER </p>
               <p className="text-xs text-[17px]">Welcome Back!</p>
@@ -76,6 +80,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                   name="email"
                   type="text"
                   placeholder="Enter Email"
+
                   className="outline-0 bg-opacity-30 h-10 bg-black w-[300px] rounded-3xl pl-4"
                   onChange={formik.handleChange}
                   value={formik.values.email}
@@ -85,15 +90,18 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500">{formik.errors.email}</div>
               )}
+
               <div className="flex items-center gap-3">
                 <input
                   id="password"
                   name="password"
                   type="password"
                   placeholder="Enter Password"
+
                   className="outline-0 bg-opacity-30 h-10 bg-black w-[280px] rounded-3xl pl-4"
                   onChange={formik.handleChange}
                   value={formik.values.password}
+
                 />
                 <button>
                   <img
@@ -103,6 +111,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                   />
                 </button>
               </div>
+
               <div className="w-[300px] border-dashed border-b border-white" />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500">{formik.errors.email}</div>
@@ -116,6 +125,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                 </button>
               </SheetClose>
             </form>
+
             <div className="flex  items-center w-full pl-10 pr-10 gap-1 h-full justify-center">
               <p className="border-b w-full"></p>
               <p>OR</p>
