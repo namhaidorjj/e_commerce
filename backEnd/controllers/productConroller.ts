@@ -2,7 +2,6 @@
 import Bag from "../models/bagModel";
 import Color from "../models/colorModel";
 import { Request, Response } from "express";
-import cloudinary from "../utils/cloudinary";
 
 export const product = async (req: Request, res: Response) => {
   try {

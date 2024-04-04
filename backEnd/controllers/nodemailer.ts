@@ -3,7 +3,7 @@
 import * as nodemailer from "nodemailer";
 import { Request, Response } from "express";
 import User from "../models/userModel";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcrypt";
 
 interface Verify {
   [key: string]: number;
