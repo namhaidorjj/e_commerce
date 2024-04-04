@@ -7,7 +7,7 @@ import cloudinary from "../utils/cloudinary";
 export const GucciBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "Gucci" }).populate("colors");
-    console.log("bags", bags);
+
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -17,7 +17,7 @@ export const GucciBag = async (req: Request, res: Response) => {
 export const HermesBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "Hermes" }).populate("colors");
-    console.log("bags", bags);
+
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -27,7 +27,7 @@ export const HermesBag = async (req: Request, res: Response) => {
 export const LVBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "LV" }).populate("colors");
-    console.log("bags", bags);
+
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -40,7 +40,7 @@ export const bagCreate = async (req: Request, res: Response) => {
   // const uploadedImages = req.files;
   // console.log(uploadedImages, "uploadedImages");
 
-  console.log(req.body, "req.body");
+
   try {
     let colorIds = [];
     let newBagId;
@@ -65,7 +65,7 @@ export const bagCreate = async (req: Request, res: Response) => {
         bagCode: color.bagCode,
         images: color.images,
       });
-      console.log("createColor", createColor);
+
       colorIds.push(createColor._id);
     }
     await Bag.findByIdAndUpdate(newBagId, { colors: colorIds });

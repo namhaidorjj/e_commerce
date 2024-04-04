@@ -6,19 +6,12 @@ import { ContactVisiblityContext } from "../../contexts/ContactUs";
 import { SearchVisiblityContext } from "../../contexts/SearchUs";
 import { SearchUsBar } from "./SearchUsBar";
 import { useRouter } from "next/router";
-import hermes from "@/pages/hermes";
-import { LoginSheet } from "./LoginSheet";
 
+import { LoginSheet } from "./LoginSheet";
 
 export default function Header() {
   const router = useRouter();
-  const { isContactVisible, setIsContactVisible } = useContext(
-    ContactVisiblityContext
-  );
 
-  const { isSearchVisible, setIsSearchVisible } = useContext(
-    SearchVisiblityContext
-  );
   const [mainWord, setMainWord] = useState("");
 
   const handleLoginPage = () => {
@@ -43,24 +36,16 @@ export default function Header() {
     <div className="w-full flex flex-col h-full  ">
       <div className="justify-between h-[90px] flex w-full items-center">
         <div className="flex pl-20  gap-5">
-          <button
-            onClick={() => {
-              setIsSearchVisible(true);
-            }}
-            className="flex items-center gap-2">
+          <button onClick={() => {}} className="flex items-center gap-2">
             <img className="w-4 h-4" src="assets/icons/search.svg" alt="" />
             <p className="text-[#000000] text-xs">Search</p>
           </button>
         </div>
-        <div className=" uppercase justify-center text-4xl">{mainWord}</div>
+        <button className=" uppercase justify-center text-4xl">
+          <a href={mainWord}> {mainWord}</a>
+        </button>
         <div className="pr-20 flex gap-[30px] h-[50px]">
-          <button
-            onClick={() => {
-              setIsContactVisible(true);
-            }}
-            className="text-[#000000] text-xs">
-            Call Us
-          </button>
+          <ContactUsBar />
           <button className="text-[#000000] text-xs">Wishlist</button>
           <LoginSheet />
           <button className="flex gap-1 justify-center items-center">
@@ -71,8 +56,6 @@ export default function Header() {
           </button>
         </div>
       </div>
-      {isContactVisible && <ContactUsBar />}
-      {isSearchVisible && <SearchUsBar />}
     </div>
   );
 }
