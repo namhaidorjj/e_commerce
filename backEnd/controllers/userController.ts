@@ -1,12 +1,12 @@
 /** @format */
 
 import { Request, Response } from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import * as bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
 import User from "../models/userModel";
-dotenv.config();
 
+dotenv.config();
 const jwtPrivateKey = process.env.JWT_SECRET_KEY;
 
 export const getUser = async (req: Request, res: Response) => {

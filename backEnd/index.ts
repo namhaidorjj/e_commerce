@@ -3,7 +3,7 @@
 import { Request, Response } from "express";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import { connectToDb } from "./config/connectToDB";
 import cloudinary from "./utils/cloudinary";
 import upload from "./middleware/multer";
@@ -19,7 +19,7 @@ const PORT = 8080;
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: "*",
   })
 );
 
