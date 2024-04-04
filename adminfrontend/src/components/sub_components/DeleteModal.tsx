@@ -31,7 +31,7 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
     }
   };
   return (
-    <div>
+    <div className="text-stone-500">
       <div
         className="w-full h-full bg-back-color fixed z-50 px-[350px]"
         onClick={closeDeleteModal}>
@@ -41,12 +41,12 @@ export const DeleteModal: React.FC<DeleteModalProps> = ({
           </div>
           <div className="h-[61px]">
             <button
-              className="w-[192px] bg-gray-200 h-[61px] text-[#8B8E95] hover:bg-gray-500 hover:text-white rounded-bl-2xl duration-200"
+              className="w-[192px] bg-stone-200 h-[61px] text-stone-500 hover:bg-stone-500 hover:text-white rounded-bl-2xl duration-200"
               onClick={handleDeleteClick}>
               Тийм
             </button>
             <button
-              className="w-[192px] bg-gray-200 h-[61px] text-[#8B8E95] hover:bg-gray-500 hover:text-white rounded-br-2xl duration-200"
+              className="w-[192px] bg-stone-200 h-[61px] text-stone-500 hover:bg-stone-500 hover:text-white rounded-br-2xl duration-200"
               onClick={closeModal}>
               Үгүй
             </button>

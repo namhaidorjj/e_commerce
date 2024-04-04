@@ -8,7 +8,7 @@ const UpdateProducts = () => {
   return (
     <div className="flex">
       <LeftNavBar />
-      <div className="bg-gray-200 w-screen">
+      <div className="bg-stone-200 w-screen">
         <UpdateProduct />
       </div>
     </div>

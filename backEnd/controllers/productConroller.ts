@@ -2,7 +2,6 @@
 import Bag from "../models/bagModel";
 import Color from "../models/colorModel";
 import { Request, Response } from "express";
-import cloudinary from "../utils/cloudinary";
 
 export const product = async (req: Request, res: Response) => {
   try {
@@ -14,55 +13,6 @@ export const product = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed" });
   }
 };
-
-// Creating Products ===================================================
-
-// export const productCreate = async (req: Request, res: Response) => {
-//   // const parsedInput = JSON.parse(req.body.input);
-//   try {
-//     const { bagName, bagCode, price, brand, bagType, colors } = req.body.input;
-//     // const colors = req.body.colors;
-//     // console.log(colors, "colors");
-//     // console.log("Bag");
-//     let uploadedImages = [];
-//     const files = req.files as Express.Multer.File[];
-//     console.log(req.body, req.files);
-//     uploadedImages = await Promise.all(
-//       files.map(async (file: { path: string }) => {
-//         console.log("file paht", file.path);
-//         const uploadedImage = await cloudinary.uploader.upload(file.path);
-//         console.log("uploaded", uploadedImage);
-//         return uploadedImage.secure_url;
-//       })
-//     );
-
-//     // Creating colors and storing IDs ===
-//     const colorPromises = colors.map(async (color: any) => {
-//       const newColor = await Color.create({
-//         color: color.name,
-//         images: color.images,
-//       });
-//       return newColor._id;
-//     });
-//     const colorIds = await Promise.all(colorPromises);
-
-//     // Creating new bag ===
-//     const newBag = await Bag.create({
-//       bagName: bagName,
-//       bagCode: bagCode,
-//       price: price,
-//       brand: brand,
-//       bagType: bagType,
-//       bagColor: colorIds, //
-//     });
-
-//     console.log("Successfully created");
-//     return res.status(201).json({ message: "Created", newBag });
-//   } catch (error) {
-//     console.error("error in create bag", error);
-//     return res.status(400).json({ message: "Failed to create bag" });
-//   }
-// };
 
 // Updating Products ===================================================
 export const productUpdate = async (req: Request, res: Response) => {

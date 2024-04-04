@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const LeftNavBar = () => {
   const [navStyle, setnavStyle] = useState(
-    "flex gap-[19px] w-[222px] py-[10px] px-4 cursor-pointer hover:bg-gray-200 hover:pl-5 duration-200 items-center"
+    "flex gap-[19px] w-[222px] py-[10px] px-4 cursor-pointer hover:bg-stone-200 hover:pl-5 duration-200 items-center"
   );
   return (
     <div>
@@ -34,11 +34,12 @@ export const LeftNavBar = () => {
                 <li className="text-base font-semibold">Бүтээгдэхүүн</li>
               </div>
             </Link>
-
-            <div className={`${navStyle}`}>
-              <i className="fa-solid fa-gear"></i>
-              <li className="text-base font-semibold">Тохиргоо</li>
-            </div>
+            <Link href={"/settings"}>
+              <div className={`${navStyle}`}>
+                <i className="fa-solid fa-gear"></i>
+                <li className="text-base font-semibold">Тохиргоо</li>
+              </div>
+            </Link>
           </ul>
         </div>
       </div>

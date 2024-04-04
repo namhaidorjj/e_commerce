@@ -5,7 +5,7 @@ import axios from "axios";
 import Loadingpage from "../pages/loading";
 import { useRouter } from "next/router";
 import { instance } from "@/instance";
-import { Loading } from "../components/sub_components/Loading";
+import { Loading } from "./sub_components/Loading";
 
 type ErrorType = {
   response: {
@@ -15,7 +15,7 @@ type ErrorType = {
   };
 };
 
-export const TestingProduct = () => {
+export const CreatingProduct = () => {
   const router = useRouter();
   const [bagName, setBagName] = useState("");
   const [price, setPrice] = useState("");

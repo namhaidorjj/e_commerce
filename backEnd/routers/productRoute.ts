@@ -1,7 +1,6 @@
 /** @format */
 
 import { Router } from "express";
-import upload from "../middleware/multer";
 import {
   product,
   // productCreate,
@@ -16,25 +15,29 @@ import {
   bag,
   bagCreate,
 } from "../controllers/bagController";
+import {
+  createAdminUser,
+  loginAdmin,
+  adminUser,
+} from "../controllers/adminUserController";
 
 export const router = Router();
-// Creating bag ===================
-router.route("/bagCreate").post(bagCreate);
-// Getting created bags ==========
-router.route("/bag").get(product);
-// Deleting bags =================================
-router.route("/productDelete/:id").delete(productDelete);
-// Getting data to edit route =====================================
-router.route("/products/:id").get(productEdit);
-
+// Bags collection ========================================
+router.route("/bagCreate").post(bagCreate); // Creating bag
+router.route("/bag").get(product); // Getting created bags
+router.route("/productDelete/:id").delete(productDelete); // Deleting bags
+router.route("/products/:id").get(productEdit); // Getting bags to edit
 
 router.route("/bag/:id").get(bag);
 
-
 router.route("/productUpdate/:id").put(productUpdate);
 
+// Getting bags to user frontEnd =================
 router.route("/gucciBag").get(GucciBag);
 router.route("/hermesBag").get(HermesBag);
-
 router.route("/lvbag").get(LVBag);
 
+// Admin Users =================================
+router.route("/createAdminUser").post(createAdminUser);
+router.route("/loginAdmin").post(loginAdmin);
+router.route("/adminUser/:id").get(adminUser);
