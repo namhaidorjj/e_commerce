@@ -1,18 +1,15 @@
 /** @format */
-
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import axios from "axios";
 import Header from "../Header";
 import { Footer } from "../Footer";
-import { instance } from "@/instance";
+import { instance } from "@/utils/instance";
 
 export const Login = () => {
   const [visible, setVisible] = useState(0);
   const router = useRouter();
-
   const formik = useFormik({
     initialValues: {
       userName: "",
@@ -41,7 +38,7 @@ export const Login = () => {
     onSubmit: async (values) => {
       try {
         const code = values.requiredCode;
-        const res = await instance.post("http://localhost:8080/createUser", {
+        const res = await instance.post("/createUser", {
           code,
         });
         alert("Unable to sign up. Please try again.");
@@ -53,9 +50,7 @@ export const Login = () => {
             address: values.address,
             phoneNumber: values.phoneNumber,
           };
-
-          console.log(user);
-          const res = await axios.post("http://localhost:8080/createUser", {
+          const res = await instance.post("/createUser", {
             user,
           });
           if (res.status === 201) {

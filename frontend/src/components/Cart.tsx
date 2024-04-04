@@ -1,5 +1,4 @@
 /** @format */
-
 import React from "react";
 import {
   Sheet,
@@ -11,12 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
-type Variant = "outline";
-
-interface CartProps {
-  variant: Variant;
-}
+import { CartProps } from "@/utils/types/bagType";
 
 export const Cart: React.FC<CartProps> = ({ variant }) => {
   return (

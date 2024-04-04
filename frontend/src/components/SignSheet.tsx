@@ -1,28 +1,28 @@
 /** @format */
 import React from "react";
-
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
-import axios from "axios";
+import { instance } from "@/utils/instance";
 import * as Yup from "yup";
+import { CartProps } from "@/utils/types/bagType";
 
 export const SignSheet: React.FC<CartProps> = () => {
+  const validationSchema = Yup.object({
+    email: Yup.string().email().required("required"),
+    password: Yup.string().min(8, "багадаа  8 оронтой").required("reqiured"),
+    cpassword: Yup.string()
+      .oneOf([Yup.ref("password")])
+      .required("reqiured"),
+  });
   const router = useRouter();
-
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       cpassword: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string().email().required("required"),
-      password: Yup.string().min(8, "багадаа  8 оронтой").required("reqiured"),
-      cpassword: Yup.string()
-        .oneOf([Yup.ref("password")])
-        .required("reqiured"),
-    }),
+    validationSchema,
     onSubmit: async (values) => {
       try {
         const user = {
@@ -30,7 +30,7 @@ export const SignSheet: React.FC<CartProps> = () => {
           password: values.password,
         };
         console.log(user);
-        const res = axios.post("http://localhost:8080/createUser", { user });
+        const res = instance.post("/createUser", { user });
         if ((await res).request.status === 201) {
           return router.push("./login");
         } else return alert("can't sighup");
@@ -38,7 +38,6 @@ export const SignSheet: React.FC<CartProps> = () => {
         console.log("error");
       }
       alert(JSON.stringify(values, null, 2));
-    
     },
   });
 
@@ -46,7 +45,7 @@ export const SignSheet: React.FC<CartProps> = () => {
     <form onClick={formik.handleSubmit}>
       <Sheet>
         <SheetTrigger asChild>
-          <button variant="outline">
+          <button>
             <p className="text.bold border-b">Register Now</p>
           </button>
         </SheetTrigger>
@@ -73,7 +72,11 @@ export const SignSheet: React.FC<CartProps> = () => {
                 </div>
                 <div className=" border-dashed border-b border-white"></div>
                 <div className="flex items-center gap-3">
-                  <img className="w-4 h-4" src="assets/icons/lock.svg" alt="" />
+                  <img
+                    className="w-4 h-4"
+                    src="../assets/icons/lock.svg"
+                    alt=""
+                  />
                   <input
                     {...formik.getFieldProps("password")}
                     type="password"
@@ -83,7 +86,11 @@ export const SignSheet: React.FC<CartProps> = () => {
                 </div>
                 <div className=" border-dashed border-b border-white"></div>
                 <div className="flex items-center gap-3">
-                  <img className="w-4 h-4" src="assets/icons/lock.svg" alt="" />
+                  <img
+                    className="w-4 h-4"
+                    src="../assets/icons/lock.svg"
+                    alt=""
+                  />
                   <input
                     {...formik.getFieldProps("cpassword")}
                     type="password"
@@ -96,7 +103,7 @@ export const SignSheet: React.FC<CartProps> = () => {
               <div className="w-full h-full justify-center items-center flex fexl-col">
                 <button className="flex text-black w-[300px]  items-center justify-between pl-4 pr-4 rounded-3xl bg-white h-[50px]">
                   <p className="font-semibold">Create Account</p>
-                  <img src="assets/icons/rightArrowBlack.svg" alt="" />
+                  <img src="../assets/icons/rightArrowBlack.svg" alt="" />
                 </button>
               </div>
             </div>

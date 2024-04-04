@@ -2,12 +2,12 @@
 
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import { ContactVisiblity } from "../../contexts/ContactUs";
+import { SearchValue } from "@/contexts/SearchValue";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ContactVisiblity>
+    <SearchValue>
       <Component {...pageProps} />
-    </ContactVisiblity>
+    </SearchValue>
   );
 }

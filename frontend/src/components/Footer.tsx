@@ -1,6 +1,4 @@
 /** @format */
-
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -56,7 +54,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-
       <div className="flex flex-col gap-8 lg:w-1/2 lg:gap-12">
         <div className="flex flex-col gap-4">
           <p className="text-black">Contact us</p>
@@ -67,14 +64,12 @@ export const Footer = () => {
             type="text"
           />
         </div>
-
         <div className="flex">
           <input
             className="outline-0 bg-white border-b text-black w-full"
             placeholder="EMAIL"
             type="text"
           />
-
           <button className="w-5 border-b">
             <img src="assets/icons/sendMail.svg" alt="" />
           </button>

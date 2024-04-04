@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { Loading } from "../components/sub_components/Loading";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { instance } from "@/instance";
 
 type Color = {
   _id: string;
@@ -41,8 +41,8 @@ export const UpdateProduct = () => {
     console.log(router.query, "reouter.query");
     const fetchBagEdit = async (_id: string) => {
       try {
-        const response = await axios.get<{ product: Bag }>(
-          `http://localhost:8080/products/${_id}`
+        const response = await instance.get<{ product: Bag }>(
+          `/products/${_id}`
         );
         console.log(response.data.product);
         setOldBag(response.data.product);
@@ -61,8 +61,8 @@ export const UpdateProduct = () => {
     console.log(oldBag?._id, "oldBag._id");
     setLoading(true);
     try {
-      const response = await axios.put(
-        `http://localhost:8080/productUpdate/${oldBag?._id}`,
+      const response = await instance.put(
+        `/productUpdate/${oldBag?._id}`,
         updatedBag
       );
       console.log(response.data);
