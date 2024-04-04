@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import GucciMain from "@/components/gucci/GucciMain";
+import { useRouter } from "next/router";
 
 const BASE_URL = "http://localhost:8080";
 interface Bags {
@@ -16,7 +17,8 @@ interface Bags {
 export default function Gucci() {
   const [products, setProducts] = useState<Bags[]>([]);
   const [loading, setloading] = useState(false);
-
+  const { query } = useRouter();
+  console.log(query);
   const fetchProducts = async () => {
     setloading(true);
     try {
@@ -35,9 +37,8 @@ export default function Gucci() {
   return (
     <div className="bg-white relative">
       <Header />
-      <div className="obsolute">
-        <GucciMain />
-      </div>
+
+      <GucciMain />
 
       <Footer />
     </div>

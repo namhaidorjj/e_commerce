@@ -59,11 +59,11 @@ export const BoxStyle = ({ bags }: { bags: Bag }) => {
             />
           ))}
           <div className="hover:cursor-pointer absolute flex justify-between inset-0 opacity-0 hover:opacity-100 left-5 right-5   ">
-            <button className="p-3" onClick={handlePrevClick}>
-              <p className="text-3xl">❮</p>
+            <button className="p-3 text-3xl" onClick={handlePrevClick}>
+              ❮
             </button>
-            <button className="p-3" onClick={handleNextClick}>
-              <p className="text-3xl">❯</p>
+            <button className="p-3 text-3xl" onClick={handleNextClick}>
+              ❯
             </button>
           </div>
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">

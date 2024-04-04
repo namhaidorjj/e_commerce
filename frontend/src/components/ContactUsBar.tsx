@@ -10,14 +10,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import React, { useContext, useState } from "react";
-import { ContactVisiblityContext } from "../../contexts/ContactUs";
-
 export const ContactUsBar = () => {
-  const { isContactVisible, setIsContactVisible } = useContext(
-    ContactVisiblityContext
-  );
   return (
+
     <Sheet>
       <SheetTrigger asChild>
         <button variant="outline" className="text-[#000000] text-xs">
@@ -43,6 +38,7 @@ export const ContactUsBar = () => {
               <button className="text-xs">Send an Email</button>
             </div>
             <p className=" pt-80">Need Help?</p>
+
           </div>
           <div className="flex flex-col items-start  gap-10 pt-10">
             <a href="/faq" className="text-xs">

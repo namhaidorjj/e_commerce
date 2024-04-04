@@ -17,9 +17,6 @@ import { Cart } from "./Cart";
 import hermes from "@/pages/hermes";
 import { LoginSheet } from "./LoginSheet";
 
-import { LoginSheet } from "./LoginSheet";
-
-
 
 export default function Header() {
   const router = useRouter();
@@ -89,7 +86,6 @@ export default function Header() {
               0
             </p>
           </button>
-
         </div>
       </div>
     </div>
