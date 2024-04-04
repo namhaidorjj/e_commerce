@@ -21,7 +21,6 @@ export const getUser = async (req: Request, res: Response) => {
 
 // SignUp User post ===================================================
 export const signUp = async (req: Request, res: Response) => {
-  console.log("first");
   const { email, password } = req.body;
   console.log("user", req.body);
 

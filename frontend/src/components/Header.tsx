@@ -6,23 +6,21 @@ import { ContactVisiblityContext } from "../../contexts/ContactUs";
 import { SearchVisiblityContext } from "../../contexts/SearchUs";
 import { SearchUsBar } from "./SearchUsBar";
 import { useRouter } from "next/router";
+<<<<<<< HEAD
+=======
 
 import { Cart } from "./Cart";
 
 import hermes from "@/pages/hermes";
 import { LoginSheet } from "./LoginSheet";
+>>>>>>> main
 
+import { LoginSheet } from "./LoginSheet";
 
 
 export default function Header() {
   const router = useRouter();
-  const { isContactVisible, setIsContactVisible } = useContext(
-    ContactVisiblityContext
-  );
 
-  const { isSearchVisible, setIsSearchVisible } = useContext(
-    SearchVisiblityContext
-  );
   const [mainWord, setMainWord] = useState("");
 
   const handleLoginPage = () => {
@@ -44,6 +42,12 @@ export default function Header() {
   }, [router.asPath]);
 
   return (
+<<<<<<< HEAD
+    <div className="w-full flex flex-col h-full  ">
+      <div className="justify-between h-[90px] flex w-full items-center">
+        <div className="flex pl-20  gap-5">
+          <button onClick={() => {}} className="flex items-center gap-2">
+=======
     <div className="w-full flex flex-col h-full">
       <div className="justify-between lg:h-[90px] h-[64px] flex w-full items-center">
         <div className="pl-5 gap-5 lg:pl-20">
@@ -52,10 +56,18 @@ export default function Header() {
               setIsSearchVisible(true);
             }}
             className="flex items-center gap-2">
+>>>>>>> main
             <img className="w-4 h-4" src="assets/icons/search.svg" alt="" />
             <p className="text-[#000000] text-xs">Search</p>
           </button>
         </div>
+<<<<<<< HEAD
+        <button className=" uppercase justify-center text-4xl">
+          <a href={mainWord}> {mainWord}</a>
+        </button>
+        <div className="pr-20 flex gap-[30px] h-[50px]">
+          <ContactUsBar />
+=======
         <div className="uppercase justify-center text-xl lg:text-4xl ">
           {mainWord}
         </div>
@@ -78,6 +90,7 @@ export default function Header() {
           <Cart variant="outline" />
 
 
+>>>>>>> main
           <button className="text-[#000000] text-xs">Wishlist</button>
           <LoginSheet />
 
@@ -90,8 +103,6 @@ export default function Header() {
 
         </div>
       </div>
-      {isContactVisible && <ContactUsBar />}
-      {isSearchVisible && <SearchUsBar />}
     </div>
   );
 }

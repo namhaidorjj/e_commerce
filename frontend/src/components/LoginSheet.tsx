@@ -35,6 +35,8 @@ export const Login = () => {
   });
 };
 
+
+
 export function LoginSheet() {
   return (
     <Sheet>
@@ -43,9 +45,9 @@ export function LoginSheet() {
           <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
         </button>
       </SheetTrigger>
-      <SheetContent className="bg-[#282828]">
+      <SheetContent className="bg-white">
         <div className="w-full h-full">
-          <div className="p-10 gap-14 flex flex-col right-0 text-white absolute h-full ">
+          <div className="p-10 gap-14 flex flex-col right-0 text-black absolute h-full ">
             <div className="flex flex-col gap-2">
               <p className="text-bold text-[20px]">EXISTING MEMBER </p>
               <p className="text-xs text-[17px]">Welcome Back!</p>
@@ -57,17 +59,17 @@ export function LoginSheet() {
                   id="email"
                   type="text"
                   placeholder="Enter Email"
-                  className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                  className="outline-0  h-10 bg-white w-full rounded-3xl pl-4"
                 />
               </div>
-              <div className=" border-dashed border-b border-white"></div>
+              <div className=" border-dashed border-b border-black"></div>
               <div className="flex items-center gap-3">
                 {/* <img className="w-6 h-6" src="assets/icons/lock.svg" alt="" /> */}
                 <input
                   id="password"
                   type="password"
                   placeholder="Enter Password"
-                  className="outline-0 bg-opacity-30 h-10 bg-black w-full rounded-3xl pl-4"
+                  className="outline-0  h-10 bg-white w-full rounded-3xl pl-4"
                 />
                 <button>
                   <img
@@ -77,14 +79,11 @@ export function LoginSheet() {
                   />
                 </button>
               </div>
-              <div className=" border-dashed border-b border-white"></div>
+              <div className=" border-dashed border-b border-black"></div>
             </div>
             <div className="w-full h-full justify-center items-center flex fexl-col">
-              <button
-                // onClick={loginUser}
-                className="flex text-black w-[300px]  items-center justify-between pl-4 pr-4 rounded-3xl bg-white h-[50px]">
+              <button className="flex text-white w-[300px]  items-center justify-center hover:bg-black hover:opacity-70 shadow-2xl duration-700 pl-4 pr-4 rounded-3xl bg-black h-[50px]">
                 <p className="font-semibold">Continue</p>
-                <img src="assets/icons/rightArrowBlack.svg" alt="" />
               </button>
             </div>
 
@@ -96,7 +95,6 @@ export function LoginSheet() {
             <div className="flex items-center justify-center gap-3">
               <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
                 <img className="w-5 h-5" src="assets/icons/google.svg" alt="" />
-                {/* <GoogleOAuthProvider clientId="<your_client_id>"></GoogleOAuthProvider> */}
               </button>
               <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
                 <img

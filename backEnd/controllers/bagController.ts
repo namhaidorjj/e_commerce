@@ -6,6 +6,10 @@ import { Request, Response } from "express";
 export const GucciBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "Gucci" }).populate("colors");
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -15,6 +19,10 @@ export const GucciBag = async (req: Request, res: Response) => {
 export const HermesBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "Hermes" }).populate("colors");
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -24,6 +32,10 @@ export const HermesBag = async (req: Request, res: Response) => {
 export const LVBag = async (req: Request, res: Response) => {
   try {
     const bags = await Bag.find({ brand: "LV" }).populate("colors");
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -46,6 +58,10 @@ export const bag = async (req: Request, res: Response) => {
 export const bagCreate = async (req: Request, res: Response) => {
   const { bagName, price, brand, bagType, sale, colors } = req.body;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
   try {
     let colorIds = [];
     let newBagId;
@@ -70,6 +86,10 @@ export const bagCreate = async (req: Request, res: Response) => {
         consumer: color.consumer,
         status: color.status,
       });
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
       colorIds.push(createColor._id);
     }
     await Bag.findByIdAndUpdate(newBagId, { colors: colorIds });
