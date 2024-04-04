@@ -1,28 +1,17 @@
 /** @format */
 import React from "react";
 
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { LoginValidation } from "./user/LoginValidation";
 import * as Yup from "yup";
 
-export const SignUpSheet = () => {
-  const router = useRouter();
 
-  const signUp = () => {
-    return router.push("./signUp");
-  };
+}
+
+export const SignSheet: React.FC<CartProps> = () => {
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
