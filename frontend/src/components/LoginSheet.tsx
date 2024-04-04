@@ -53,10 +53,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     },
   });
 
-
-
-export function LoginSheet() {
-
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -80,7 +76,6 @@ export function LoginSheet() {
                   name="email"
                   type="text"
                   placeholder="Enter Email"
-
                   className="outline-0 bg-opacity-30 h-10 bg-black w-[300px] rounded-3xl pl-4"
                   onChange={formik.handleChange}
                   value={formik.values.email}
@@ -97,11 +92,9 @@ export function LoginSheet() {
                   name="password"
                   type="password"
                   placeholder="Enter Password"
-
                   className="outline-0 bg-opacity-30 h-10 bg-black w-[280px] rounded-3xl pl-4"
                   onChange={formik.handleChange}
                   value={formik.values.password}
-
                 />
                 <button>
                   <img

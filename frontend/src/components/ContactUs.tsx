@@ -22,8 +22,6 @@ export const ContactUs = () => {
       selectedSubject,
     };
 
-    console.log("Input values:", inputData);
-
     setFirstName("");
     setLastName("");
     setAreaCode("");
