@@ -1,20 +1,9 @@
 /** @format */
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import LoadingPage from "@/components/LoadingPage";
-import { BoxStyle } from "@/components/bags/BoxStyle";
-
-const BASE_URL = "http://localhost:8080";
-interface Bags {
-  _id: string;
-  images: string[];
-  bagName: string;
-}
-interface Bag {
-  bagName?: string;
-  colors: Bags[];
-  adminColor: string;
-}
+import { Box } from "@/components/bags/Box";
+import { Bag, Bags } from "@/utils/types/bagType";
+import { instance } from "@/utils/instance";
 
 export default function GucciMain() {
   const [products, setProducts] = useState<Bag[]>([]);
@@ -23,7 +12,7 @@ export default function GucciMain() {
   const fetchProducts = async () => {
     setloading(true);
     try {
-      const response = await axios.get(BASE_URL + "/hermesBag");
+      const response = await instance.get("/hermesBag");
       setProducts(response.data.bags);
     } catch (error) {
       console.error(error);
@@ -42,7 +31,7 @@ export default function GucciMain() {
       ) : (
         <div className="grid grid-cols-4 gap-1">
           {products.map((bag) => (
-            <BoxStyle bags={bag} />
+            <Box bags={bag} />
           ))}
         </div>
       )}

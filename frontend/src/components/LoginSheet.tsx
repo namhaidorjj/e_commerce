@@ -1,8 +1,6 @@
 /** @format */
-
 import React from "react";
 import { useFormik } from "formik";
-import axios from "axios";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import {
@@ -12,27 +10,23 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
-type Variant = "outline";
-
-interface CartProps {
-  variant: Variant;
-}
+import { instance } from "@/utils/instance";
+import { CartProps } from "@/utils/types/bagType";
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const router = useRouter();
-
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Error email failed").required("required"),
+    password: Yup.string()
+      .min(8, "Must be at least 8 characters")
+      .required("required"),
+  });
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Error email failed").required("required"),
-      password: Yup.string()
-        .min(8, "Must be at least 8 characters")
-        .required("required"),
-    }),
+    validationSchema,
     onSubmit: async (values) => {
       try {
         const user = {
@@ -40,7 +34,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
           password: values.password,
         };
         console.log(user);
-        const res = await axios.post("http://localhost:8080/user", {
+        const res = await instance.post("/user", {
           user,
         });
         if (res.status === 201) {
@@ -85,7 +79,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500">{formik.errors.email}</div>
               )}
-
               <div className="flex items-center gap-3">
                 <input
                   id="password"
@@ -104,7 +97,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                   />
                 </button>
               </div>
-
               <div className="w-[300px] border-dashed border-b border-white" />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500">{formik.errors.email}</div>
@@ -118,7 +110,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                 </button>
               </SheetClose>
             </form>
-
             <div className="flex  items-center w-full pl-10 pr-10 gap-1 h-full justify-center">
               <p className="border-b w-full"></p>
               <p>OR</p>
