@@ -1,5 +1,7 @@
+/** @format */
+
 import { v2 as cloudinary } from "cloudinary";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 dotenv.config();
 
 cloudinary.config({

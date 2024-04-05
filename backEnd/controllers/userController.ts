@@ -1,12 +1,12 @@
 /** @format */
 
 import { Request, Response } from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import * as bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken";
+import * as dotenv from "dotenv";
 import User from "../models/userModel";
-dotenv.config();
 
+dotenv.config();
 const jwtPrivateKey = process.env.JWT_SECRET_KEY;
 
 export const getUser = async (req: Request, res: Response) => {
@@ -19,53 +19,16 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 
-// SignUp User post ===================================================
-export const singUp = async (req: Request, res: Response) => {
-  const {
-    userName,
-    email,
-    password,
-    phoneNumber,
-    address,
-    zipCode,
-    cartId,
-    createdAt,
-  } = req.body;
+export const signUp = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  console.log("user", req.body);
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
-      userName,
       email,
       password: hashedPassword,
-      phoneNumber,
-      address,
-      zipCode,
-      cartId,
-      createdAt,
     });
-    console.log(user);
-    res.status(201).json({ message: "Success created account" });
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: "Failed to create account" });
-  }
-};
-
-// SignIn User post ===================================================
-export const singIn = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  console.log(req.body);
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: "Email not found" });
-    }
-
-    const checkPassword = await bcrypt.compare(password, user.password);
-    if (!checkPassword) {
-      return res.status(400).json({ message: "Password does not match" });
-    }
 
     const accessToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
       expiresIn: "1h",
@@ -80,14 +43,12 @@ export const singIn = async (req: Request, res: Response) => {
       .cookie("refreshToken", refreshToken)
       .header({ Authorization: accessToken })
       .send(user);
-    // res.status(200).json({ message: "Success enter" });
   } catch (error) {
     console.error(error);
-    res.status(400).json({ message: "Failed" });
+    res.status(400).json({ message: "Failed to create account" });
   }
 };
 
-// Updating User ===================================================
 export const userUpdate = async (req: Request, res: Response) => {
   const {
     userName,
@@ -95,7 +56,6 @@ export const userUpdate = async (req: Request, res: Response) => {
     password,
     phoneNumber,
     address,
-    zipCode,
     cartId,
     createdAt,
     _id,
@@ -115,7 +75,6 @@ export const userUpdate = async (req: Request, res: Response) => {
           password,
           phoneNumber,
           address,
-          zipCode,
           cartId,
           createdAt,
         },
@@ -129,7 +88,6 @@ export const userUpdate = async (req: Request, res: Response) => {
   }
 };
 
-// Deleting User ===================================================
 export const userDelete = async (req: Request, res: Response) => {
   const _id = req.params.id;
 

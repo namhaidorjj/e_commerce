@@ -1,13 +1,10 @@
 /** @format */
 
 import React from "react";
-import { CiDeliveryTruck } from "react-icons/ci";
+import { CiDeliveryTruck, CiGift, CiBoxes } from "react-icons/ci";
 import { MdCurrencyExchange } from "react-icons/md";
-import { CiGift } from "react-icons/ci";
-import { CiBoxes } from "react-icons/ci";
-import { IoBagOutline } from "react-icons/io5";
+import { IoBagOutline, IoInformationCircleOutline } from "react-icons/io5";
 import { GrServices } from "react-icons/gr";
-import { IoInformationCircleOutline } from "react-icons/io5";
 
 export const FaQTable = () => {
   return (

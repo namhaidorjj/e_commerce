@@ -1,22 +1,19 @@
 /** @format */
-
 import React from "react";
-
 import { useRouter } from "next/router";
-
 export const BrandsCard = () => {
   const router = useRouter();
   const handleJumpHermes = () => {
-    router.push("hermes");
+    router.push("bag/hermes");
   };
   const handleJumpGucci = () => {
-    router.push("gucci");
+    router.push("bag/gucci");
   };
   const handleJumpPrada = () => {
-    router.push("prada");
+    router.push("bag/prada");
   };
   const handleJumpLouisVuitton = () => {
-    router.push("LouisVuitton");
+    router.push("bag/LouisVuitton");
   };
   return (
     <div>
@@ -28,7 +25,6 @@ export const BrandsCard = () => {
               src="/assets/Hermes.jpeg"
               alt=""
             />
-
             <div className="absolute inset-0 flex justify-center font-mono text-base items-end text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
               <div className="absolute bottom-14 p-2">
                 <div
@@ -50,7 +46,6 @@ export const BrandsCard = () => {
               src="/assets/Prada.jpeg"
               alt=""
             />
-
             <div className="absolute inset-0 flex justify-center font-mono text-base items-end text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
               <div className=" absolute bottom-14 p-2">
                 <div
@@ -72,7 +67,6 @@ export const BrandsCard = () => {
               src="/assets/louisVuitton.jpeg"
               alt=""
             />
-
             <div className="absolute inset-0 flex justify-center font-mono text-base items-end text-white opacity-0 transition-opacity duration-300 hover:opacity-100">
               <div className=" absolute bottom-14 p-2">
                 <div

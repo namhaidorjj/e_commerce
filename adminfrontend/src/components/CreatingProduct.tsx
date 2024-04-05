@@ -1,11 +1,10 @@
 /** @format */
 
-import { useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import Loadingpage from "../pages/loading";
 import { useRouter } from "next/router";
 import { instance } from "@/instance";
 import { Loading } from "./sub_components/Loading";
-import Loadingpage from "../pages/loading";
 
 type ErrorType = {
   response: {
@@ -71,10 +70,8 @@ export const CreatingProduct = () => {
           status: statusInput,
         })),
       };
-      const response = await axios.post(
-        "http://localhost:8080/bagCreate",
-        bagData
-      );
+
+      const response = await instance.post("/bagCreate", bagData);
       alert(response.data.message);
       setBagName("");
       setPrice("");

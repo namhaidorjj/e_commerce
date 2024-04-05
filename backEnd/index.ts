@@ -3,14 +3,12 @@
 import { Request, Response } from "express";
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 import { connectToDb } from "./config/connectToDB";
-import { router } from "./routers/productRoute";
-
-// import { productCreate } from "./controllers/productConroller";
 import cloudinary from "./utils/cloudinary";
 import upload from "./middleware/multer";
-import Image from "./models/image";
+import { router as userRouter } from "./routers/userRoute";
+import { router as productRouter } from "./routers/productRoute";
 
 const app = express();
 
@@ -21,7 +19,7 @@ const PORT = 8080;
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: "*",
   })
 );
 
@@ -36,8 +34,6 @@ app.use(
     try {
       const newImage = await cloudinary.uploader.upload(uploadedFile.path);
       console.log("newImage", newImage);
-      // const image = new Image({ imageUrl: newImage.secure_url });
-      // await image.save();
       res.status(201).json({
         message: "Image upload success",
         imageUrl: newImage.secure_url,
@@ -48,17 +44,11 @@ app.use(
     }
   }
 );
-app.use(router);
+app.use(productRouter);
+app.use(userRouter);
 
 app.listen(PORT, () => {
   console.log("application running at: http://localhost:" + PORT);
 });
-// app.post(
-//   "/product",
-//   upload.array("image"),
-//   async (req: Request, res: Response) => {
-//     productCreate(req, res);
-//   }
-// );
 
 module.exports.app;

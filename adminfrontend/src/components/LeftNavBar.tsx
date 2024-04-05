@@ -17,7 +17,7 @@ export const LeftNavBar = () => {
           <ul className="flex flex-col">
             <div className="m-auto">
               <p>Тавтай морилно уу</p>
-              <div>{adminUser.name}</div>
+              <div>{adminUser?.name}</div>
             </div>
 
             <Link href={"/dashboard"}>

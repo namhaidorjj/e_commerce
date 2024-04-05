@@ -1,20 +1,10 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import LoadingPage from "../LoadingPage";
-import { BoxStyle } from "../bags/BoxStyle";
-
-const BASE_URL = "http://localhost:8080";
-interface Bags {
-  _id: string;
-  images: string[];
-  bagName: string;
-}
-interface Bag {
-  bagName?: string;
-  colors: Bags[];
-}
+import { Box } from "../bags/Box";
+import { instance } from "@/utils/instance";
+import { Bags, Bag } from "@/utils/types/bagType";
 
 export const LVMain = () => {
   const [products, setProducts] = useState<Bag[]>([]);
@@ -23,7 +13,7 @@ export const LVMain = () => {
   const fetchProducts = async () => {
     setloading(true);
     try {
-      const response = await axios.get(BASE_URL + "/lvbag");
+      const response = await instance.get("/lvbag");
       setProducts(response.data.bags);
     } catch (error) {
       console.error(error);
@@ -41,7 +31,7 @@ export const LVMain = () => {
       ) : (
         <div className="grid grid-cols-4 gap-1">
           {products.map((bag) => (
-            <BoxStyle bags={bag} />
+            <Box bags={bag} />
           ))}
         </div>
       )}

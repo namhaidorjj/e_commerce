@@ -1,25 +1,11 @@
 /** @format */
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import axios from "axios";
+import { useContext, useEffect, useMemo, useState } from "react";
 import LoadingPage from "@/components/LoadingPage";
-import { BoxStyle } from "@/components/bags/BoxStyle";
-import { GucciHeader } from "./GucciHeader";
-import { SearchValueContext } from "../../../contexts/SearchValue";
-
-const BASE_URL = "http://localhost:8080";
-interface Bags {
-  _id: string;
-  images: string[];
-  bagName: string;
-  adminColor: string;
-  color: string;
-}
-interface Bag {
-  bagName?: string;
-  colors: Bags[];
-  adminColor: string;
-  color: string;
-}
+import { Box } from "@/components/bags/Box";
+import Search from "./Search";
+import { Bag } from "@/utils/types/bagType";
+import { instance } from "@/utils/instance";
+import { SearchValueContext } from "@/contexts/SearchValue";
 
 export default function GucciMain() {
   const [products, setProducts] = useState<Bag[]>([]);
@@ -30,7 +16,7 @@ export default function GucciMain() {
   const fetchProducts = async () => {
     setloading(true);
     try {
-      const response = await axios.get(BASE_URL + "/gucciBag");
+      const response = await instance.get("/gucciBag");
       setProducts(response.data.bags);
       setDomData(response.data.bags);
     } catch (error) {
@@ -39,32 +25,33 @@ export default function GucciMain() {
       setloading(false);
     }
   };
-
   useEffect(() => {
     fetchProducts();
   }, []);
   const filteringBySearchValue = useMemo(async () => {
     setDomData(
       products.filter((el) => {
-        return (
-          el.bagName?.toLowerCase().includes(searchValue.toLowerCase()) ||
-          el.colors[0].color.toLowerCase().includes(searchValue.toLowerCase())
-        );
+        return el.bagName?.toLowerCase().includes(searchValue.toLowerCase());
       })
     );
   }, [searchValue]);
   return (
-    <div className="bg-white">
-      <GucciHeader />
+    <div className="bg-white flex flex-col items-center">
+      <Search />
       {loading ? (
         <LoadingPage />
       ) : (
-        <div className="grid grid-cols-4 gap">
+        <div className="grid lg:grid-cols-4 grid-cols-1 gap-0.5 lg:gap-0">
           {domData.map((bag) => (
-            <BoxStyle bags={bag} />
+            <Box bags={bag} />
           ))}
         </div>
       )}
+      <button
+        className="lg:bg-white py-3 px-5 rounded-xl my-10 lg:text-black lg:w-[250px] lg:border-[2px] lg:hover:bg-black lg:hover:text-white lg:hover:border-black
+      w-[150px] bg-black text-white">
+        Load All
+      </button>
     </div>
   );
 }

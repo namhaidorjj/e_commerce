@@ -2,12 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import axios from "axios";
 import { useRouter } from "next/router";
 import Loadingpage from "../pages/loading";
 import { DeleteModal } from "../components/sub_components/DeleteModal";
+import { instance } from "@/instance";
 
-const BASE_URL = "http://localhost:8080";
 type Product = {
   _id: string;
   thumbnails: string;
@@ -39,7 +38,7 @@ export const ProductList = () => {
     setloading(true);
     // console.log("first");
     try {
-      const response = await axios.get("http://localhost:8080/bag");
+      const response = await instance.get("/bag");
       setProducts(response.data.bag);
       console.log(response.data);
       console.log("products", products);
@@ -63,7 +62,7 @@ export const ProductList = () => {
 
   const handleDelete = async (_id: string, index: number) => {
     try {
-      await axios.delete(`${BASE_URL}/productDelete/${_id}`);
+      await instance.delete(`/productDelete/${_id}`);
       const updatedProducts = [...products];
       updatedProducts.splice(index, 1);
       setProducts(updatedProducts);
@@ -109,9 +108,7 @@ export const ProductList = () => {
         (product) => !selectedCheckboxes.includes(product._id)
       );
       await Promise.all(
-        selectedCheckboxes.map((id) =>
-          axios.delete(BASE_URL + `/productDelete/${id}`)
-        )
+        selectedCheckboxes.map((id) => instance.delete(`/productDelete/${id}`))
       );
       setProducts(updatedProducts);
       setSelectedCheckboxes([]);

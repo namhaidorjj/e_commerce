@@ -1,27 +1,13 @@
 /** @format */
-
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { ContactUsBar } from "./ContactUsBar";
-import { ContactVisiblityContext } from "../../contexts/ContactUs";
-import { SearchVisiblityContext } from "../../contexts/SearchUs";
-import { SearchUsBar } from "./SearchUsBar";
+import { useMemo, useState } from "react";
+import { ContactUsBar } from "./ContactUsSheet";
 import { useRouter } from "next/router";
-import hermes from "@/pages/hermes";
+import { LoginSheet } from "./LoginSheet";
+import { Cart } from "./Cart";
 
 export default function Header() {
   const router = useRouter();
-  const { isContactVisible, setIsContactVisible } = useContext(
-    ContactVisiblityContext
-  );
-
-  const { isSearchVisible, setIsSearchVisible } = useContext(
-    SearchVisiblityContext
-  );
   const [mainWord, setMainWord] = useState("");
-
-  const handleLoginPage = () => {
-    router.push("/login  ");
-  };
   const changeMainWord = useMemo(() => {
     if (router.asPath === "/gucci") {
       setMainWord("gucci");
@@ -36,43 +22,27 @@ export default function Header() {
       setMainWord("louis vuitton");
     }
   }, [router.asPath]);
-
   return (
     <div className="w-full flex flex-col h-full">
-      <div className="justify-between h-[90px] flex w-full items-center">
-        <div className="flex pl-20  gap-5">
-          <button
-            onClick={() => {
-              setIsSearchVisible(true);
-            }}
-            className="flex items-center gap-2">
-            <img className="w-4 h-4" src="assets/icons/search.svg" alt="" />
+      <div className="justify-between lg:h-[90px] h-[64px] flex w-full items-center">
+        <div className="pl-5 gap-5 lg:pl-20">
+          <button className="flex items-center gap-2">
+            <img className="w-4 h-4" src="../assets/icons/search.svg" alt="" />
             <p className="text-[#000000] text-xs">Search</p>
           </button>
         </div>
-        <div className=" uppercase justify-center text-4xl">{mainWord}</div>
-        <div className="pr-20 flex gap-[30px] h-[50px]">
-          <button
-            onClick={() => {
-              setIsContactVisible(true);
-            }}
-            className="text-[#000000] text-xs">
-            Call Us
+        <div className="uppercase justify-center text-xl lg:text-4xl ">
+          {mainWord}
+        </div>
+        <div className="pr-5 flex gap-[30px] h-[50px] lg:pr-20">
+          <ContactUsBar variant="outline" />
+          <button className="text-[#000000] text-xs hidden lg:flex lg:items-center">
+            Wishlist
           </button>
-          <button className="text-[#000000] text-xs">Wishlist</button>
-          <button onClick={handleLoginPage}>
-            <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
-          </button>
-          <button className="flex gap-1 justify-center items-center">
-            <img className="w-4 h-4" src="assets/icons/basket.svg" alt="" />
-            <p className="bg-black w-[15px] mb-3 rounded-xl text-white flex text-xs h-[15px] items-center justify-center">
-              0
-            </p>
-          </button>
+          <LoginSheet variant="outline" />
+          <Cart variant="outline" />
         </div>
       </div>
-      {isContactVisible && <ContactUsBar />}
-      {isSearchVisible && <SearchUsBar />}
     </div>
   );
 }
