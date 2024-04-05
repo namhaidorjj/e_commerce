@@ -3,7 +3,6 @@
 import { Router } from "express";
 import {
   product,
-  // productCreate,
   productDelete,
   productUpdate,
   productEdit,
