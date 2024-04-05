@@ -2,12 +2,12 @@
 
 import React from "react";
 
-interface DeleteModalProps {
+type DeleteModalProps = {
   handleDelete: (id: string, index: number) => void;
   openDeleteModal: (id: string, index: number) => void;
   productId: string | null;
   productIndex: number | null;
-}
+};
 
 export const DeleteModal: React.FC<DeleteModalProps> = ({
   handleDelete,

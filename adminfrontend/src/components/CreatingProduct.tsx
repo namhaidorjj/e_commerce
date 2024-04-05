@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import axios from "axios";
-import Loadingpage from "../pages/loading";
 import { useRouter } from "next/router";
 import { instance } from "@/instance";
 import { Loading } from "./sub_components/Loading";
+import Loadingpage from "../pages/loading";
 
 type ErrorType = {
   response: {
@@ -28,7 +28,6 @@ export const CreatingProduct = () => {
   const [images, setImages] = useState<FileList | null>(null);
   const [consumerInput, setConsumerInput] = useState("asdasd");
   const [statusInput, setStatusInput] = useState("fasd");
-
   const [colors, setColors] = useState<
     {
       colorName: string;
@@ -72,7 +71,6 @@ export const CreatingProduct = () => {
           status: statusInput,
         })),
       };
-
       const response = await axios.post(
         "http://localhost:8080/bagCreate",
         bagData
@@ -91,8 +89,7 @@ export const CreatingProduct = () => {
       setLoading(false);
     }
   };
-
-  //Uploading image and recieving to uploadedImage state =====================================
+  //Uploading image and recieving to uploadedImage state =====================
   // Upload01 ===
   const uploadImage01 = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageLoading01(true);
@@ -150,8 +147,6 @@ export const CreatingProduct = () => {
       setImageLoading03(false);
     }
   };
-  //=========================================
-
   // Adding colors ===========================
   const handleColorAdd = () => {
     if (colorInput !== "") {
@@ -182,13 +177,11 @@ export const CreatingProduct = () => {
     }
     console.log(colors, "colors");
   };
-
   const handleColorDelete = (colorIndex: number) => {
     const updatedColors = [...colors];
     updatedColors.splice(colorIndex, 1);
     setColors(updatedColors);
   };
-
   return (
     <div>
       <div className="w-[800px] m-auto">

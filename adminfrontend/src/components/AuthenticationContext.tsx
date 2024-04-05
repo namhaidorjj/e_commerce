@@ -1,9 +1,10 @@
 /** @format */
-import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+
+import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import { Loading } from "../components/sub_components/Loading";
+import { instance } from "@/instance";
 
 type AuthContextProps = {
   adminUser: any;
@@ -46,10 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const login = async (values: any) => {
     setLoading(true);
     try {
-      const response = await axios.post(
-        "http://localhost:8080/loginAdmin",
-        values
-      );
+      const response = await instance.post("/loginAdmin", values);
       const token = response.data.token;
       localStorage.setItem("AdminToken", token);
       setToken(token);
@@ -57,12 +55,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       router.push("/");
     } catch (error) {
       alert((error as ErrorType).response.data.message);
-      //   console.error("Error:", error);
     } finally {
       setLoading(false);
     }
   };
-
   // Recieving token and Decoding action ===============================================
   useEffect(() => {
     const token = localStorage.getItem("AdminToken");
@@ -82,13 +78,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       router.replace("/login");
     }
   }, [token]);
-
-  // Fetching user data ================================================================
+  // Fetching user data =================================
   const fetchUserData = async (userId: string) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/adminUser/${userId}`
-      );
+      const response = await instance.get(`/adminUser/${userId}`);
       const userData = response.data.user;
       setAdminUser(userData);
     } catch (error) {
