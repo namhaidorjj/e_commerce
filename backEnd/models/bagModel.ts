@@ -2,7 +2,6 @@
 
 import { Schema, model } from "mongoose";
 
-// Define the schema for your document
 const BagSchema: Schema = new Schema({
   bagName: { type: String },
   colors: [{ type: Schema.Types.ObjectId, ref: "Color", required: true }],

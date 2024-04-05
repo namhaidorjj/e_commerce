@@ -134,7 +134,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
               <SheetClose asChild>
                 <button className="flex gap-1 justify-center">
                   <p className="font-light">Didn't have account?</p>
-                  <button>Create Account</button>
+                  <a href="./login">Create Account</a>
                 </button>
               </SheetClose>
             </SheetFooter>

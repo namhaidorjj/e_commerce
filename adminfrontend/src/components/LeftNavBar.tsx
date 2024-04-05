@@ -1,17 +1,25 @@
 /** @format */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { AuthContext } from "./AuthenticationContext";
+import { useContext } from "react";
 
 export const LeftNavBar = () => {
+  const { adminUser } = useContext(AuthContext);
   const [navStyle, setnavStyle] = useState(
-    "flex gap-[19px] w-[222px] py-[10px] px-4 cursor-pointer hover:bg-gray-200 hover:pl-5 duration-200 items-center"
+    "flex gap-[19px] w-[222px] py-[10px] px-4 cursor-pointer hover:bg-stone-200 hover:pl-5 duration-200 items-center"
   );
   return (
     <div>
       <div className="w-[222px] h-screen bg-white text-stone-500">
         <div className="fixed pt-6 z-10 bg-white h-screen">
           <ul className="flex flex-col">
+            <div className="m-auto">
+              <p>Тавтай морилно уу</p>
+              <div>{adminUser?.name}</div>
+            </div>
+
             <Link href={"/dashboard"}>
               <div className={`${navStyle}`}>
                 <i className="fa-solid fa-window-maximize"></i>
@@ -34,11 +42,12 @@ export const LeftNavBar = () => {
                 <li className="text-base font-semibold">Бүтээгдэхүүн</li>
               </div>
             </Link>
-
-            <div className={`${navStyle}`}>
-              <i className="fa-solid fa-gear"></i>
-              <li className="text-base font-semibold">Тохиргоо</li>
-            </div>
+            <Link href={"/settings"}>
+              <div className={`${navStyle}`}>
+                <i className="fa-solid fa-gear"></i>
+                <li className="text-base font-semibold">Тохиргоо</li>
+              </div>
+            </Link>
           </ul>
         </div>
       </div>

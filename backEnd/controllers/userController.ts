@@ -20,12 +20,14 @@ export const getUser = async (req: Request, res: Response) => {
 };
 
 export const signUp = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  console.log("user", req.body);
+  const { email, phoneNumber, password, address, userName } = req.body.user;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
+      userName,
+      phoneNumber,
+      address,
       email,
       password: hashedPassword,
     });
@@ -33,7 +35,6 @@ export const signUp = async (req: Request, res: Response) => {
     const accessToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
       expiresIn: "1h",
     });
-
     const refreshToken = jwt.sign({ id: user._id }, jwtPrivateKey as string, {
       expiresIn: "1d",
     });

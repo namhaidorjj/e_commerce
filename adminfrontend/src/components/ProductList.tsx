@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Loadingpage from "../pages/loading";
@@ -136,7 +136,7 @@ export const ProductList = () => {
   });
 
   return (
-    <div className="bg-gray-200 h-full w-screen pb-10">
+    <div className="bg-stone-200 h-full w-screen pb-10">
       <div>
         {deleteModal ? (
           <DeleteModal
@@ -150,7 +150,7 @@ export const ProductList = () => {
         )}
       </div>
       <div>
-        <ul className="flex gap-1 w-screen text-base font-normal border-b border-gray-300 pt-4 px-4 h-[56px] fixed bg-gray-200 z-50 text-stone-500">
+        <ul className="flex gap-1 w-screen text-base font-normal border-b border-stone-300 pt-4 px-4 h-[56px] fixed bg-stone-200 z-50 text-stone-500">
           <li className="text-center w-[124px] hover:font-medium hover:border-b-2 hover:border-black duration-300 cursor-pointer active:scale-95">
             Бүтээгдэхүүн
           </li>
@@ -178,8 +178,8 @@ export const ProductList = () => {
             Устгах
           </button>
         </div>
-        <div className="flex border border-gray-300 rounded-lg w-[419px] h-[40px] bg-white items-center px-4 gap-4">
-          <img src="/assets/icons/scope.svg" alt="" className="w-[17px]" />
+        <div className="flex border border-stone-300 text-stone-500 rounded-lg w-[419px] h-[40px] bg-white items-center px-4 gap-4">
+          <i className="fa-solid fa-magnifying-glass"></i>
           <input
             type="text"
             className="w-[400px] px-2 placeholder:text-xs placeholder:text-stone-500 font-thin"
