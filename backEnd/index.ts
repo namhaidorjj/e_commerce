@@ -14,7 +14,6 @@ const app = express();
 
 dotenv.config();
 connectToDb();
-
 const PORT = "8080";
 
 app.use(express.json());
