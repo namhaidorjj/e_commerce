@@ -15,8 +15,7 @@ const app = express();
 dotenv.config();
 connectToDb();
 
-const PORT = "https://e-commerce-e3ij.onrender.com";
-
+const PORT = "8080";
 
 app.use(express.json());
 app.use(
