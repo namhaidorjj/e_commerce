@@ -9,6 +9,10 @@
   position: -webkit-sticky;
   top: 0;
 }
+.homeBG {
+  background-image: url("../../public/assets/hop.jpg");
+  background-size: cover;
+}
 
 @media (prefers-color-scheme: dark) {
   :root {
