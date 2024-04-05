@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Bag, Bags } from "@/utils/types/bagType";
 
-const BagPage = () => {
+export const BagPage = () => {
   const [bag, setBag] = useState<Bag>({
     _id: "",
     bagName: "",
@@ -53,5 +53,3 @@ const BagPage = () => {
     </div>
   );
 };
-
-export default BagPage;
