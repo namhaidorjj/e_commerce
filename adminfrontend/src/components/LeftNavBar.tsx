@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { AuthContext } from "./AuthenticationContext";
 import { useContext } from "react";

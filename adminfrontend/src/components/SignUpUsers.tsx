@@ -1,10 +1,10 @@
 /** @format */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import { Loading } from "../components/sub_components/Loading";
+import { instance } from "@/instance";
 
 type ErrorType = {
   response: {
@@ -54,10 +54,7 @@ export const SignUpUsers = () => {
           password: values.password,
           role: values.role,
         };
-        const response = await axios.post(
-          "http://localhost:8080/createAdminUser",
-          userData
-        );
+        const response = await instance.post("/createAdminUser", userData);
         alert(response.data.message);
         formik.resetForm();
       } catch (error) {

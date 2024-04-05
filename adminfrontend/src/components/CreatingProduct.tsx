@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Loadingpage from "../pages/loading";
 import { useRouter } from "next/router";
 import { instance } from "@/instance";
