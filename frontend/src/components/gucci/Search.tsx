@@ -5,7 +5,7 @@ import { SearchValueContext } from "@/contexts/SearchValue";
 import { Bags, Bag } from "@/utils/types/bagType";
 import { instance } from "@/utils/instance";
 
-export default function Search  ()  {
+export default function Search() {
   const { searchValue, setSearchValue } = useContext(SearchValueContext);
   const [mainData, setMainData] = useState<Bag[]>([]);
   const [products, setProducts] = useState<Bag[]>([]);
@@ -41,4 +41,4 @@ export default function Search  ()  {
       </div>
     </div>
   );
-};
+}
