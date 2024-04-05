@@ -16,6 +16,11 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../frontend/contexts/SearchValue.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "../frontend/contexts/SearchValue.tsx"
+  ],
   "exclude": ["node_modules"]
 }

@@ -8,7 +8,7 @@ import { DashBoard } from "../components/DashBoard";
 
 export default function Home() {
   return (
-    <div className="flex bg-gray-200 w-screen h-screen">
+    <div className="flex bg-stone-200 w-screen h-screen">
       <LeftNavBar />
       <DashBoard />
     </div>

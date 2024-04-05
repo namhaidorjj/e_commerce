@@ -2,14 +2,17 @@
 
 import React from "react";
 import { LeftNavBar } from "../components/LeftNavBar";
-import { CreatingProduct } from "../components/CreatingProduct";
-export default function products() {
+import { SignUpUsers } from "../components/SignUpUsers";
+import { AdminSettings } from "../components/AdminSettings";
+
+const Settings = () => {
   return (
     <div className="flex">
       <LeftNavBar />
       <div className="bg-stone-200 w-screen">
-        <CreatingProduct />
+        <AdminSettings />
       </div>
     </div>
   );
-}
+};
+export default Settings;

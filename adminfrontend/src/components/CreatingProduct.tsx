@@ -4,7 +4,7 @@ import { useState } from "react";
 import Loadingpage from "../pages/loading";
 import { useRouter } from "next/router";
 import { instance } from "@/instance";
-import { Loading } from "../components/sub_components/Loading";
+import { Loading } from "./sub_components/Loading";
 
 type ErrorType = {
   response: {
@@ -14,7 +14,7 @@ type ErrorType = {
   };
 };
 
-export const TestingProduct = () => {
+export const CreatingProduct = () => {
   const router = useRouter();
   const [bagName, setBagName] = useState("");
   const [price, setPrice] = useState("");
@@ -27,7 +27,6 @@ export const TestingProduct = () => {
   const [images, setImages] = useState<FileList | null>(null);
   const [consumerInput, setConsumerInput] = useState("asdasd");
   const [statusInput, setStatusInput] = useState("fasd");
-
   const [colors, setColors] = useState<
     {
       colorName: string;
@@ -87,8 +86,7 @@ export const TestingProduct = () => {
       setLoading(false);
     }
   };
-
-  //Uploading image and recieving to uploadedImage state =====================================
+  //Uploading image and recieving to uploadedImage state =====================
   // Upload01 ===
   const uploadImage01 = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setImageLoading01(true);
@@ -146,8 +144,6 @@ export const TestingProduct = () => {
       setImageLoading03(false);
     }
   };
-  //=========================================
-
   // Adding colors ===========================
   const handleColorAdd = () => {
     if (colorInput !== "") {
@@ -178,13 +174,11 @@ export const TestingProduct = () => {
     }
     console.log(colors, "colors");
   };
-
   const handleColorDelete = (colorIndex: number) => {
     const updatedColors = [...colors];
     updatedColors.splice(colorIndex, 1);
     setColors(updatedColors);
   };
-
   return (
     <div>
       <div className="w-[800px] m-auto">

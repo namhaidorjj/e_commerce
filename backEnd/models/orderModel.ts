@@ -1,19 +1,15 @@
+/** @format */
+
 import { Schema, model } from "mongoose";
 
-const orderSchema = new Schema({
-  productName: String,
-  description: String,
-  productCode: Number,
-  img: String,
-  mainPrice: Number,
-  qty: Number,
-  color: String,
-  size: String,
-  tag: String,
-  mainCategory: String,
-  category: String,
+const OrderSchema: Schema = new Schema({
+  userId: [{ type: Schema.Types.ObjectId, ref: "Users", required: true }],
+  colors: [{ type: Schema.Types.ObjectId, ref: "Color", required: true }],
+  bagId: { type: Schema.Types.ObjectId, ref: "Bag", required: true },
+  payment: { type: String, required: true, enum: ["Paid", "Not_Paid"] },
+  CreatedAt: { type: Date, default: new Date() },
+  UpdatedAt: { type: Date, default: new Date() },
 });
 
-const Order = model("Order", orderSchema);
-
+const Order = model("Order", OrderSchema);
 export default Order;

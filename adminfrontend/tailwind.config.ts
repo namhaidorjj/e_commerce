@@ -16,9 +16,7 @@ const config: Config = {
           "background: linear-gradient(10deg, rgba(245,168,18,1) 0%, rgba(227,227,227,1) 48%);",
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "admin-cover": "url('/assets/LoginCover.webp')",
       },
     },
   },
