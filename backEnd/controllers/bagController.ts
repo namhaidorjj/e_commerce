@@ -34,10 +34,8 @@ export const LVBag = async (req: Request, res: Response) => {
 export const bag = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    console.log("id", id);
     const bag = await Bag.findOne({ _id: id }).populate("colors");
     res.status(200).json({ bag, message: "Successfully get file" });
-    console.log("bag", bag);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed by get bag" });

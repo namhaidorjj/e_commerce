@@ -29,20 +29,22 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const user = {
+        const response = await instance.post("signin", {
           email: values.email,
           password: values.password,
-        };
-        console.log(user);
-        const res = await instance.post("/user", {
-          user,
         });
-        if (res.status === 201) {
-          return router.push("./login");
-        } else return alert("can't signup");
+
+        if (response.status === 201) {
+          const { accessToken } = response.data;
+          alert("Successfully enter");
+          document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
+        } else {
+          throw new Error("Signin failed");
+          alert("Please try again");
+        }
       } catch (error) {
-        console.log("error");
-        alert("Sign Up");
+        console.error("Error:", error);
+        alert("Error internet");
       }
     },
   });
@@ -104,7 +106,9 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
               <SheetClose
                 asChild
                 className="w-full h-full justify-center items-center flex fexl-col p-2 mt-[100px]">
-                <button className="flex text-black w-[300px]  items-center justify-between pl-4 pr-4 rounded-3xl bg-white h-[50px]">
+                <button
+                  type="submit"
+                  className="flex border border-spacing-6 text-black w-[300px]  items-center justify-between p-3 hover:bg-black hover:text-white cursor-pointer rounded-3xl bg-white h-[50px]">
                   <p className="font-semibold">Continue</p>
                   <img src="/assets/icons/rightArrowBlack.svg" alt="" />
                 </button>

@@ -8,7 +8,6 @@ import jwt from "jsonwebtoken";
 
 dotenv.config();
 const SECRET_KEY = process.env.JWT_SECRET_KEY;
-// console.log(SECRET_KEY, "SECRET_KEY");
 if (!SECRET_KEY) {
   throw new Error("JWT SECRET KEY not found");
 }
@@ -35,7 +34,6 @@ export const createAdminUser = async (req: Request, res: Response) => {
       .status(201)
       .send({ user, message: "Админ амжилттай бүртгэгдлээ" });
   } catch (error) {
-    console.log(error, "Бүртгэхэд асуудал үүсэв");
     res.status(500).send({ message: "Бүртгүүлэхэд алдаа гарлаа" });
   }
 };
@@ -44,7 +42,6 @@ export const loginAdmin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     const adminUser = await AdminUser.findOne({ email });
-    console.log(adminUser, "adminUser");
     if (!adminUser) {
       return res.status(400).send({
         message: `${email} имэйл хаягтай админ бүртгэгдээгүй байна`,
