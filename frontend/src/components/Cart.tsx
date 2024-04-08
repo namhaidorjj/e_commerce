@@ -15,18 +15,19 @@ import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import { instance } from "@/utils/instance";
 import Cookies from "js-cookie";
+import { CartProps, User, Order } from "@/utils/types/bagType";
 
-export const Cart = ({ variant }) => {
+type JwtPayload = any[];
+
+export const Cart: React.FC<CartProps> = ({ variant }) => {
   const [loading, setLoading] = useState(false);
-  const [orderData, setOrderData] = useState([]);
-
+  const [orderData, setOrderData] = useState<Order[]>([]);
+  const [orderCount, setOrderCount] = useState<number>(0);
+  let order = orderData.length;
   const { query } = useRouter();
-  // const totalPrice = useMemo(() => {
-  //   // return orderData.reduce(
-  //   //   (acc, bag) => acc + (orderData.bagId.price || 0),
-  //   //   0
-  //   // );
-  // }, [orderData]);
+  const totalPrice = useMemo(() => {
+    return orderData.reduce((acc, order) => acc + (order.bagId.price || 0), 0);
+  }, [orderData]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,7 +35,7 @@ export const Cart = ({ variant }) => {
       const token = Cookies.get("accessToken");
       if (token) {
         try {
-          const decoded = jwtDecode(token);
+          const decoded: User = jwtDecode(token);
           if (decoded) {
             const response = await instance.post("/order", {
               userId: decoded.id,
@@ -56,16 +57,16 @@ export const Cart = ({ variant }) => {
         setLoading(false);
       }
     };
-
+    setOrderCount(order);
     fetchProducts();
-  }, [query.id]);
+  }, [orderData]);
   return (
     <Sheet>
       <SheetTrigger asChild>
         <button className="flex gap-1 justify-center items-center">
           <img className="w-4 h-4" src="../assets/icons/basket.svg" alt="" />
           <p className="bg-black w-[15px] mb-3 rounded-xl text-white flex text-xs h-[15px] items-center justify-center">
-            {orderData.length}
+            {orderCount}
           </p>
         </button>
       </SheetTrigger>
@@ -92,7 +93,10 @@ export const Cart = ({ variant }) => {
                 <div className="flex w-auto pt-4 pb-2 items-center gap-2">
                   <p>Bag Color:</p>&nbsp;
                   <p>{bag.colors[0].color || `black`}</p>
-                  <div className="border border-spacing-1 w-4 h-4 rounded-full bg-black" />
+                  <div
+                    style={{ background: bag.colors[0].adminColor }}
+                    className="border border-spacing-1 w-4 h-4 rounded-full"
+                  />
                 </div>
                 <hr />
                 <div className="flex w-auto justify-between pt-2">
@@ -105,7 +109,7 @@ export const Cart = ({ variant }) => {
           <hr />
           <div className="flex w-auto justify-end pr-10 pt-2">
             <p>TOTAL :</p>&nbsp;
-            <p>{"2500"}₮</p>
+            <p>{totalPrice}₮</p>
           </div>
         </div>
         <SheetFooter>

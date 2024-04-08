@@ -43,7 +43,6 @@ const bcrypt = __importStar(require("bcrypt"));
 let Verify = {};
 const sendMail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.body;
-    console.log(email);
     try {
         const user = yield userModel_1.default.findOne({ email });
         if (!user) {
@@ -64,7 +63,6 @@ const sendMail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             html: "Food-delivery нууц үг сэргээх код:" + otp,
         });
         Verify[user.email] = otp;
-        console.log("Message sent: %s", info.messageId);
         res.status(200).json({ message: "Email sent successfully", otp });
         ``;
     }

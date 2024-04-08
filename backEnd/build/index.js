@@ -44,10 +44,11 @@ const cloudinary_1 = __importDefault(require("./utils/cloudinary"));
 const multer_1 = __importDefault(require("./middleware/multer"));
 const userRoute_1 = require("./routers/userRoute");
 const productRoute_1 = require("./routers/productRoute");
+const orderRoute_1 = require("./routers/orderRoute");
 const app = (0, express_1.default)();
 dotenv.config();
 (0, connectToDB_1.connectToDb)();
-const PORT = 8080;
+const PORT = "8080";
 app.use(express_1.default.json());
 app.use((0, cors_1.default)({
     origin: "*",
@@ -59,7 +60,6 @@ app.use("/upload", multer_1.default.single("image"), (req, res) => __awaiter(voi
     }
     try {
         const newImage = yield cloudinary_1.default.uploader.upload(uploadedFile.path);
-        console.log("newImage", newImage);
         res.status(201).json({
             message: "Image upload success",
             imageUrl: newImage.secure_url,
@@ -72,6 +72,7 @@ app.use("/upload", multer_1.default.single("image"), (req, res) => __awaiter(voi
 }));
 app.use(productRoute_1.router);
 app.use(userRoute_1.router);
+app.use(orderRoute_1.router);
 app.listen(PORT, () => {
     console.log("application running at: http://localhost:" + PORT);
 });
