@@ -29,7 +29,7 @@ export type Color = {
 };
 
 export type User = {
-  _id: string;
+  id: string;
 };
 
 export type Colors = {
@@ -41,4 +41,9 @@ export type Props = {
 type Variant = "outline";
 export type CartProps = {
   variant: Variant;
+};
+
+export type Order = {
+  bagId: { price: number };
+  colors: [];
 };

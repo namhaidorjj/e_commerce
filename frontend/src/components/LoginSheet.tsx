@@ -40,7 +40,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
           document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
         } else {
           throw new Error("Signin failed");
-          alert("Please try again");
         }
       } catch (error) {
         console.error("Error:", error);
