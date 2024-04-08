@@ -12,7 +12,6 @@ let Verify: Verify = {};
 
 export const sendMail = async (req: Request, res: Response) => {
   const { email } = req.body;
-  console.log(email);
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -35,7 +34,6 @@ export const sendMail = async (req: Request, res: Response) => {
       html: "Food-delivery нууц үг сэргээх код:" + otp,
     });
     Verify[user.email] = otp;
-    console.log("Message sent: %s", info.messageId);
     res.status(200).json({ message: "Email sent successfully", otp });
     ``;
   } catch (error) {

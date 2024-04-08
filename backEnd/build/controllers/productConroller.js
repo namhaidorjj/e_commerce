@@ -28,54 +28,9 @@ const product = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.product = product;
-// Creating Products ===================================================
-// export const productCreate = async (req: Request, res: Response) => {
-//   // const parsedInput = JSON.parse(req.body.input);
-//   try {
-//     const { bagName, bagCode, price, brand, bagType, colors } = req.body.input;
-//     // const colors = req.body.colors;
-//     // console.log(colors, "colors");
-//     // console.log("Bag");
-//     let uploadedImages = [];
-//     const files = req.files as Express.Multer.File[];
-//     console.log(req.body, req.files);
-//     uploadedImages = await Promise.all(
-//       files.map(async (file: { path: string }) => {
-//         console.log("file paht", file.path);
-//         const uploadedImage = await cloudinary.uploader.upload(file.path);
-//         console.log("uploaded", uploadedImage);
-//         return uploadedImage.secure_url;
-//       })
-//     );
-//     // Creating colors and storing IDs ===
-//     const colorPromises = colors.map(async (color: any) => {
-//       const newColor = await Color.create({
-//         color: color.name,
-//         images: color.images,
-//       });
-//       return newColor._id;
-//     });
-//     const colorIds = await Promise.all(colorPromises);
-//     // Creating new bag ===
-//     const newBag = await Bag.create({
-//       bagName: bagName,
-//       bagCode: bagCode,
-//       price: price,
-//       brand: brand,
-//       bagType: bagType,
-//       bagColor: colorIds, //
-//     });
-//     console.log("Successfully created");
-//     return res.status(201).json({ message: "Created", newBag });
-//   } catch (error) {
-//     console.error("error in create bag", error);
-//     return res.status(400).json({ message: "Failed to create bag" });
-//   }
-// };
 // Updating Products ===================================================
 const productUpdate = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    console.log(id, "_id");
     const updatedBag = req.body;
     try {
         const bag = yield bagModel_1.default.findByIdAndUpdate(id, updatedBag, { new: true });
@@ -109,7 +64,6 @@ exports.productUpdate = productUpdate;
 const productDelete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const _id = req.params.id;
     try {
-        console.log(_id, "productID");
         yield bagModel_1.default.deleteOne({ _id });
         yield colorModel_1.default.deleteMany({ bagId: _id });
         res.status(200).json({ message: "Product deleted successfully" });
@@ -124,9 +78,7 @@ exports.productDelete = productDelete;
 const productEdit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const _id = req.params.id;
-        console.log(_id, "productId");
         const product = yield bagModel_1.default.findOne({ _id }).populate("colors");
-        console.log(product, "Product");
         res
             .status(200)
             .json({ message: "Succesfully fetch product data", product });

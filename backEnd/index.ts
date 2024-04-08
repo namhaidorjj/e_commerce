@@ -9,12 +9,12 @@ import cloudinary from "./utils/cloudinary";
 import upload from "./middleware/multer";
 import { router as userRouter } from "./routers/userRoute";
 import { router as productRouter } from "./routers/productRoute";
-
+import { router as orderRouter } from "./routers/orderRoute";
 const app = express();
 
 dotenv.config();
 connectToDb();
-const PORT = 8080;
+const PORT = "8080";
 
 app.use(express.json());
 app.use(
@@ -33,7 +33,6 @@ app.use(
     }
     try {
       const newImage = await cloudinary.uploader.upload(uploadedFile.path);
-      console.log("newImage", newImage);
       res.status(201).json({
         message: "Image upload success",
         imageUrl: newImage.secure_url,
@@ -46,6 +45,7 @@ app.use(
 );
 app.use(productRouter);
 app.use(userRouter);
+app.use(orderRouter);
 
 app.listen(PORT, () => {
   console.log("application running at: http://localhost:" + PORT);

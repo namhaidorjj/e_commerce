@@ -36,13 +36,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userDelete = exports.userUpdate = exports.signUp = exports.getUser = void 0;
+exports.userDelete = exports.userUpdate = exports.signUp = exports.signIn = exports.getUser = void 0;
 const bcrypt = __importStar(require("bcrypt"));
 const jwt = __importStar(require("jsonwebtoken"));
 const dotenv = __importStar(require("dotenv"));
 const userModel_1 = __importDefault(require("../models/userModel"));
 dotenv.config();
-const jwtPrivateKey = process.env.JWT_SECRET_KEY;
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
 const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = yield userModel_1.default.find({});
@@ -54,24 +54,63 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getUser = getUser;
-const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    console.log("user", req.body);
+    try {
+        const user = yield userModel_1.default.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const passwordMatch = yield bcrypt.compare(password, user.password);
+        if (passwordMatch) {
+            const accessToken = jwt.sign({ id: user._id }, JWT_SECRET, {
+                expiresIn: "1h",
+            });
+            const refreshToken = jwt.sign({ id: user._id }, JWT_SECRET, {
+                expiresIn: "1d",
+            });
+            res
+                .status(201)
+                .cookie("refreshToken", refreshToken, {
+                httpOnly: true,
+                sameSite: "strict",
+            })
+                .header({ Authorization: `Bearer ${accessToken}` })
+                .json({ accessToken, user });
+        }
+        else {
+            res.status(401).json({ message: "Invalid password" });
+        }
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Failed to sign in" });
+    }
+});
+exports.signIn = signIn;
+const signUp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, phoneNumber, password, address, userName } = req.body.user;
     try {
         const hashedPassword = yield bcrypt.hash(password, 10);
         const user = yield userModel_1.default.create({
+            userName,
+            phoneNumber,
+            address,
             email,
             password: hashedPassword,
         });
-        const accessToken = jwt.sign({ id: user._id }, jwtPrivateKey, {
+        const accessToken = jwt.sign({ id: user._id }, JWT_SECRET, {
             expiresIn: "1h",
         });
-        const refreshToken = jwt.sign({ id: user._id }, jwtPrivateKey, {
+        const refreshToken = jwt.sign({ id: user._id }, JWT_SECRET, {
             expiresIn: "1d",
         });
         res
             .status(200)
-            .cookie("refreshToken", refreshToken)
+            .cookie("refreshToken", refreshToken, {
+            httpOnly: true,
+            sameSite: "strict",
+        })
             .header({ Authorization: accessToken })
             .send(user);
     }
@@ -110,7 +149,6 @@ exports.userUpdate = userUpdate;
 const userDelete = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const _id = req.params.id;
     try {
-        console.log(_id, "productID");
         yield userModel_1.default.deleteOne({ _id });
         res.status(200).json({ message: "User deleted successfully" });
     }

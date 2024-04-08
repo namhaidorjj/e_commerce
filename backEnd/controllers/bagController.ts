@@ -31,7 +31,6 @@ export const LVBag = async (req: Request, res: Response) => {
   }
 };
 
-
 export const bag = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {

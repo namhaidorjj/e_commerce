@@ -2,7 +2,6 @@
 /** @format */
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-// Define the schema for your document
 const BagSchema = new mongoose_1.Schema({
     bagName: { type: String },
     colors: [{ type: mongoose_1.Schema.Types.ObjectId, ref: "Color", required: true }],

@@ -27,7 +27,7 @@ export default function Header() {
       <div className="justify-between lg:h-[90px] h-[64px] flex w-full items-center">
         <div className="pl-5 gap-5 lg:pl-20">
           <button className="flex items-center gap-2">
-            <img className="w-4 h-4" src="../assets/icons/search.svg" alt="" />
+            <img className="w-4 h-4" src="/assets/icons/search.svg" alt="" />
             <p className="text-[#000000] text-xs">Search</p>
           </button>
         </div>

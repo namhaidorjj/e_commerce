@@ -29,20 +29,21 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const user = {
+        const response = await instance.post("signin", {
           email: values.email,
           password: values.password,
-        };
-        console.log(user);
-        const res = await instance.post("/user", {
-          user,
         });
-        if (res.status === 201) {
-          return router.push("./login");
-        } else return alert("can't signup");
+
+        if (response.status === 201) {
+          const { accessToken } = response.data;
+          alert("Successfully enter");
+          document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
+        } else {
+          throw new Error("Signin failed");
+        }
       } catch (error) {
-        console.log("error");
-        alert("Sign Up");
+        console.error("Error:", error);
+        alert("Error internet");
       }
     },
   });
@@ -51,10 +52,10 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     <Sheet>
       <SheetTrigger asChild>
         <button>
-          <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
+          <img className="h-4 w-4" src="/assets/icons/profile.svg" alt="" />
         </button>
       </SheetTrigger>
-      <SheetContent className="bg-white">
+      <SheetContent className="bg-white w-screen">
         <div className="w-full h-full">
           <div className="p-10 gap-14 flex flex-col right-0 text-black absolute h-full ">
             <div className="flex flex-col gap-2">
@@ -92,7 +93,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                 <button>
                   <img
                     className="w-5 h-5"
-                    src="assets/icons/openEYE.svg"
+                    src="/assets/icons/openEYE.svg"
                     alt=""
                   />
                 </button>
@@ -104,9 +105,11 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
               <SheetClose
                 asChild
                 className="w-full h-full justify-center items-center flex fexl-col p-2 mt-[100px]">
-                <button className="flex text-black w-[300px]  items-center justify-between pl-4 pr-4 rounded-3xl bg-white h-[50px]">
+                <button
+                  type="submit"
+                  className="flex border border-spacing-6 text-black w-[300px]  items-center justify-between p-3 hover:bg-black hover:text-white cursor-pointer rounded-3xl bg-white h-[50px]">
                   <p className="font-semibold">Continue</p>
-                  <img src="assets/icons/rightArrowBlack.svg" alt="" />
+                  <img src="/assets/icons/rightArrowBlack.svg" alt="" />
                 </button>
               </SheetClose>
             </form>
@@ -117,24 +120,28 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
             </div>
             <div className="flex items-center justify-center gap-3">
               <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                <img className="w-5 h-5" src="assets/icons/google.svg" alt="" />
-              </button>
-              <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
                 <img
                   className="w-5 h-5"
-                  src="assets/icons/facebook.svg"
+                  src="/assets/icons/google.svg"
                   alt=""
                 />
               </button>
               <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                <img className="w-5 h-5" src="assets/icons/apple.svg" alt="" />
+                <img
+                  className="w-5 h-5"
+                  src="/assets/icons/facebook.svg"
+                  alt=""
+                />
+              </button>
+              <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
+                <img className="w-5 h-5" src="/assets/icons/apple.svg" alt="" />
               </button>
             </div>
             <SheetFooter>
               <SheetClose asChild>
                 <button className="flex gap-1 justify-center">
                   <p className="font-light">Didn't have account?</p>
-                  <button>Create Account</button>
+                  <a href="./login">Create Account</a>
                 </button>
               </SheetClose>
             </SheetFooter>
