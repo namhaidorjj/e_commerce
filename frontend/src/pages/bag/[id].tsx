@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Bag, Bags } from "@/utils/types/bagType";
 
-const BagPage = () => {
+export default function BagPage() {
   const [bag, setBag] = useState<Bag>({
     _id: "",
     bagName: "",
@@ -24,7 +24,6 @@ const BagPage = () => {
       if (query.id && query.id[0]) {
         try {
           const response = await instance.get(`/bag/${query.id}`);
-          console.log("first", query.id[0]);
           setBag(response.data.bag);
           setError(null);
         } catch (error) {
@@ -48,10 +47,9 @@ const BagPage = () => {
       ) : (
         <div className="bag-page">
           <BagDetail bag={bag} />
+          <div>hi</div>
         </div>
       )}
     </div>
   );
-};
-
-export default BagPage;
+}

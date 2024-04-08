@@ -38,13 +38,11 @@ export const UpdateProduct = () => {
   // Fetching data wich need to be update ===========
   useEffect(() => {
     const { _id } = router.query;
-    console.log(router.query, "reouter.query");
     const fetchBagEdit = async (_id: string) => {
       try {
         const response = await instance.get<{ product: Bag }>(
           `/products/${_id}`
         );
-        console.log(response.data.product);
         setOldBag(response.data.product);
       } catch (error) {
         console.error(error);
@@ -57,15 +55,12 @@ export const UpdateProduct = () => {
 
   // Handling update new data =====================
   const handleUpdateBag = async () => {
-    console.log(updatedBag, "updatedBag");
-    console.log(oldBag?._id, "oldBag._id");
     setLoading(true);
     try {
       const response = await instance.put(
         `/productUpdate/${oldBag?._id}`,
         updatedBag
       );
-      console.log(response.data);
       alert(response.data.message);
       router.push("/productnav");
     } catch (error) {

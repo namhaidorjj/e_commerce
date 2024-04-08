@@ -97,7 +97,6 @@ export const CreatingProduct = () => {
     formData.append("image", selectedFile[0]);
     try {
       const res = await instance.post("/upload", formData, config);
-      console.log(res, "Response");
       setUploadedImage01(res.data.imageUrl);
       alert("Зураг амжилттай Cloudinary-руу орлоо");
     } catch (error) {
@@ -116,7 +115,6 @@ export const CreatingProduct = () => {
     formData.append("image", selectedFile[0]);
     try {
       const res = await instance.post("/upload", formData, config);
-      console.log(res, "Response");
       setUploadedImage02(res.data.imageUrl);
       alert("Зураг амжилттай Cloudinary-руу орлоо");
     } catch (error) {
@@ -135,7 +133,6 @@ export const CreatingProduct = () => {
     formData.append("image", selectedFile[0]);
     try {
       const res = await instance.post("/upload", formData, config);
-      console.log(res, "Response");
       setUploadedImage03(res.data.imageUrl);
       alert("Зураг амжилттай Cloudinary-руу орлоо");
     } catch (error) {
@@ -172,7 +169,6 @@ export const CreatingProduct = () => {
       setConsumerInput("");
       setStatusInput("");
     }
-    console.log(colors, "colors");
   };
   const handleColorDelete = (colorIndex: number) => {
     const updatedColors = [...colors];
