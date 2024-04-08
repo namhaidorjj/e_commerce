@@ -1,13 +1,13 @@
 /** @format */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AuthContext } from "./AuthenticationContext";
 import { useContext } from "react";
 
 export const LeftNavBar = () => {
   const { adminUser } = useContext(AuthContext);
-  const [navStyle, setnavStyle] = useState(
+  const [navStyle, setNavStyle] = useState(
     "flex gap-[19px] w-[222px] py-[10px] px-4 cursor-pointer hover:bg-stone-200 hover:pl-5 duration-200 items-center"
   );
   return (
@@ -19,7 +19,6 @@ export const LeftNavBar = () => {
               <p>Тавтай морилно уу</p>
               <div>{adminUser?.name}</div>
             </div>
-
             <Link href={"/dashboard"}>
               <div className={`${navStyle}`}>
                 <i className="fa-solid fa-window-maximize"></i>

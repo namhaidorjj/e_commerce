@@ -18,10 +18,20 @@ export const AdminSettings = () => {
     null
   );
   const [showModal, setShowModal] = useState(false);
-  const router = useRouter();
+  const [hideCreateAdmin, setHideCreateAdmin] = useState(true);
 
   useEffect(() => {
     setAdminUserData(adminUser);
+  }, [adminUser]);
+
+  useEffect(() => {
+    if (
+      adminUser.role === "View_admin" ||
+      adminUser.role === "Update_Admin" ||
+      adminUser.role === "Create_admin"
+    ) {
+      setHideCreateAdmin(false);
+    }
   }, [adminUser]);
 
   const handleSignUp = () => {
@@ -55,11 +65,13 @@ export const AdminSettings = () => {
           </div>
         </div>
         <div>
-          <button
-            onClick={handleSignUp}
-            className="border border-stone-300 px-4 py-1 rounded-lg hover:bg-stone-400 hover:text-white duration-300 active:scale-95">
-            Шинээр админ үүсгэх
-          </button>
+          {hideCreateAdmin && (
+            <button
+              onClick={handleSignUp}
+              className="border border-stone-300 px-4 py-1 rounded-lg hover:bg-stone-400 hover:text-white duration-300 active:scale-95">
+              Шинээр админ үүсгэх
+            </button>
+          )}
         </div>
         <div>
           <button
