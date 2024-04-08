@@ -17,7 +17,6 @@ export const product = async (req: Request, res: Response) => {
 // Updating Products ===================================================
 export const productUpdate = async (req: Request, res: Response) => {
   const id = req.params.id;
-  console.log(id, "_id");
   const updatedBag = req.body;
   try {
     const bag = await Bag.findByIdAndUpdate(id, updatedBag, { new: true });
@@ -52,7 +51,6 @@ export const productDelete = async (req: Request, res: Response) => {
   const _id = req.params.id;
 
   try {
-    console.log(_id, "productID");
     await Bag.deleteOne({ _id });
     await Color.deleteMany({ bagId: _id });
     res.status(200).json({ message: "Product deleted successfully" });
@@ -66,9 +64,7 @@ export const productDelete = async (req: Request, res: Response) => {
 export const productEdit = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
-    console.log(_id, "productId");
     const product = await Bag.findOne({ _id }).populate("colors");
-    console.log(product, "Product");
     res
       .status(200)
       .json({ message: "Succesfully fetch product data", product });

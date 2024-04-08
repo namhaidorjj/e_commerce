@@ -1,11 +1,12 @@
 /** @format */
 
 import { Router } from "express";
-import { getUser, signUp } from "../controllers/userController";
+import { getUser, signIn, signUp } from "../controllers/userController";
 import { sendMail, updatePass, verifyCode } from "../controllers/nodemailer";
 
 export const router = Router();
 
+router.route("/signin").post(signIn);
 router.route("/createUser").post(signUp);
 router.route("/user").get(getUser);
 

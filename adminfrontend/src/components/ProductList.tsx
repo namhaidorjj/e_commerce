@@ -36,12 +36,9 @@ export const ProductList = () => {
   // Fetching Products from DB Scene ==============
   const fetchProducts = async () => {
     setloading(true);
-    // console.log("first");
     try {
       const response = await instance.get("/bag");
       setProducts(response.data.bag);
-      console.log(response.data);
-      console.log("products", products);
     } catch (error) {
       console.error(error);
     } finally {
