@@ -7,6 +7,7 @@ import { instance } from "../instance";
 export const ConsumerOrder = () => {
   const [loading, setLoading] = useState(false);
   const fetchProducts = async () => {
+    console.log(loading);
     setLoading(true);
     // console.log("first");
     try {
@@ -18,6 +19,7 @@ export const ConsumerOrder = () => {
       setLoading(false);
     }
   };
+
   return (
     <div>
       <div>asd</div>
