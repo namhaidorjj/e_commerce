@@ -19,11 +19,11 @@ export const ContactUsBar: React.FC<CartProps> = (): JSX.Element => {
               to assist you.
             </p>
             <div className="flex gap-3">
-              <img src="../assets/icons/phone.svg" alt="" />
+              <img src="/assets/icons/phone.svg" alt="" />
               <p>+1.866.VUITTON</p>
             </div>
             <div className="flex gap-3">
-              <img src="assets/icons/mail.svg" alt="" />
+              <img src="/assets/icons/mail.svg" alt="" />
               <button className="text-xs">Send an Email</button>
             </div>
             <p className=" pt-80">Need Help?</p>

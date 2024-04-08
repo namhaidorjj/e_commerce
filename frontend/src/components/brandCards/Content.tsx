@@ -1,43 +1,45 @@
 /** @format */
 
-import React from "react";
-import { Card } from "./Card";
+// /** @format */
 
-interface ContentItem {
-  brand: string;
-  backgroundImage: string;
-}
+// import React from "react";
+// import { Card } from "./Card";
 
-export const Content = () => {
-  const contentSet: JSX.Element[] = [];
+// type ContentItem = {
+//   brand: string;
+//   backgroundImage: string;
+// };
 
-  const content: ContentItem[] = [
-    {
-      brand: "hermes",
-      backgroundImage: "../../public/assets/hermes.jpeg",
-    },
-    {
-      brand: "Gucci",
-      backgroundImage: "../../public/assets/gucci.jpeg",
-    },
-    {
-      brand: "Prada",
-      backgroundImage: "../../public/assets/prada.jpeg",
-    },
-    {
-      brand: "Louis Vuitton",
-      backgroundImage: "../../public/assets/louisVuitton.jpeg",
-    },
-  ];
+// export const Content = () => {
+//   const contentSet: JSX.Element[] = [];
 
-  content.forEach((item, index) => {
-    contentSet.push(
-      <Card
-        key={index}
-        // brand={item.brand}
-        backgroundImage={item.backgroundImage}
-      />
-    );
-  });
-  return <div>{contentSet}</div>;
-};
+//   const content: ContentItem[] = [
+//     {
+//       brand: "Hermes",
+//       backgroundImage: "../../public/assets/hermes.jpeg",
+//     },
+//     {
+//       brand: "Gucci",
+//       backgroundImage: "../../public/assets/gucci.jpeg",
+//     },
+//     {
+//       brand: "Pradaa",
+//       backgroundImage: "../../public/assets/prada.jpeg",
+//     },
+//     {
+//       brand: "Louis Vuitton",
+//       backgroundImage: "../../public/assets/louisVuitton.jpeg",
+//     },
+//   ];
+
+//   content.forEach((props, index) => {
+//     contentSet.push(
+//       <Card
+//         key={index}
+//         brand={props.brand}
+//         backgroundImage={props.backgroundImage}
+//       />
+//     );
+//   });
+//   return <div>{contentSet}</div>;
+// };
