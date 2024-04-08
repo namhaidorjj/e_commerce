@@ -46,14 +46,10 @@ export const Cart: React.FC<CartProps> = ({ variant }) => {
           }
         } catch (error) {
           console.error(error);
-          alert(
-            "Failed to decode token or fetch bag data. Please try again later."
-          );
         } finally {
           setLoading(false);
         }
       } else {
-        alert("Access token not found");
         setLoading(false);
       }
     };
@@ -64,9 +60,7 @@ export const Cart: React.FC<CartProps> = ({ variant }) => {
     <Sheet>
       <SheetTrigger asChild>
         <button className="flex gap-1 justify-center items-center">
-
           <img className="w-4 h-4" src="/assets/icons/basket.svg" alt="" />
-
           <p className="bg-black w-[15px] mb-3 rounded-xl text-white flex text-xs h-[15px] items-center justify-center">
             {orderCount}
           </p>
