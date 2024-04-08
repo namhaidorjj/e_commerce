@@ -43,7 +43,7 @@ export type CartProps = {
   variant: Variant;
 };
 
-export type Order = {
+export type Orders = {
   bagId: { price: number };
   colors: [];
 };

@@ -63,7 +63,6 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
             />
           ))}
         </div>
-        {/* Bag details and order button */}
         <div className="flex lg:flex-col items-center pt-6 lg:w-1/2 lg:pt-44 absolute bottom-0 lg:right-0 test mb-5 justify-center">
           <div className="lg:w-[550px] flex flex-col justify-between gap-2 ring-offset-1 bottom-0 w-4/5">
             <h1 className="text-sm">{bag.colors?.[selectedColor]?.bagCode}</h1>
