@@ -51,10 +51,10 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     <Sheet>
       <SheetTrigger asChild>
         <button>
-          <img className="h-4 w-4" src="assets/icons/profile.svg" alt="" />
+          <img className="h-4 w-4" src="/assets/icons/profile.svg" alt="" />
         </button>
       </SheetTrigger>
-      <SheetContent className="bg-white">
+      <SheetContent className="bg-white w-screen">
         <div className="w-full h-full">
           <div className="p-10 gap-14 flex flex-col right-0 text-black absolute h-full ">
             <div className="flex flex-col gap-2">
@@ -92,7 +92,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                 <button>
                   <img
                     className="w-5 h-5"
-                    src="assets/icons/openEYE.svg"
+                    src="/assets/icons/openEYE.svg"
                     alt=""
                   />
                 </button>
@@ -106,7 +106,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                 className="w-full h-full justify-center items-center flex fexl-col p-2 mt-[100px]">
                 <button className="flex text-black w-[300px]  items-center justify-between pl-4 pr-4 rounded-3xl bg-white h-[50px]">
                   <p className="font-semibold">Continue</p>
-                  <img src="assets/icons/rightArrowBlack.svg" alt="" />
+                  <img src="/assets/icons/rightArrowBlack.svg" alt="" />
                 </button>
               </SheetClose>
             </form>
@@ -117,17 +117,21 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
             </div>
             <div className="flex items-center justify-center gap-3">
               <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                <img className="w-5 h-5" src="assets/icons/google.svg" alt="" />
-              </button>
-              <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
                 <img
                   className="w-5 h-5"
-                  src="assets/icons/facebook.svg"
+                  src="/assets/icons/google.svg"
                   alt=""
                 />
               </button>
               <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                <img className="w-5 h-5" src="assets/icons/apple.svg" alt="" />
+                <img
+                  className="w-5 h-5"
+                  src="/assets/icons/facebook.svg"
+                  alt=""
+                />
+              </button>
+              <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
+                <img className="w-5 h-5" src="/assets/icons/apple.svg" alt="" />
               </button>
             </div>
             <SheetFooter>

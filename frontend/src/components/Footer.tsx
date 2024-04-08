@@ -17,7 +17,7 @@ export const Footer = () => {
     router.push("LouisVuitton");
   };
   return (
-    <div className="flex flex-col p-8 border-t gap-10 lg:p-20 lg:flex-row">
+    <div className="flex flex-col p-8 border-t gap-10 lg:p-20 lg:flex-row bg-white">
       <div className="flex justify-between lg:w-1/2 lg:justify-around">
         <div className="lg:text-[12px] flex flex-col gap-4 text-[14px]">
           <p>MAY WE HELP YOU?</p>

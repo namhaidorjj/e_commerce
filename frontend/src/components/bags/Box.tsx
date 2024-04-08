@@ -26,16 +26,17 @@ export const Box = ({ bags }: { bags: Bag }) => {
   return (
     <div>
       <div className="relative w-full h-full ">
-        <div className="carousel-container relative w-full h-full ">
-          {bags.colors[selectedColor]?.images.map((image: any, idx: number) => (
+        <div className="carousel-container relative w-full h-full overflow-scroll">
+          {bags.colors[selectedColor].images.map((image: any, idx: number) => (
             <img
               key={idx}
               src={image}
               alt={`Color ${selectedColor + 1}`}
+              className="snap-center"
               style={{ display: idx === selectedImage ? "block" : "none" }}
             />
           ))}
-          <div className="hover:cursor-pointer absolute flex justify-between inset-0 opacity-0 hover:opacity-100 left-5 right-5   ">
+          <div className="hover:cursor-pointer absolute hidden lg:flex justify-between inset-0 opacity-0 hover:opacity-100 left-5 right-5   ">
             <button className="p-3 text-3xl" onClick={handlePrevClick}>
               ❮
             </button>

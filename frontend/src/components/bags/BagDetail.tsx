@@ -15,7 +15,7 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
   };
   console.log("bag", bag);
   return (
-    <div className="">
+    <div>
       <Header />
       <hr></hr>
       <div className="flex flex-col gap-15 lg:flex-row w-screen h-screen lg:overflow-y-scroll relative">
