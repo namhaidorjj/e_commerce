@@ -1,11 +1,12 @@
 /** @format */
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Loadingpage from "../pages/loading";
 import { DeleteModal } from "../components/sub_components/DeleteModal";
 import { instance } from "@/instance";
+import { AuthContext } from "./AuthenticationContext";
 
 type Product = {
   _id: string;
@@ -32,6 +33,10 @@ export const ProductList = () => {
   >(null);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
   const [searchInput, setSearchInput] = useState("");
+  const { adminUser } = useContext(AuthContext);
+  const [hideCreateBag, setHideCreateBag] = useState(true);
+  const [hideDelete, setHideDelete] = useState(true);
+  const [hideUpdateBag, setHideUpdateBag] = useState(true);
 
   // Fetching Products from DB Scene ==============
   const fetchProducts = async () => {
@@ -45,6 +50,19 @@ export const ProductList = () => {
       setloading(false);
     }
   };
+  useEffect(() => {
+    if (adminUser.role === "View_Admin") {
+      setHideCreateBag(false);
+      setHideDelete(false);
+      setHideUpdateBag(false);
+    } else if (adminUser.role === "Update_Admin") {
+      setHideCreateBag(false);
+      setHideDelete(false);
+    } else if (adminUser.role === "Create_Admin") {
+      setHideDelete(false);
+      setHideUpdateBag(false);
+    }
+  }, [adminUser]);
 
   useEffect(() => {
     fetchProducts();
@@ -157,24 +175,31 @@ export const ProductList = () => {
         </ul>
       </div>
       <div className="w-[288px]">
-        <Link href={"/products"}>
-          <div className="flex justify-center items-center mt-[80px] ml-6 bg-white w-[280px] h-[48px] text-stone-500 font-bold gap-[9px] rounded-lg cursor-pointer border border-stone-300 hover:bg-stone-500 hover:text-white duration-500">
-            <i className="fa-solid fa-plus"></i>
-            <button>Бүтээгдэхүүн нэмэх</button>
-          </div>
-        </Link>
+        {hideCreateBag && (
+          <Link href={"/products"}>
+            <div className="flex justify-center items-center mt-[80px] ml-6 bg-white w-[280px] h-[48px] text-stone-500 font-bold gap-[9px] rounded-lg cursor-pointer border border-stone-300 hover:bg-stone-500 hover:text-white duration-500">
+              <i className="fa-solid fa-plus"></i>
+              <button>Бүтээгдэхүүн нэмэх</button>
+            </div>
+          </Link>
+        )}
       </div>
-      <div className="flex px-6 justify-between mt-6 mb-6">
-        <div className="flex gap-[13px]">
-          <button
-            disabled={!isButtonEnabled}
-            onClick={handleDeleteSelected}
-            className={`border border-gray-300 rounded-lg py-2 px-4 bg-white text-black hover:shadow-lg duration-300 ${
-              !isButtonEnabled ? "opacity-30 cursor-not-allowed" : ""
-            }`}>
-            Устгах
-          </button>
-        </div>
+      <div
+        className={`flex px-6 justify-between mb-6 ${
+          hideDelete ? "mt-6" : "mt-20"
+        }`}>
+        {hideDelete && (
+          <div className="flex gap-[13px]">
+            <button
+              disabled={!isButtonEnabled}
+              onClick={handleDeleteSelected}
+              className={`border border-gray-300 rounded-lg py-2 px-4 bg-white text-black hover:shadow-lg duration-300 ${
+                !isButtonEnabled ? "opacity-30 cursor-not-allowed" : ""
+              }`}>
+              Устгах
+            </button>
+          </div>
+        )}
         <div className="flex border border-stone-300 text-stone-500 rounded-lg w-[419px] h-[40px] bg-white items-center px-4 gap-4">
           <i className="fa-solid fa-magnifying-glass"></i>
           <input
@@ -286,12 +311,16 @@ export const ProductList = () => {
                       </ul>
                     </td>
                     <td className="w-[156.8px] h-[44px] flex justify-start items-center gap-[15.5px]">
-                      <i
-                        className="fa-regular fa-trash-can cursor-pointer hover:scale-[1.3] duration-200 text-lg"
-                        onClick={() => openDeleteModal(bag._id, index)}></i>
-                      <i
-                        className="fa-solid fa-pen-to-square cursor-pointer hover:scale-[1.3] duration-200 text-lg"
-                        onClick={(e) => handleEdit(bag._id, index)}></i>
+                      {hideDelete && (
+                        <i
+                          className="fa-regular fa-trash-can cursor-pointer hover:scale-[1.3] duration-200 text-lg"
+                          onClick={() => openDeleteModal(bag._id, index)}></i>
+                      )}
+                      {hideUpdateBag && (
+                        <i
+                          className="fa-solid fa-pen-to-square cursor-pointer hover:scale-[1.3] duration-200 text-lg"
+                          onClick={(e) => handleEdit(bag._id, index)}></i>
+                      )}
                     </td>
                   </tr>
                 ))}
