@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Header from "../Header";
 import { Footer } from "../Footer";
 import { instance } from "@/utils/instance";
+import { toastifyError, toastifyInfo, toastifySuccess } from "@/utils/alerts";
 
 export const Login = () => {
   const router = useRouter();
@@ -47,13 +48,13 @@ export const Login = () => {
           user,
         });
         if (res.status === 200) {
-          alert("Successfulle enter");
+          toastifySuccess("Successfully enter");
           return router.push("/");
         } else {
-          alert("Unable to sign up. Please try again.");
+          toastifyInfo("Unable to sign up. Please try again.");
         }
       } catch (error) {
-        alert("An error occurred. Please try again later.");
+        toastifyError("An error occurred. Please try again later.");
       }
     },
   });

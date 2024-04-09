@@ -16,8 +16,7 @@ import { jwtDecode } from "jwt-decode";
 import { instance } from "@/utils/instance";
 import Cookies from "js-cookie";
 import { CartProps, User, Order } from "@/utils/types/bagType";
-
-type JwtPayload = any[];
+import { toastifyInfo } from "@/utils/alerts";
 
 export const Cart: React.FC<CartProps> = ({ variant }) => {
   const [loading, setLoading] = useState(false);
@@ -42,7 +41,7 @@ export const Cart: React.FC<CartProps> = ({ variant }) => {
             });
             setOrderData(response.data.data);
           } else {
-            alert("Invalid or expired token");
+            toastifyInfo("Please try again");
           }
         } catch (error) {
           console.error(error);

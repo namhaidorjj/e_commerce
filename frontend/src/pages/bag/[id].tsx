@@ -24,6 +24,7 @@ export default function BagPage() {
       if (query.id && query.id[0]) {
         try {
           const response = await instance.get(`/bag/${query.id}`);
+          console.log("first", query.id[0]);
           setBag(response.data.bag);
           setError(null);
         } catch (error) {
@@ -47,7 +48,6 @@ export default function BagPage() {
       ) : (
         <div className="bag-page">
           <BagDetail bag={bag} />
-          <div>hi</div>
         </div>
       )}
     </div>
