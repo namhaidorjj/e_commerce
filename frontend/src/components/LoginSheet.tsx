@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { instance } from "@/utils/instance";
 import { CartProps } from "@/utils/types/bagType";
+import { toastifyError, toastifySuccess } from "@/utils/alerts";
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const router = useRouter();
@@ -36,14 +37,13 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
 
         if (response.status === 201) {
           const { accessToken } = response.data;
-          alert("Successfully enter");
+          toastifySuccess("Successfully enter");
           document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
         } else {
           throw new Error("Signin failed");
         }
       } catch (error) {
-        console.error("Error:", error);
-        alert("Error internet");
+        toastifyError("Please check your Username or Password");
       }
     },
   });
