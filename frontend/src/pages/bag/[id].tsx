@@ -47,7 +47,6 @@ export default function BagPage() {
       ) : (
         <div className="bag-page">
           <BagDetail bag={bag} />
-          <div>hi</div>
         </div>
       )}
     </div>
