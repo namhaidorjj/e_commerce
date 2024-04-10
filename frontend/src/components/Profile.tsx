@@ -25,6 +25,7 @@ export const Profile = () => {
         const response = await instance.post("/user", {
           userId: decoded.id,
         });
+        console.log("user", response.data.users);
         setUserData(response.data.users);
       } catch (error) {
         console.error(error);

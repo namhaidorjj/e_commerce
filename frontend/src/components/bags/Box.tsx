@@ -27,17 +27,19 @@ export const Box = ({ bags }: { bags: Bag }) => {
     <div>
       <div className="relative w-full h-full ">
         <div className="carousel-container relative w-full h-full overflow-scroll">
-          {bags.colors[selectedColor].images.map((image: any, idx: number) => (
-            <a href={`./${bags._id}`}>
-              <img
-                key={idx}
-                src={image}
-                alt={`Color ${selectedColor + 1}`}
-                className="snap-center"
-                style={{ display: idx === selectedImage ? "block" : "none" }}
-              />
-            </a>
-          ))}
+          {bags.colors[selectedColor]?.images?.map(
+            (image: string, idx: number) => (
+              <a href={`./${bags._id}`}>
+                <img
+                  key={idx}
+                  src={image}
+                  alt={`Color ${selectedColor + 1}`}
+                  className="snap-center"
+                  style={{ display: idx === selectedImage ? "block" : "none" }}
+                />
+              </a>
+            )
+          )}
           <button
             className="p-5 w-1/3 text-3xl h-5/6 top-0 hover:cursor-pointer absolute hidden lg:flex lg:items-center opacity-0 hover:opacity-100"
             onClick={handlePrevClick}>
@@ -45,7 +47,7 @@ export const Box = ({ bags }: { bags: Bag }) => {
           </button>
           <button
             className="p-5 w-1/3 justify-end text-3xl h-5/6 top-0 right-0 hover:cursor-pointer absolute hidden lg:flex lg:items-center opacity-0 hover:opacity-100"
-            onClick={handlePrevClick}>
+            onClick={handleNextClick}>
             ❯
           </button>
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">

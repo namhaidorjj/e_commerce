@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <SearchValue>
       <ToastContainer
-        position="top-right"
+        position="bottom-left"
         autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}

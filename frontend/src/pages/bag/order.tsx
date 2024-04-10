@@ -5,6 +5,7 @@ import { Orders, User } from "@/utils/types/bagType";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { toastifySuccess } from "@/utils/alerts";
 
 export default function Order() {
   const [orderData, setOrderData] = useState<Orders[]>([]);
@@ -24,13 +25,20 @@ export default function Order() {
         }
       }
     };
-
     fetchData();
   }, []);
 
+  const createOrder = async (orderData: Orders[]) => {
+    try {
+      const orderRes = await instance.post("/createOrder");
+      toastifySuccess("Order created");
+    } catch (error) {
+      console.error("error in create order", error);
+    }
+  };
   return (
     <div className="w-full">
-      {orderData.map((bag: any, bagIndex: number) => (
+      {orderData.map((bag, bagIndex) => (
         <div
           key={bagIndex}
           tabIndex={bagIndex}
@@ -40,7 +48,9 @@ export default function Order() {
             src={bag.colors[0].images?.[1]}
           />
           <div className="flex flex-col justify-start w-1/2">
-            <h1 className="font-bold text-lg text-black">{bag?.bagName}</h1>
+            <h1 className="font-bold text-lg text-black">
+              {bag?.bagId.bagName}
+            </h1>
             <div className="flex justify-between items-center">
               <div className="flex w-auto pt-4 pb-2">
                 <p>Bag Code:</p>&nbsp;
@@ -63,7 +73,9 @@ export default function Order() {
           </div>
         </div>
       ))}
-      <button className="flex w-[100px] items-center justify-center border-black mt-5 rounded-xl self-end btn border border-spacing-2 p-2 hover:bg-black hover:text-white">
+      <button
+        onClick={() => createOrder(orderData)}
+        className="flex w-[100px] items-center justify-center border-black mt-5 rounded-xl self-end btn border border-spacing-2 p-2 hover:bg-black hover:text-white">
         buy
       </button>
     </div>

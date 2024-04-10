@@ -25,7 +25,7 @@ export const CreatingProduct = () => {
   const [adminColorInput, setAdminColorInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState<FileList | null>(null);
-  const [consumerInput, setConsumerInput] = useState("asdasd");
+  const [consumerInput, setConsumerInput] = useState("false");
   const [statusInput, setStatusInput] = useState("fasd");
   const [colors, setColors] = useState<
     {
@@ -166,7 +166,7 @@ export const CreatingProduct = () => {
         },
       ]);
       setColorInput("");
-      setConsumerInput("");
+      // setConsumerInput("");
       setStatusInput("");
     }
   };

@@ -5,7 +5,7 @@ import LoadingPage from "@/components/LoadingPage";
 import { instance } from "@/utils/instance";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Bag, Bags } from "@/utils/types/bagType";
+import { Bag } from "@/utils/types/bagType";
 
 export default function BagPage() {
   const [bag, setBag] = useState<Bag>({
@@ -17,14 +17,12 @@ export default function BagPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { query } = useRouter();
-
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       if (query.id && query.id[0]) {
         try {
           const response = await instance.get(`/bag/${query.id}`);
-          console.log("first", query.id[0]);
           setBag(response.data.bag);
           setError(null);
         } catch (error) {
@@ -35,7 +33,6 @@ export default function BagPage() {
         }
       }
     };
-
     fetchProducts();
   }, [query.id]);
 

@@ -32,11 +32,9 @@ export const AdminSettings = () => {
       setHideCreateAdmin(false);
     }
   }, [adminUser]);
-
   const handleSignUp = () => {
     setShowSignUp(!showSignUp);
   };
-
   const handleLogOutModal = () => {
     setShowModal(!showModal);
   };

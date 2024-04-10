@@ -1,11 +1,17 @@
 /** @format */
+import { skip } from "node:test";
 import Bag from "../models/bagModel";
 import Color from "../models/colorModel";
 import { Request, Response } from "express";
 
 export const GucciBag = async (req: Request, res: Response) => {
   try {
-    const bags = await Bag.find({ brand: "Gucci" }).populate("colors");
+    const bags = await Bag.find({ brand: "Gucci" })
+      .populate({
+        path: "colors",
+        match: { consumer: false },
+      })
+      .limit(8 * Number(req.params.page));
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);
@@ -42,45 +48,6 @@ export const bag = async (req: Request, res: Response) => {
   }
 };
 
-export const handBag = async (req: Request, res: Response) => {
-  try {
-    const types = await Bag.find({ bagType: "Hand_bag" });
-    res.status(200).json({ types, message: "Successfully get file" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Failed by get bag type" });
-  }
-};
-
-export const accessoryBag = async (req: Request, res: Response) => {
-  try {
-    const types = await Bag.find({ bagType: "Accessory_bag" });
-    res.status(200).json({ types, message: "Successfully get file" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Failed by get bag type" });
-  }
-};
-
-export const travelBag = async (req: Request, res: Response) => {
-  try {
-    const types = await Bag.find({ bagType: "Travel_bag" });
-    res.status(200).json({ types, message: "Successfully get file" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Failed by get bag type" });
-  }
-};
-
-export const backPack = async (req: Request, res: Response) => {
-  try {
-    const types = await Bag.find({ bagType: "Back_pack" });
-    res.status(200).json({ types, message: "Successfully get file" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Failed by get bag type" });
-  }
-};
 export const bagCreate = async (req: Request, res: Response) => {
   const { bagName, price, brand, bagType, sale, colors } = req.body;
 

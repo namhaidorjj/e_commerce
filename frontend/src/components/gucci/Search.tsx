@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from "react";
 import { SearchValueContext } from "@/contexts/SearchValue";
-import { Bags, Bag } from "@/utils/types/bagType";
+import { Bag } from "@/utils/types/bagType";
 import { instance } from "@/utils/instance";
 
 export default function Search() {

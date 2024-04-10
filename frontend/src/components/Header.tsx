@@ -9,28 +9,27 @@ export default function Header() {
   const router = useRouter();
   const [mainWord, setMainWord] = useState("");
   const changeMainWord = useMemo(() => {
-    if (router.asPath === "/gucci") {
+    if (router.asPath === "/bag/gucci") {
       setMainWord("gucci");
     }
-    if (router.asPath === "/prada") {
+    if (router.asPath === "/bag/prada") {
       setMainWord("prada");
     }
-    if (router.asPath === "/hermes") {
+    if (router.asPath === "/bag/hermes") {
       setMainWord("hermes");
     }
-    if (router.asPath === "/LouisVuitton") {
+    if (router.asPath === "/bag/lv") {
       setMainWord("louis vuitton");
     }
   }, [router.asPath]);
   return (
     <div className="w-full flex flex-col h-full">
       <div className="justify-between lg:h-[90px] h-[64px] flex w-full items-center">
-        <div className="pl-5 gap-5 lg:pl-20">
-          <button className="flex items-center gap-2">
-            <img className="w-4 h-4" src="/assets/icons/search.svg" alt="" />
-            <p className="text-[#000000] text-xs">Search</p>
+        <a href="/">
+          <button className="pl-10">
+            <img src="../loogo.jpg" className="w-[100px] h-[50px]" alt="" />
           </button>
-        </div>
+        </a>
         <div className="uppercase justify-center text-xl lg:text-4xl ">
           {mainWord}
         </div>
