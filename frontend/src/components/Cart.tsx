@@ -26,7 +26,7 @@ export const Cart: React.FC<CartProps> = () => {
   const [colorId, setColorId] = useState<string[]>([]);
   let order = orderData.length;
   const totalPrice = useMemo(() => {
-    return orderData.reduce((acc, order) => acc + (order.bagId.price || 0), 0);
+    return orderData.reduce((acc, order) => acc + (order.bagId?.price || 0), 0);
   }, [orderData]);
   const fetchProducts = async () => {
     const token = Cookies.get("accessToken");
@@ -141,7 +141,7 @@ export const Cart: React.FC<CartProps> = () => {
               <hr />
               <div className="flex w-auto justify-between pt-2">
                 <p>Bag Price:</p>
-                <p>{bag.bagId.price || `10`}₮</p>
+                <p>{bag.bagId?.price || `10`}₮</p>
               </div>
             </div>
           </div>
