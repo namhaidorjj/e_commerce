@@ -10,7 +10,6 @@ import upload from "./middleware/multer";
 import { router as userRouter } from "./routers/userRoute";
 import { router as productRouter } from "./routers/productRoute";
 import { router as orderRouter } from "./routers/orderRoute";
-import axios from "axios";
 const app = express();
 
 dotenv.config();
@@ -44,21 +43,6 @@ app.use(
     }
   }
 );
-app.post("/createInvoice", async (req: Request, res: Response) => {
-  // const invoiceRes = await axios.post(
-  //   "https://merchant.qpay.mn/v2/invoice",
-  //   {
-  //     invoice_code: "POWER_EXPO_INVOICE",
-  //     sender_invoice_no: "1234567",
-  //     invoice_receiver_code: "terminal",
-  //     invoice_description: "test",
-  //     amount: 10,
-  //     callback_url: "http://localhost:3000",
-  //   },
-  //   { headers: { Authorization: `Bearer ${req.body.token}` } }
-  // );
-  // console.log(invoiceRes);
-});
 app.use(productRouter);
 app.use(userRouter);
 app.use(orderRouter);
