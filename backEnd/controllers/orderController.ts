@@ -50,6 +50,39 @@ export const getOrder = async (req: Request, res: Response) => {
   }
 };
 
+
+// Getting data from Order to Admin front page ===========================
+export const getOrderToAdmin = async (req: Request, res: Response) => {
+  try {
+    const data = await Order.find({})
+      .populate("bagId")
+      .populate("colors")
+      .populate("userId");
+    console.log(data);
+    res.status(200).json({ data, message: "Data retrieved successfully" });
+  } catch (error) {
+    console.error("Error fetching order data:", error);
+    res.status(500).json({ message: "Failed to fetch order data" });
+  }
+};
+
+// Getting data from Order to orderDetail page ==============
+export const getOrderDetail = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const data = await Order.findById(id).populate([
+      "colors",
+      "bagId",
+      "userId",
+    ]);
+    if (!data) {
+      return res.status(404).json({ error: "Захиалгагч олдсонгүй" });
+    }
+    res.status(200).json({ data, message: "Захиалагч амжилттай олдлоо" });
+  } catch (error) {
+    console.error("Error fetching order data:", error);
+    res.status(500).json({ message: "Захиалагч олоход алдаа гарлаа" });
+
 export const deleteOrder = async (req: Request, res: Response) => {
   const { colorId } = req.body.data;
   try {
@@ -58,5 +91,6 @@ export const deleteOrder = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error deleting order:", error);
     res.status(500).json({ message: "Failed to delete order" });
+
   }
 };

@@ -8,7 +8,7 @@ import { useContext } from "react";
 export const LeftNavBar = () => {
   const { adminUser } = useContext(AuthContext);
   const [navStyle, setNavStyle] = useState(
-    "flex gap-[19px] w-[222px] py-[10px] px-4 cursor-pointer hover:bg-stone-200 hover:pl-5 duration-200 items-center"
+    "flex gap-[19px] w-[222px] py-[10px] px-4 cursor-pointer hover:bg-stone-200 hover:pl-5 duration-200 items-center hover:rounded-full"
   );
   return (
     <div>
@@ -20,7 +20,7 @@ export const LeftNavBar = () => {
               <div>{adminUser?.name}</div>
             </div>
             <Link href={"/dashboard"}>
-              <div className={`${navStyle}`}>
+              <div className={`${navStyle} `}>
                 <i className="fa-solid fa-window-maximize"></i>
                 <li className="text-base font-semibold">Хяналтын самбар</li>
               </div>

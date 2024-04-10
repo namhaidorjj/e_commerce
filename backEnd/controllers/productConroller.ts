@@ -33,6 +33,7 @@ export const productUpdate = async (req: Request, res: Response) => {
         if (existingColor) {
           existingColor.color = updatedColor.color;
           existingColor.adminColor = updatedColor.adminColor;
+          existingColor.consumer = updatedColor.consumer;
           existingColor.bagCode = updatedColor.bagCode;
           // Save the updated color document
           await existingColor.save();
