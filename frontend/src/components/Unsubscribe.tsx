@@ -13,6 +13,7 @@ export const Unsubscribe = ({
 }) => {
   const fetchData = async () => {
     const token = Cookies.get("accessToken");
+
     if (token) {
       try {
         const decoded: User = jwtDecode(token);
@@ -34,7 +35,7 @@ export const Unsubscribe = ({
         <button
           onClick={fetchData}
           className="bg-black px-6 py-4 text-white rounded-lg">
-          YES!
+          YES! hha
         </button>
         <button
           onClick={toggleVisible}
