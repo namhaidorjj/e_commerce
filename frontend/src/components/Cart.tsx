@@ -42,7 +42,7 @@ export const Cart: React.FC<CartProps> = () => {
         });
         setColorId(colorId);
       } catch (error) {
-        console.error(error);
+        error;
       }
     }
   };
