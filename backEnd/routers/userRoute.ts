@@ -5,6 +5,7 @@ import {
   getUser,
   signIn,
   signUp,
+  userDelete,
   userUpdate,
 } from "../controllers/userController";
 import { sendMail, updatePass, verifyCode } from "../controllers/nodemailer";
@@ -15,6 +16,7 @@ router.route("/signin").post(signIn);
 router.route("/createUser").post(signUp);
 router.route("/user").post(getUser);
 router.route("/updateUser").put(userUpdate);
+router.route("/deleteUser/:id").delete(userDelete);
 
 router.route("/sendPass").post(sendMail);
 router.route("/verifyCode").post(verifyCode);

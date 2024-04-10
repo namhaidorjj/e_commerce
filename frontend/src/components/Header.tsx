@@ -35,9 +35,6 @@ export default function Header() {
         </div>
         <div className="pr-5 flex gap-[30px] h-[50px] lg:pr-20">
           <ContactUsBar variant="outline" />
-          <button className="text-[#000000] text-xs hidden lg:flex lg:items-center">
-            Wishlist
-          </button>
           <LoginSheet variant="outline" />
           <Cart variant="outline" />
         </div>

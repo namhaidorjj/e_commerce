@@ -113,9 +113,9 @@ export const userUpdate = async (req: Request, res: Response) => {
 };
 
 export const userDelete = async (req: Request, res: Response) => {
-  const _id = req.params.id;
+  const { id } = req.params;
   try {
-    await User.deleteOne({ _id });
+    await User.deleteOne({ id });
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     console.error("error in delete user", error);

@@ -98,7 +98,7 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
             <div className="flex justify-center lg:flex-col w-auto items-center pt-10 gap-2">
               <button
                 onClick={handleAddOrder}
-                className="btn h-[60px] p-3 w-[90%] rounded-3xl text-black bg-white hover:bg-black hover:text-white shadow-md border text-center">
+                className="btn h-[60px] p-3 w-[90%] rounded-3xl bg-black text-white lg:text-black lg:bg-white lg:hover:bg-black lg:hover:text-white shadow-md border text-center">
                 Order
               </button>
             </div>
