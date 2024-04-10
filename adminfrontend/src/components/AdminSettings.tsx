@@ -3,7 +3,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./AuthenticationContext";
 import { SignUpUsers } from "../components/SignUpUsers";
-import { useRouter } from "next/router";
 import { LogOutModal } from "./sub_components/LogOutModal";
 
 type AdminUserData = {
