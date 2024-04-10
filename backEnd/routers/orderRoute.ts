@@ -6,6 +6,7 @@ import {
   getOrder,
   getOrderToAdmin,
   getOrderDetail,
+  deleteOrder,
 } from "../controllers/orderController";
 export const router = Router();
 
@@ -15,4 +16,3 @@ router.route("/deleteOrder").delete(deleteOrder);
 router.route("/updateOrderPayment").patch();
 router.route("/orderToAdmin").get(getOrderToAdmin); // Getting data to Admin Page
 router.route("/orderDetail/:id").get(getOrderDetail); // Getting data to OrderDetail component
-
