@@ -10,9 +10,10 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 export const getUser = async (req: Request, res: Response) => {
+  const _id = req.body.userId;
   try {
-    const users = await User.find({});
-    res.send(users);
+    const users = await User.findOne({ _id });
+    res.status(201).json({ users, message: "Fetch data success" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to get users" });
@@ -85,47 +86,31 @@ export const signUp = async (req: Request, res: Response) => {
 };
 
 export const userUpdate = async (req: Request, res: Response) => {
-  const {
-    userName,
-    email,
-    password,
-    phoneNumber,
-    address,
-    cartId,
-    createdAt,
-    _id,
-  } = req.body;
+  const { _id, userName, email, phoneNumber, address } = req.body;
   try {
     const user = await User.findOne({ _id });
     if (!user) {
-      return res.status(400).json({ message: "User not found" });
+      res.status(400).json({ message: "User not found" });
     }
-
-    await User.updateOne(
+    const data = await User.updateOne(
       { _id },
       {
         $set: {
           userName,
           email,
-          password,
           phoneNumber,
           address,
-          cartId,
-          createdAt,
         },
       }
     );
-
-    res.status(200).json({ message: "User updated successfully" });
+    res.status(201).json({ data, message: "User updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to update user" });
   }
 };
-
 export const userDelete = async (req: Request, res: Response) => {
   const _id = req.params.id;
-
   try {
     await User.deleteOne({ _id });
     res.status(200).json({ message: "User deleted successfully" });
