@@ -27,7 +27,7 @@ export const Box = ({ bags }: { bags: Bag }) => {
     <div>
       <div className="relative w-full h-full ">
         <div className="carousel-container relative w-full h-full overflow-scroll">
-          {bags.colors[selectedColor].images.map(
+          {bags.colors[selectedColor]?.images?.map(
             (image: string, idx: number) => (
               <a href={`./${bags._id}`}>
                 <img

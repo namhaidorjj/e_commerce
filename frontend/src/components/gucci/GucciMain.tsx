@@ -37,7 +37,7 @@ export default function GucciMain() {
   }, [searchValue]);
   return (
     <div className="bg-white flex flex-col items-center">
-      <Search />
+      <Search />  
       {loading ? (
         <LoadingPage />
       ) : (
