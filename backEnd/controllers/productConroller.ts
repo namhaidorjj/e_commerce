@@ -2,6 +2,7 @@
 import Bag from "../models/bagModel";
 import Color from "../models/colorModel";
 import { Request, Response } from "express";
+import nodemailer from "nodemailer";
 
 export const product = async (req: Request, res: Response) => {
   try {
@@ -33,6 +34,7 @@ export const productUpdate = async (req: Request, res: Response) => {
         if (existingColor) {
           existingColor.color = updatedColor.color;
           existingColor.adminColor = updatedColor.adminColor;
+          existingColor.consumer = updatedColor.consumer;
           existingColor.bagCode = updatedColor.bagCode;
           // Save the updated color document
           await existingColor.save();
@@ -71,5 +73,56 @@ export const productEdit = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Getting problem to send product data" });
+  }
+};
+// Updating status in Colors ===========================================
+export const colorEdit = async (req: Request, res: Response) => {
+  try {
+    const colorId = req.params.id;
+    const { status, email, userName } = req.body;
+    console.log(colorId, "colorId");
+    console.log(status, "status");
+    const updatedColor = await Color.findByIdAndUpdate(
+      colorId,
+      { status },
+      { new: true }
+    );
+    if (updatedColor) {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: { user: process.env.EMAIL_USER, pass: process.env.APP_PASSWORD },
+      });
+      const mailOption = {
+        from: "luxuries.bag.store4@gmail.com",
+        to: email,
+        subject: `Барааны төлөв: ${status}`,
+        text: `Эрхэм хүндэт ${userName}, <br/><br/> Таны бараа ${status} төлөв рүү шилжив. <br/><br/> Хүндэтгэсэн <br/>CELESTIA CARRY LLC<br/>email:luxuries.bag.store4@gmail.com`,
+      };
+      transporter.sendMail(mailOption, (error, info) => {
+        if (error) {
+          res
+            .status(500)
+            .send({ message: "Имэйл явуулахад асуудал тулгарлаа" });
+        } else {
+          res.status(201).send({
+            message: `Хэрэглэгч рүү ${status} төлвийн мэдээллийг имэйлдэв!`,
+          });
+        }
+      });
+      return res.status(200).json({
+        message: "Төлөв амжилттай солигдлоо",
+        color: updatedColor,
+      });
+    } else {
+      return res
+        .status(404)
+        .json({ message: "Төлөв солих явцад асуудал үүсэв" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Төлөв солиход асуудал үүслээ" });
   }
 };

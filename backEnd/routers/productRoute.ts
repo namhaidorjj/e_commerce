@@ -6,6 +6,7 @@ import {
   productDelete,
   productUpdate,
   productEdit,
+  colorEdit,
 } from "../controllers/productConroller";
 import {
   GucciBag,
@@ -28,9 +29,9 @@ router.route("/productDelete/:id").delete(productDelete); // Deleting bags
 router.route("/products/:id").get(productEdit); // Getting bags to edit
 
 router.route("/bag/:id").get(bag);
-
+// Updating bags =========================
 router.route("/productUpdate/:id").put(productUpdate);
-
+router.route("/updateColors/:id").put(colorEdit);
 // Getting bags to user frontEnd =================
 router.route("/gucciBag").get(GucciBag);
 router.route("/hermesBag").get(HermesBag);

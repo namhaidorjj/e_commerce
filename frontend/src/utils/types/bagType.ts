@@ -30,6 +30,9 @@ export type Color = {
 
 export type User = {
   id: string;
+  name: string;
+  username: string;
+  email: string;
 };
 
 export type Colors = {
@@ -46,4 +49,14 @@ export type CartProps = {
 export type Orders = {
   bagId: { price: number };
   colors: [{ _id: string }];
+};
+
+export type ProfileProps = {
+  user: User;
+};
+export type UserData = {
+  address: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
 };

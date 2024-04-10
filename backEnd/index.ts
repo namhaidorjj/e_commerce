@@ -10,9 +10,11 @@ import upload from "./middleware/multer";
 import { router as userRouter } from "./routers/userRoute";
 import { router as productRouter } from "./routers/productRoute";
 import { router as orderRouter } from "./routers/orderRoute";
+
 import axios from "axios";
 import Order from "./models/orderModel";
 import Color from "./models/colorModel";
+
 const app = express();
 
 dotenv.config();
@@ -66,6 +68,7 @@ app.use(
     }
   }
 );
+
 app.post("/createInvoice", async (req: Request, res: Response) => {
   const invoiceRes = await axios.post(
     "https://merchant.qpay.mn/v2/invoice",
@@ -102,6 +105,7 @@ app.post("/check", async (req: Request, res: Response) => {
   }
   return res.status(200).json({ check: checkRes.data });
 });
+
 app.use(productRouter);
 app.use(userRouter);
 app.use(orderRouter);
