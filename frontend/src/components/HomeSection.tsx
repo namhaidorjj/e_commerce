@@ -31,11 +31,11 @@ export const HomeSection = () => {
   return (
     <div className="bg-[#FFFBEE]">
       <div className="homeBG h-screen lg:p-10 p-5">
-        <div className="text-white flex lg:gap-20 justify-center font-mono">
-          <button>HAND BAG</button>
-          <button>BACK PACK</button>
-          <button>ACCESSORY BAG</button>
-          <button>TRAVEL BAG</button>
+        <div className="text-white flex lg:gap-20 gap-10 justify-center font-mono">
+          <button className="lg:text-base text-[14px]">HAND BAG</button>
+          <button className="lg:text-base text-[14px]">BACK PACK</button>
+          <button className="lg:text-base text-[14px]">ACCESSORY BAG</button>
+          <button className="lg:text-base text-[14px]">TRAVEL BAG</button>
         </div>
       </div>
       <div className="flex flex-col lg:flex-row h-screen">

@@ -22,17 +22,14 @@ export const Footer = () => {
         <div className="lg:text-[12px] flex flex-col gap-4 text-[14px]">
           <p>MAY WE HELP YOU?</p>
           <div className="flex flex-col gap-4 text-black">
-            <p>
+            <a href="/order">
               <u>My Order</u>
-            </p>
-            <p>
+            </a>
+            <a href="/faq">
               <u>FAQs</u>
-            </p>
+            </a>
             <p>
               <u>Email Unscribe</u>
-            </p>
-            <p>
-              <u>Sitemap</u>
             </p>
           </div>
         </div>
@@ -71,7 +68,7 @@ export const Footer = () => {
             type="text"
           />
           <button className="w-5 border-b">
-            <img src="assets/icons/sendMail.svg" alt="" />
+            <img src="/assets/icons/sendMail.svg" alt="" />
           </button>
         </div>
       </div>

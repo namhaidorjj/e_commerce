@@ -7,6 +7,10 @@ import mongoose from "mongoose";
 export const addOrder = async (req: Request, res: Response) => {
   const { bagId, colorId, userId } = req.body;
   try {
+    const checkCollection = await Order.find({ colorId });
+    if (checkCollection.length) {
+      res.status(403).json({ message: "Already add bag" });
+    }
     if (
       !mongoose.Types.ObjectId.isValid(userId) ||
       !mongoose.Types.ObjectId.isValid(colorId) ||
@@ -21,6 +25,7 @@ export const addOrder = async (req: Request, res: Response) => {
       bagId: mongoose.Types.ObjectId.createFromHexString(bagId),
       payment: "Not_Paid",
     });
+
     res
       .status(201)
       .json({ newOrder, message: "Successfully created new order" });
@@ -44,6 +49,7 @@ export const getOrder = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to fetch order data" });
   }
 };
+
 
 // Getting data from Order to Admin front page ===========================
 export const getOrderToAdmin = async (req: Request, res: Response) => {
@@ -76,5 +82,15 @@ export const getOrderDetail = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error fetching order data:", error);
     res.status(500).json({ message: "Захиалагч олоход алдаа гарлаа" });
+
+export const deleteOrder = async (req: Request, res: Response) => {
+  const { colorId } = req.body.data;
+  try {
+    const data = await Order.deleteOne({ colorId });
+    res.status(200).json({ data, message: "Order deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting order:", error);
+    res.status(500).json({ message: "Failed to delete order" });
+
   }
 };
