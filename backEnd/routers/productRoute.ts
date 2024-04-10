@@ -33,7 +33,7 @@ router.route("/bag/:id").get(bag);
 router.route("/productUpdate/:id").put(productUpdate);
 router.route("/updateColors/:id").put(colorEdit);
 // Getting bags to user frontEnd =================
-router.route("/gucciBag").get(GucciBag);
+router.route("/gucciBag/:page").get(GucciBag);
 router.route("/hermesBag").get(HermesBag);
 router.route("/lvbag").get(LVBag);
 

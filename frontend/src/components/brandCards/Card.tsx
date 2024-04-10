@@ -7,12 +7,12 @@ type ContentItem = {
   backgroundImage: string;
   path: string;
 };
-
 export const Card: React.FC<ContentItem> = ({
   brand,
   backgroundImage,
   path,
 }) => {
+  
   return (
     <div
       className="card lg:w-1/4 h-1/2 bg-cover p-4 relative"

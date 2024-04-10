@@ -10,7 +10,6 @@ type AuthContextProps = {
   adminUser: any;
   login: (values: any) => Promise<void>;
 };
-
 type ErrorType = {
   response: {
     data: {
@@ -18,7 +17,6 @@ type ErrorType = {
     };
   };
 };
-
 type DecodedToken = {
   userId: string;
 };
@@ -34,7 +32,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [token, setToken] = useState<string | null>(null);
   const [adminUser, setAdminUser] = useState();
   const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     const adminToken = localStorage.getItem("AdminToken");
     if (adminToken) {
@@ -43,7 +40,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       router.push("/login");
     }
   }, []);
-  // Login scene =============================
+  // Login scene ====
   const login = async (values: any) => {
     setLoading(true);
     try {

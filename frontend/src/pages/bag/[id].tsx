@@ -17,7 +17,6 @@ export default function BagPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { query } = useRouter();
-
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
