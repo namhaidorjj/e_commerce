@@ -42,8 +42,6 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
         userId: decodedToken.id,
       };
       const res = await instance.post("/addOrder", orderData);
-      console.log(res, "res in Order");
-
       if (res.status === 201) return toastifySuccess("amjilttai sagsand nemle");
       if (res.status === 403) toastifyInfo("sagsand nemegdsen baraa baina");
     } catch (error) {

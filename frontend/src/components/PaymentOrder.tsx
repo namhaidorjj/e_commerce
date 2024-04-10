@@ -7,10 +7,7 @@ import { useQRCode } from "next-qrcode";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toastifyError, toastifySuccess } from "@/utils/alerts";

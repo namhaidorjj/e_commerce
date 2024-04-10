@@ -10,9 +10,11 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 export const getUser = async (req: Request, res: Response) => {
+  console.log("user", req.body);
+  const _id = req.body.userId;
   try {
-    const users = await User.find({});
-    res.send(users);
+    const users = await User.findOne({ _id });
+    res.status(201).json({ users, messege: "fetch data seccess" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to get users" });
@@ -34,7 +36,7 @@ export const signIn = async (req: Request, res: Response) => {
         expiresIn: "1d",
       });
       res
-        .status(201)
+        .status(200)
         .cookie("refreshToken", refreshToken, {
           httpOnly: true,
           sameSite: "strict",
@@ -85,16 +87,7 @@ export const signUp = async (req: Request, res: Response) => {
 };
 
 export const userUpdate = async (req: Request, res: Response) => {
-  const {
-    userName,
-    email,
-    password,
-    phoneNumber,
-    address,
-    cartId,
-    createdAt,
-    _id,
-  } = req.body;
+  const { _id, userName, email, phoneNumber, address } = req.body;
   try {
     const user = await User.findOne({ _id });
     if (!user) {
@@ -107,16 +100,12 @@ export const userUpdate = async (req: Request, res: Response) => {
         $set: {
           userName,
           email,
-          password,
           phoneNumber,
           address,
-          cartId,
-          createdAt,
         },
       }
     );
-
-    res.status(200).json({ message: "User updated successfully" });
+    res.status(201).json({ message: "User updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to update user" });
@@ -125,7 +114,6 @@ export const userUpdate = async (req: Request, res: Response) => {
 
 export const userDelete = async (req: Request, res: Response) => {
   const _id = req.params.id;
-
   try {
     await User.deleteOne({ _id });
     res.status(200).json({ message: "User deleted successfully" });

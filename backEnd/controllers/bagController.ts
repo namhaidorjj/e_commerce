@@ -5,7 +5,10 @@ import { Request, Response } from "express";
 
 export const GucciBag = async (req: Request, res: Response) => {
   try {
-    const bags = await Bag.find({ brand: "Gucci" }).populate("colors");
+    const bags = await Bag.find({ brand: "Gucci" }).populate({
+      path: "colors",
+      match: { consumer: false },
+    });
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);

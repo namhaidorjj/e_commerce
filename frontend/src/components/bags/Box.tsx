@@ -45,7 +45,7 @@ export const Box = ({ bags }: { bags: Bag }) => {
           </button>
           <button
             className="p-5 w-1/3 justify-end text-3xl h-5/6 top-0 right-0 hover:cursor-pointer absolute hidden lg:flex lg:items-center opacity-0 hover:opacity-100"
-            onClick={handlePrevClick}>
+            onClick={handleNextClick}>
             ❯
           </button>
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">

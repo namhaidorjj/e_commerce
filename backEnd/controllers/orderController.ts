@@ -46,16 +46,15 @@ export const getOrder = async (req: Request, res: Response) => {
 };
 
 export const deleteOrder = async (req: Request, res: Response) => {
-  const { colorId } = req.body.data;
+  const { colorId } = req.body;
   try {
-    const data = await Order.deleteOne({ colorId });
+    const data = await Order.deleteOne({ colors: colorId });
     res.status(200).json({ data, message: "Order deleted successfully" });
   } catch (error) {
     console.error("Error deleting order:", error);
     res.status(500).json({ message: "Failed to delete order" });
   }
 };
-
 // Getting data from Order to Admin front page ===========================
 export const getOrderToAdmin = async (req: Request, res: Response) => {
   try {
@@ -70,7 +69,6 @@ export const getOrderToAdmin = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to fetch order data" });
   }
 };
-
 // Getting data from Order to orderDetail page ==============
 export const getOrderDetail = async (req: Request, res: Response) => {
   const { id } = req.params;

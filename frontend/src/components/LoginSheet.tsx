@@ -37,8 +37,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
           email: values.email,
           password: values.password,
         });
-
-        if (response.status === 201) {
+        if (response.status === 200) {
           const { accessToken } = response.data;
           toastifySuccess("Successfully enter");
           document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
@@ -63,7 +62,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
         </button>
       </SheetTrigger>
       <SheetContent className="bg-white w-screen">
-
         {isLoggedIn ? (
           <div>
             <div className=" relative">
