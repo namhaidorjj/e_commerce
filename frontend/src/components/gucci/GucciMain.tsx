@@ -12,11 +12,11 @@ export default function GucciMain() {
   const [loading, setloading] = useState(false);
   const { searchValue, setSearchValue } = useContext(SearchValueContext);
   const [domData, setDomData] = useState<Bag[]>([]);
-
+  const [skip, setSkip] = useState(1);
   const fetchProducts = async () => {
     setloading(true);
     try {
-      const response = await instance.get("/gucciBag");
+      const response = await instance.get(`/gucciBag/${skip}`);
       setProducts(response.data.bags);
       setDomData(response.data.bags);
     } catch (error) {
@@ -27,7 +27,7 @@ export default function GucciMain() {
   };
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [skip]);
   const filteringBySearchValue = useMemo(async () => {
     setDomData(
       products.filter((el) => {
@@ -37,7 +37,7 @@ export default function GucciMain() {
   }, [searchValue]);
   return (
     <div className="bg-white flex flex-col items-center">
-      <Search />  
+      <Search />
       {loading ? (
         <LoadingPage />
       ) : (
@@ -48,9 +48,10 @@ export default function GucciMain() {
         </div>
       )}
       <button
+        onClick={() => setSkip(skip + 1)}
         className="lg:bg-white py-3 px-5 rounded-xl my-10 lg:text-black lg:w-[250px] lg:border-[2px] lg:hover:bg-black lg:hover:text-white lg:hover:border-black
       w-[150px] bg-black text-white">
-        Load All
+        Load More
       </button>
     </div>
   );

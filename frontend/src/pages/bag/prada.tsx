@@ -5,14 +5,11 @@ import Header from "../../components/Header";
 import { Footer } from "../../components/Footer";
 import { InProgress } from "@/components/InProgress";
 
-export default function lv() {
+export default function prada() {
   return (
-    <div className="w-full h-full">
+    <div>
       <Header />
-      <div className="h-min-screen w-min-screen">
-        <InProgress />
-      </div>
-
+      <InProgress />
       <Footer />
     </div>
   );

@@ -13,7 +13,6 @@ import { toastifyInfo } from "@/utils/alerts";
 export const BagDetail = ({ bag }: { bag: Bag }) => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [decodedToken, setDecodedToken] = useState<any>(null);
-
   useEffect(() => {
     try {
       const token = Cookies.get("accessToken");

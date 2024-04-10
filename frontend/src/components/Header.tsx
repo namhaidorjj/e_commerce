@@ -18,7 +18,7 @@ export default function Header() {
     if (router.asPath === "/bag/hermes") {
       setMainWord("hermes");
     }
-    if (router.asPath === "/bag/LouisVuitton") {
+    if (router.asPath === "/bag/lv") {
       setMainWord("louis vuitton");
     }
   }, [router.asPath]);

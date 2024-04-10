@@ -1,14 +1,17 @@
 /** @format */
+import { skip } from "node:test";
 import Bag from "../models/bagModel";
 import Color from "../models/colorModel";
 import { Request, Response } from "express";
 
 export const GucciBag = async (req: Request, res: Response) => {
   try {
-    const bags = await Bag.find({ brand: "Gucci" }).populate({
-      path: "colors",
-      match: { consumer: false },
-    });
+    const bags = await Bag.find({ brand: "Gucci" })
+      .populate({
+        path: "colors",
+        match: { consumer: false },
+      })
+      .limit(8 * Number(req.params.page));
     res.status(200).json({ bags, message: "Successfully get file" });
   } catch (error) {
     console.error(error);

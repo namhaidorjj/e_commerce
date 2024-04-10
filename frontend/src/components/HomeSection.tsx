@@ -24,7 +24,7 @@ export const HomeSection = () => {
     {
       brand: "𝕃𝕠𝕦𝕚𝕤 𝕍𝕦𝕚𝕥𝕥𝕠𝕟",
       backgroundImage: "/assets/louisVuitton.jpeg",
-      path: "/bag/louisVuitton",
+      path: "/bag/lv",
     },
   ];
 
