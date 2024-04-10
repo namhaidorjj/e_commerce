@@ -1,6 +1,6 @@
 /** @format */
 
-import { Schema, model } from "mongoose";
+import { Model, Schema, model, models } from "mongoose";
 
 const OrderSchema: Schema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
@@ -10,5 +10,6 @@ const OrderSchema: Schema = new Schema({
   UpdatedAt: { type: Date, default: new Date() },
 });
 
-const Order = model("Order", OrderSchema);
+const Order: Model<OrderSchemaType> =
+  models["Order"] || model("Order", OrderSchema);
 export default Order;

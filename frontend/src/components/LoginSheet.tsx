@@ -63,6 +63,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
         </button>
       </SheetTrigger>
       <SheetContent className="bg-white w-screen">
+
         {isLoggedIn ? (
           <div>
             <div className=" relative">
