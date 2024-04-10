@@ -11,8 +11,12 @@ import {
   GucciBag,
   HermesBag,
   LVBag,
+  accessoryBag,
+  backPack,
   bag,
   bagCreate,
+  handBag,
+  travelBag,
 } from "../controllers/bagController";
 import {
   createAdminUser,
@@ -35,6 +39,12 @@ router.route("/productUpdate/:id").put(productUpdate);
 router.route("/gucciBag").get(GucciBag);
 router.route("/hermesBag").get(HermesBag);
 router.route("/lvbag").get(LVBag);
+
+// Getting bag type to user frontend ============
+router.route("handBag").get(handBag);
+router.route("accessoryBag").get(accessoryBag);
+router.route("travelBag").get(travelBag);
+router.route("backPack").get(backPack);
 
 // Admin Users =================================
 router.route("/createAdminUser").post(createAdminUser);

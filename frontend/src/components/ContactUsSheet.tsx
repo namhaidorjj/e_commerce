@@ -8,10 +8,10 @@ export const ContactUsBar: React.FC<CartProps> = (): JSX.Element => {
       <SheetTrigger asChild>
         <button className="text-[#000000] text-xs">Call Us</button>
       </SheetTrigger>
-      <SheetContent className="bg-[#aba8a8]">
-        <div className="absolute h-full w-full bg-white pl-20 pr-20 flex flex-col right-0 top-0 ">
-          <div className="pt-[64px]  flex flex-col gap-10">
-            <div className="flex justify-between pr-[150px]">
+      <SheetContent className="bg-white p-10">
+        <div className="flex flex-col gap-10 h-full">
+          <div className="pt-[64px] flex flex-col gap-8">
+            <div className="flex justify-between">
               <p>Call Us</p>
             </div>
             <p className="text-xs">
@@ -26,14 +26,16 @@ export const ContactUsBar: React.FC<CartProps> = (): JSX.Element => {
               <img src="/assets/icons/mail.svg" alt="" />
               <button className="text-xs">Send an Email</button>
             </div>
-            <p className=" pt-80">Need Help?</p>
           </div>
-          <div className="flex flex-col items-start  gap-10 pt-10">
-            <a href="/faq" className="text-xs">
-              FAQ
-            </a>
-            <button className="text-xs">Care Services</button>
-            <button className="text-xs">Find a Store</button>
+          <div className="h-full place-content-end">
+            <div className="flex flex-col items-start gap-10">
+              <p>Need Help?</p>
+              <a href="/faq" className="text-xs">
+                FAQ
+              </a>
+              <button className="text-xs">Care Services</button>
+              <button className="text-xs">Find a Store</button>
+            </div>
           </div>
         </div>
       </SheetContent>

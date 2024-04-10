@@ -28,31 +28,39 @@ export const Box = ({ bags }: { bags: Bag }) => {
       <div className="relative w-full h-full ">
         <div className="carousel-container relative w-full h-full overflow-scroll">
           {bags.colors[selectedColor].images.map((image: any, idx: number) => (
-            <img
-              key={idx}
-              src={image}
-              alt={`Color ${selectedColor + 1}`}
-              className="snap-center"
-              style={{ display: idx === selectedImage ? "block" : "none" }}
-            />
+            <a href={`./${bags._id}`}>
+              <img
+                key={idx}
+                src={image}
+                alt={`Color ${selectedColor + 1}`}
+                className="snap-center"
+                style={{ display: idx === selectedImage ? "block" : "none" }}
+              />
+            </a>
           ))}
-          <div className="hover:cursor-pointer absolute hidden lg:flex justify-between inset-0 opacity-0 hover:opacity-100 left-5 right-5   ">
-            <button className="p-3 text-3xl" onClick={handlePrevClick}>
-              ❮
-            </button>
-            <button className="p-3 text-3xl" onClick={handleNextClick}>
-              ❯
-            </button>
-          </div>
+          <button
+            className="p-5 w-1/3 text-3xl h-5/6 top-0 hover:cursor-pointer absolute hidden lg:flex lg:items-center opacity-0 hover:opacity-100"
+            onClick={handlePrevClick}>
+            ❮
+          </button>
+          <button
+            className="p-5 w-1/3 justify-end text-3xl h-5/6 top-0 right-0 hover:cursor-pointer absolute hidden lg:flex lg:items-center opacity-0 hover:opacity-100"
+            onClick={handlePrevClick}>
+            ❯
+          </button>
           <div className="absolute bottom-3 items-center left-3 right-5 flex justify-between">
-            <a href={`./${bags._id}`}>{bags.bagName}</a>
-            <div className="flex gap-1">
+            <a
+              className="font-semibold text-[22px] lg:text-[18px] uppercase"
+              href={`./${bags._id}`}>
+              {bags.bagName}
+            </a>
+            <div className="flex gap-1 w-full justify-end">
               {bags.colors.map((color, index) => {
                 return (
                   <div
                     key={index}
                     style={{ backgroundColor: color.adminColor }}
-                    className={`rounded-full w-4  h-4 cursor-pointer ${
+                    className={`lg:rounded-full lg:w-4 lg:h-4 h-5 w-1/4 cursor-pointer ${
                       selectedColor === index ? "" : ""
                     }`}
                     onClick={() => handleColorSelect(index)}
