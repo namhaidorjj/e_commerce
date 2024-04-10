@@ -38,7 +38,7 @@ export default function Order() {
   };
   return (
     <div className="w-full">
-      {orderData.map((bag: any, bagIndex: number) => (
+      {orderData.map((bag, bagIndex) => (
         <div
           key={bagIndex}
           tabIndex={bagIndex}
@@ -48,7 +48,9 @@ export default function Order() {
             src={bag.colors[0].images?.[1]}
           />
           <div className="flex flex-col justify-start w-1/2">
-            <h1 className="font-bold text-lg text-black">{bag?.bagName}</h1>
+            <h1 className="font-bold text-lg text-black">
+              {bag?.bagId.bagName}
+            </h1>
             <div className="flex justify-between items-center">
               <div className="flex w-auto pt-4 pb-2">
                 <p>Bag Code:</p>&nbsp;

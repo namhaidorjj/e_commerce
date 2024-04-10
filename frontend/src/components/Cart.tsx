@@ -37,10 +37,10 @@ export const Cart: React.FC<CartProps> = () => {
           userId: decoded.id,
         });
         setOrderData(response.data.data);
-        const test = orderData.map((el) => {
-          return el.colors._id;
+        const colorId = orderData.map((el) => {
+          return el.colors[0]._id;
         });
-        setColorId(test);
+        setColorId(colorId);
       } catch (error) {
         console.error(error);
       }
@@ -109,7 +109,7 @@ export const Cart: React.FC<CartProps> = () => {
             Make changes to your profile here. Click save when you're done.
           </SheetDescription>
         </SheetHeader>
-        {orderData.map((bag: any, bagIndex: any) => (
+        {orderData.map((bag: any, bagIndex: number) => (
           <div tabIndex={bagIndex} className="flex gap-4 py-4">
             <img
               className="w-1/3 rounded-xl cursor-pointer"
