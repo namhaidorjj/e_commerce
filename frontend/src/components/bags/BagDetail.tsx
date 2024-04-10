@@ -65,7 +65,9 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
         </div>
         <div className="flex lg:flex-col items-center pt-6 lg:w-1/2 lg:pt-44 absolute bottom-0 lg:right-0 test mb-5 justify-center">
           <div className="lg:w-[550px] flex flex-col justify-between gap-2 ring-offset-1 bottom-0 w-4/5">
-            <h1 className="text-sm">{bag.colors?.[selectedColor]?.bagCode}</h1>
+            <h1 className="text-sm uppercase">
+              {bag.colors?.[selectedColor]?.bagCode}
+            </h1>
             <h1 className=" font-bold text-xl text-black">{bag.bagName}</h1>
             <div className="w-auto flex justify-between items-center">
               <p>colors</p>
@@ -80,7 +82,7 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
                 ))}
               </div>
             </div>
-            <div className="flex gap-2 ">
+            <div className="flex gap-2 overflow-scroll">
               {bag.colors?.map((color, index) => (
                 <img
                   key={index}
