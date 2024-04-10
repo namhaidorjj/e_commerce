@@ -11,3 +11,4 @@ export const router = Router();
 router.route("/order").post(getOrder);
 router.route("/addOrder").post(addOrder);
 router.route("/deleteOrder").delete(deleteOrder);
+router.route("/updateOrderPayment").patch();

@@ -2,7 +2,7 @@
 
 import { Request, Response } from "express";
 import Order from "../models/orderModel";
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 export const addOrder = async (req: Request, res: Response) => {
   const { bagId, colorId, userId } = req.body;
@@ -51,10 +51,28 @@ export const getOrder = async (req: Request, res: Response) => {
 };
 
 export const deleteOrder = async (req: Request, res: Response) => {
-  const { colorId } = req.body.data;
+  const { colorId } = req.body;
   try {
-    const data = await Order.deleteOne({ colorId });
+    const data = await Order.deleteOne({
+      colorId,
+    });
     res.status(200).json({ data, message: "Order deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting order:", error);
+    res.status(500).json({ message: "Failed to delete order" });
+  }
+};
+// Updating Order when paid
+export const updateOrder = async (req: Request, res: Response) => {
+  const { payment, orderId } = req.body;
+  try {
+    const data = await Order.findByIdAndUpdate(
+      orderId,
+      { payment },
+      { new: true }
+    );
+
+    res.status(200).json({ data, message: "O" });
   } catch (error) {
     console.error("Error deleting order:", error);
     res.status(500).json({ message: "Failed to delete order" });

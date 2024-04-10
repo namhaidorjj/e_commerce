@@ -5,6 +5,7 @@ import { Orders, User } from "@/utils/types/bagType";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { toastifySuccess } from "@/utils/alerts";
 
 export default function Order() {
   const [orderData, setOrderData] = useState<Orders[]>([]);
@@ -24,10 +25,17 @@ export default function Order() {
         }
       }
     };
-
     fetchData();
   }, []);
 
+  const createOrder = async (orderData: Orders[]) => {
+    try {
+      const orderRes = await instance.post("/createOrder");
+      toastifySuccess("Order created");
+    } catch (error) {
+      console.error("error in create order", error);
+    }
+  };
   return (
     <div className="w-full">
       {orderData.map((bag: any, bagIndex: number) => (
@@ -63,7 +71,9 @@ export default function Order() {
           </div>
         </div>
       ))}
-      <button className="flex w-[100px] items-center justify-center border-black mt-5 rounded-xl self-end btn border border-spacing-2 p-2 hover:bg-black hover:text-white">
+      <button
+        onClick={() => createOrder(orderData)}
+        className="flex w-[100px] items-center justify-center border-black mt-5 rounded-xl self-end btn border border-spacing-2 p-2 hover:bg-black hover:text-white">
         buy
       </button>
     </div>

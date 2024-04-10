@@ -57,6 +57,9 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
       </SheetTrigger>
       <SheetContent className="bg-white w-screen">
         <div className="w-full h-full">
+          <div className="flex justify-center pt-4 items-center">
+            <img className="w-[150px] h-[100px]" src="../loogo.jpg" alt="" />
+          </div>
           <div className="p-10 gap-14 flex flex-col right-0 text-black absolute h-full ">
             <div className="flex flex-col gap-2">
               <p className="text-bold text-[20px]">EXISTING MEMBER </p>
@@ -65,38 +68,33 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
             <form
               onSubmit={formik.handleSubmit}
               className="flex w-auto flex-col gap-4 items-center justify-center">
-              <div className="flex w-auto items-center gap-3">
+              <div className="flex flex-col w-auto items-center gap-3">
                 <input
                   id="email"
                   name="email"
                   type="text"
-                  placeholder="Enter Email"
-                  className="outline-0 bg-opacity-30 h-10 bg-black w-[300px] rounded-3xl pl-4"
+                  placeholder="Enter Your Email"
+                  className="outline-0 h-10 border w-[300px] rounded-3xl pl-4"
                   onChange={formik.handleChange}
                   value={formik.values.email}
                 />
+                <p className="border-dashed border-b w-full"></p>
               </div>
               <div className=" border-dashed w-[300px] border-b border-white" />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500">{formik.errors.email}</div>
               )}
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col items-center gap-3">
                 <input
                   id="password"
                   name="password"
                   type="password"
                   placeholder="Enter Password"
-                  className="outline-0 bg-opacity-30 h-10 bg-black w-[280px] rounded-3xl pl-4"
+                  className="outline-0 bg-opacity-30 border h-10 w-[300px] rounded-3xl pl-4"
                   onChange={formik.handleChange}
                   value={formik.values.password}
                 />
-                <button>
-                  <img
-                    className="w-5 h-5"
-                    src="/assets/icons/openEYE.svg"
-                    alt=""
-                  />
-                </button>
+                <p className="border-dashed border-b w-full"></p>
               </div>
               <div className="w-[300px] border-dashed border-b border-white" />
               {formik.touched.email && formik.errors.email && (
@@ -107,39 +105,15 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                 className="w-full h-full justify-center items-center flex fexl-col p-2 mt-[100px]">
                 <button
                   type="submit"
-                  className="flex border border-spacing-6 text-black w-[300px]  items-center justify-between p-3 hover:bg-black hover:text-white cursor-pointer rounded-3xl bg-white h-[50px]">
+                  className="flex border border-spacing-6 text-black w-[300px]  items-center gap- p-3 hover:bg-black hover:text-white cursor-pointer rounded-3xl bg-white h-[50px]">
                   <p className="font-semibold">Continue</p>
                   <img src="/assets/icons/rightArrowBlack.svg" alt="" />
                 </button>
               </SheetClose>
             </form>
-            <div className="flex  items-center w-full pl-10 pr-10 gap-1 h-full justify-center">
-              <p className="border-b w-full"></p>
-              <p>OR</p>
-              <p className="border-b w-full"></p>
-            </div>
-            <div className="flex items-center justify-center gap-3">
-              <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                <img
-                  className="w-5 h-5"
-                  src="/assets/icons/google.svg"
-                  alt=""
-                />
-              </button>
-              <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                <img
-                  className="w-5 h-5"
-                  src="/assets/icons/facebook.svg"
-                  alt=""
-                />
-              </button>
-              <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                <img className="w-5 h-5" src="/assets/icons/apple.svg" alt="" />
-              </button>
-            </div>
             <SheetFooter>
               <SheetClose asChild>
-                <button className="flex gap-1 justify-center">
+                <button className="flex gap-1 pr-5 justify-center">
                   <p className="font-light">Didn't have account?</p>
                   <a href="./login">Create Account</a>
                 </button>

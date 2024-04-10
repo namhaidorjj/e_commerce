@@ -5,7 +5,7 @@ import LoadingPage from "@/components/LoadingPage";
 import { instance } from "@/utils/instance";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { Bag, Bags } from "@/utils/types/bagType";
+import { Bag } from "@/utils/types/bagType";
 
 export default function BagPage() {
   const [bag, setBag] = useState<Bag>({
