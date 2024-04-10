@@ -48,7 +48,7 @@ export type CartProps = {
 
 export type Orders = {
   bagId: { price: number };
-  colors: [{ _id: string }];
+  colors: { _id: string };
 };
 
 export type ProfileProps = {

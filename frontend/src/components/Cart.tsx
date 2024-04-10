@@ -40,7 +40,7 @@ export const Cart: React.FC<CartProps> = () => {
         const orderData: Orders[] = response.data.data;
         setOrderData(orderData);
         const test = orderData.map((el) => {
-          return el.colors[0]._id;
+          return el.colors._id;
         });
         setColorId(test);
       } catch (error) {
@@ -115,18 +115,18 @@ export const Cart: React.FC<CartProps> = () => {
           <div tabIndex={bagIndex} className="flex gap-4 py-4">
             <img
               className="w-1/3 rounded-xl cursor-pointer"
-              src={bag.colors[0]?.images?.[1]}
+              src={bag.colors.images?.[1]}
             />
             <div className="flex flex-col justify-start w-1/2">
               <h1 className="font-bold text-lg text-black">{bag?.bagName}</h1>
               <div className="flex justify-between items-center">
                 <div className="flex w-auto pt-4 pb-2">
                   <p>Bag Code:</p>&nbsp;
-                  <p>{bag.colors[0]?.bagCode || `982373`}</p>
+                  <p>{bag.colors?.bagCode || `982373`}</p>
                 </div>
                 <img
                   onClick={() => {
-                    handleDelete(bag.colors[0]?.colorId);
+                    handleDelete(bag.colors?.colorId);
                   }}
                   className="w-5 h-5 cursor-pointer"
                   src="/assets/icons/delete.svg"
@@ -134,9 +134,9 @@ export const Cart: React.FC<CartProps> = () => {
               </div>
               <div className="flex w-auto pt-4 pb-2 items-center gap-2">
                 <p>Bag Color:</p>&nbsp;
-                <p>{bag.colors[0]?.color || `black`}</p>
+                <p>{bag.colors?.color || `black`}</p>
                 <div
-                  style={{ background: bag.colors[0].adminColor }}
+                  style={{ background: bag.colors.adminColor }}
                   className="border border-spacing-1 w-4 h-4 rounded-full"
                 />
               </div>
