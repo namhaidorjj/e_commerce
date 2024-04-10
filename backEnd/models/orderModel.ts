@@ -10,5 +10,5 @@ const OrderSchema: Schema = new Schema({
   UpdatedAt: { type: Date, default: new Date() },
 });
 
-const Order: Model<any> = models["Order"] || model("Order", OrderSchema);
+const Order = model("Order", OrderSchema);
 export default Order;
