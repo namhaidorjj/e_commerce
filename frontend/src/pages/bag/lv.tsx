@@ -3,13 +3,13 @@
 import React from "react";
 import Header from "../../components/Header";
 import { Footer } from "../../components/Footer";
-import { LVMain } from "../../components/lv/LVMain";
+import GucciMain from "@/components/gucci/GucciMain";
 
-export default function lv() {
+export default function louisVuitton() {
   return (
     <div>
       <Header />
-      <LVMain />
+      <GucciMain />
       <Footer />
     </div>
   );

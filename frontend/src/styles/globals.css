@@ -9,8 +9,12 @@
   position: -webkit-sticky;
   top: 0;
 }
-.homeBG {
+.bg-desktop {
   background-image: url("../../public/assets/hop.jpg");
+  background-size: cover;
+}
+.bg-mobile {
+  background-image: url("../../public/assets/homeBg.png");
   background-size: cover;
 }
 

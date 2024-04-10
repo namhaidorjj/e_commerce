@@ -14,18 +14,18 @@ export const FaQMain = () => {
   };
 
   return (
-    <div className="bg-[#f6f5f3] py-10 px-20 text-[#19110B] flex flex-col gap-9">
+    <div className="bg-[#f6f5f3] py-5 px-5 lg:py-10 lg:px-20 text-[#19110B] flex flex-col gap-9">
       <div className="flex flex-col gap-4">
         <p className="text-[32px] font-medium">FAQ</p>
         <p className="">Find out more informations with our FAQ</p>
       </div>
       <div>
-        <div className="flex gap-6">
-          <div className="flex flex-col w-1/2 bg-white rounded-lg">
+        <div className="flex lg:flex-row flex-col gap-6">
+          <div className="flex flex-col lg:w-1/2 bg-white rounded-lg">
             <p className="text-[24px] border-b p-8">THEMES</p>
             <FaQTable />
           </div>
-          <div className="flex flex-col w-1/2 bg-white rounded-lg">
+          <div className="flex flex-col lg:w-1/2 bg-white rounded-lg">
             <p className="p-8 border-b text-[24px]">FREQUENT QUESTIONS</p>
             <div className="pb-2 px-8 pt-4 flex flex-col gap-6 items-start h-auto">
               <button onClick={() => handleComponentChange(1)}>

@@ -4,7 +4,7 @@ import React from "react";
 
 export const Fourth = () => {
   return (
-    <div className="p-6 flex flex-col bg-white rounded-lg gap-2 w-[700px]">
+    <div className="p-6 flex flex-col bg-white rounded-lg gap-2 w-full">
       <p className="text-[24px]">How can I repair my Louis Vuitton product?</p>
       <div className="text-sm flex flex-col gap-4">
         <p>
@@ -12,7 +12,7 @@ export const Fourth = () => {
           to a Louis Vuitton store. Our sales assistants will be glad to assist
           and advise you.
         </p>
-        <div>
+        <div className="flex flex-col gap-2">
           <p>
             The STORES tab on louisvuitton.com allows you to localize your most
             adequate store and to find all the practical information you may

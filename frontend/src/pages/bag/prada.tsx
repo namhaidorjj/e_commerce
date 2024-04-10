@@ -2,10 +2,10 @@
 
 import { Footer } from "@/components/Footer";
 import Header from "@/components/Header";
-import GucciMain from "@/components/gucci/GucciMain";
 import React from "react";
+import GucciMain from "@/components/gucci/GucciMain";
 
-export default function Hermes() {
+const prada = () => {
   return (
     <div>
       <Header />
@@ -13,4 +13,6 @@ export default function Hermes() {
       <Footer />
     </div>
   );
-}
+};
+
+export default prada;

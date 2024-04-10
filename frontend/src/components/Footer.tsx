@@ -1,6 +1,7 @@
 /** @format */
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
+import { Unsubscribe } from "./Unsubscribe";
 
 export const Footer = () => {
   const router = useRouter();
@@ -16,21 +17,33 @@ export const Footer = () => {
   const handleJumpLouisVuitton = () => {
     router.push("LouisVuitton");
   };
+
+  const [visible, setVisible] = useState(false);
+
+  const toggleVisible = () => {
+    setVisible(!visible);
+  };
+
   return (
-    <div className="flex flex-col p-8 border-t gap-10 lg:p-20 lg:flex-row bg-white">
+    <div className="flex flex-col p-8 border-t gap-10 lg:p-20 lg:flex-row bg-white relative">
       <div className="flex justify-between lg:w-1/2 lg:justify-around">
         <div className="lg:text-[12px] flex flex-col gap-4 text-[14px]">
           <p>MAY WE HELP YOU?</p>
           <div className="flex flex-col gap-4 text-black">
             <a href="/order">
-              <u>My Order</u>
+              <u>My History</u>
             </a>
             <a href="/faq">
               <u>FAQs</u>
             </a>
-            <p>
-              <u>Email Unscribe</u>
-            </p>
+            <button className="flex justify-start" onClick={toggleVisible}>
+              <u>Unscribe Email</u>
+            </button>
+            {visible && (
+              <div className="absolute bottom-0 left-0 w-full h-full flex justify-center lg:py-5">
+                <Unsubscribe toggleVisible={toggleVisible} />
+              </div>
+            )}
           </div>
         </div>
         <div className="lg:text-[12px] text-[14px] flex flex-col gap-4 items-start">
