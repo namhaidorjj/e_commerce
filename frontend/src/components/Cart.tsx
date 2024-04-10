@@ -28,7 +28,6 @@ export const Cart: React.FC<CartProps> = () => {
   const totalPrice = useMemo(() => {
     return orderData.reduce((acc, order) => acc + (order.bagId.price || 0), 0);
   }, [orderData]);
-  // console.log("orderData", orderData);
   const fetchProducts = async () => {
     const token = Cookies.get("accessToken");
     if (token) {
@@ -37,8 +36,7 @@ export const Cart: React.FC<CartProps> = () => {
         const response = await instance.post("/order", {
           userId: decoded.id,
         });
-        const orderData: Orders[] = response.data.data;
-        setOrderData(orderData);
+        setOrderData(response.data.data);
         const test = orderData.map((el) => {
           return el.colors._id;
         });
@@ -126,7 +124,7 @@ export const Cart: React.FC<CartProps> = () => {
                 </div>
                 <img
                   onClick={() => {
-                    handleDelete(bag.colors?.colorId);
+                    handleDelete(bag.colors._id);
                   }}
                   className="w-5 h-5 cursor-pointer"
                   src="/assets/icons/delete.svg"
