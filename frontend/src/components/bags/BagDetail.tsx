@@ -7,6 +7,8 @@ import { Bag } from "@/utils/types/bagType";
 import { instance } from "@/utils/instance";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import { toastifySuccess } from "@/utils/alerts";
+import { toastifyInfo } from "@/utils/alerts";
 
 export const BagDetail = ({ bag }: { bag: Bag }) => {
   const [selectedColor, setSelectedColor] = useState(0);
@@ -31,7 +33,6 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
   const handleAddOrder = async () => {
     try {
       if (!decodedToken) {
-        console.error("Access token not available.");
         return;
       }
       const colorId = bag.colors[selectedColor]._id;
@@ -41,10 +42,9 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
         userId: decodedToken.id,
       };
       await instance.post("/addOrder", orderData);
-      alert("Success add order");
+      toastifySuccess("Success to order");
     } catch (error) {
-      console.error("Error placing order:", error);
-      alert("Failed to place order. Please try again.");
+      toastifyInfo("Please login first");
     }
   };
 
@@ -63,7 +63,6 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
             />
           ))}
         </div>
-        {/* Bag details and order button */}
         <div className="flex lg:flex-col items-center pt-6 lg:w-1/2 lg:pt-44 absolute bottom-0 lg:right-0 test mb-5 justify-center">
           <div className="lg:w-[550px] flex flex-col justify-between gap-2 ring-offset-1 bottom-0 w-4/5">
             <h1 className="text-sm uppercase">
