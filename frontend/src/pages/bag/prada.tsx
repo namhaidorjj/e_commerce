@@ -1,23 +1,5 @@
 /** @format */
 
-<<<<<<< HEAD
-import { Footer } from "@/components/Footer";
-import Header from "@/components/Header";
-import React from "react";
-import GucciMain from "@/components/gucci/GucciMain";
-
-const prada = () => {
-  return (
-    <div>
-      <Header />
-      <GucciMain />
-      <Footer />
-    </div>
-  );
-};
-
-export default prada;
-=======
 import React from "react";
 import Header from "../../components/Header";
 import { Footer } from "../../components/Footer";
@@ -32,4 +14,3 @@ export default function prada() {
     </div>
   );
 }
->>>>>>> main

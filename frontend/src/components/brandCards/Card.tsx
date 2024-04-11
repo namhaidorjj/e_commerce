@@ -6,17 +6,7 @@ type ContentItem = {
   backgroundImage: string;
   path: string;
 };
-<<<<<<< HEAD
-
 export const Card: React.FC<ContentItem> = ({ backgroundImage, path }) => {
-=======
-export const Card: React.FC<ContentItem> = ({
-  brand,
-  backgroundImage,
-  path,
-}) => {
-  
->>>>>>> main
   return (
     <>
       <a
