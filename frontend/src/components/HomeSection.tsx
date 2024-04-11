@@ -81,7 +81,7 @@ export const HomeSection = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row h-screen bg-white">
+      <div className="flex flex-col lg:flex-row bg-white">
         {cardProps.map((props, index) => (
           <Card key={index} {...props} />
         ))}

@@ -13,7 +13,7 @@ import {
 import { jwtDecode } from "jwt-decode";
 import { instance } from "@/utils/instance";
 import Cookies from "js-cookie";
-import { CartProps, User, Orders } from "@/utils/types/bagType";
+import { CartProps, User, Orders, bank } from "@/utils/types/bagType";
 import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { useQRCode } from "next-qrcode";
 import PaymentOrder from "./PaymentOrder";
@@ -24,6 +24,10 @@ export const Cart: React.FC<CartProps> = () => {
   const [orderCount, setOrderCount] = useState<number>(0);
   const [qr, setQr] = useState("");
   const [colorId, setColorId] = useState<string[]>([]);
+  const bankInitial: bank = {
+    urls: [{ name: "", logo: "", link: "" }],
+  };
+  const [bank, setBank] = useState<bank>(bankInitial);
   let order = orderData.length;
   const totalPrice = useMemo(() => {
     return orderData.reduce((acc, order) => acc + (order.bagId?.price || 0), 0);
@@ -44,6 +48,8 @@ export const Cart: React.FC<CartProps> = () => {
       } catch (error) {
         error;
       }
+    } else {
+      alert("Please log in");
     }
   };
 
@@ -69,7 +75,8 @@ export const Cart: React.FC<CartProps> = () => {
       const invoice = await instance.post("/createInvoice", {
         token: tokenRes.data.access_token,
       });
-      console.log("first", invoice.data);
+      setBank(invoice.data.invoiceId);
+      console.log("bank", invoice.data.invoiceId);
       setQr(invoice.data.invoiceId.qPay_shortUrl);
       localStorage.setItem("paymentToken", tokenRes.data.access_token);
       localStorage.setItem("invoiceId", invoice.data.invoiceId.invoice_id);
@@ -102,7 +109,7 @@ export const Cart: React.FC<CartProps> = () => {
           </p>
         </button>
       </SheetTrigger>
-      <SheetContent className="lg:min-w-[800px] w-full bg-white">
+      <SheetContent className="lg:min-w-[800px] w-full bg-white p-5">
         <SheetHeader>
           <SheetTitle> MY ORDER</SheetTitle>
           <SheetDescription>
@@ -152,7 +159,7 @@ export const Cart: React.FC<CartProps> = () => {
           <p>{totalPrice}₮</p>
         </div>
         <SheetClose asChild>
-          <PaymentOrder qr={qr} pay={pay} colorId={colorId} />
+          <PaymentOrder qr={qr} pay={pay} colorId={colorId} bank={bank} />
         </SheetClose>
       </SheetContent>
     </Sheet>

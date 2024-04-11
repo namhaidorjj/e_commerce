@@ -11,16 +11,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toastifyError, toastifySuccess } from "@/utils/alerts";
+import { Link } from "lucide-react";
+import { bank } from "@/utils/types/bagType";
 
 export default function PaymentOrder({
   qr,
   pay,
   colorId,
+  bank,
 }: {
   qr: string;
   pay: () => Promise<void>;
   colorId: string[];
+  bank: bank;
 }) {
+  console.log("hey", bank);
   const { Canvas } = useQRCode();
   const check = async () => {
     const checkRes = await instance.post("/check", {
@@ -44,9 +49,18 @@ export default function PaymentOrder({
           Bought bag
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white">
-        {qr && <Canvas text={qr} />}
-        <DialogFooter className="">
+      <DialogContent className="sm:max-w-[425px]  bg-white w-full justify-centers">
+        <div className="flex gap-2 items-center">
+          {qr && <Canvas text={qr} />}
+          <div className="grid grid-cols-4 gap-2 justify-center items-center  ">
+            {bank?.urls?.map((data) => (
+              <a href={data?.link}>
+                <img className="w-10 h-10" src={data?.logo} alt="" />
+              </a>
+            ))}
+          </div>
+        </div>
+        <DialogFooter>
           <button
             className="p-2 rounded-xl bg-black text-center text-white w-full"
             onClick={check}>

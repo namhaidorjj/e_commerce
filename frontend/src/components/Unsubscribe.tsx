@@ -35,7 +35,7 @@ export const Unsubscribe = ({
         <button
           onClick={fetchData}
           className="bg-black px-6 py-4 text-white rounded-lg">
-          YES! hha
+          YES!
         </button>
         <button
           onClick={toggleVisible}
