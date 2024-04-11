@@ -41,9 +41,9 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
         });
         if (response.status === 200) {
           const { accessToken } = response.data;
-          toastifySuccess("Successfully enter");
           document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
           setIsLoggedIn(true);
+          toastifySuccess("Successfully enter");
         } else {
           throw new Error("Signin failed");
         }
