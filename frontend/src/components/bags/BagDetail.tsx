@@ -40,6 +40,7 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
         colorId: colorId,
         userId: decodedToken.id,
       };
+      console.log("first");
       const res = await instance.post("/addOrder", orderData);
       if (res.status === 201) return toastifySuccess("amjilttai sagsand nemle");
       if (res.status === 403) toastifyInfo("sagsand nemegdsen baraa baina");
