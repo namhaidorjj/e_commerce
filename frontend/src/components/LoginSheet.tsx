@@ -52,6 +52,8 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
       }
     },
   });
+  console.log("first");
+
   const handleLogout = () => {
     setUser("");
     Cookies.remove("accessToken");
