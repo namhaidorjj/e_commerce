@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { instance } from "@/utils/instance";
 import { CartProps } from "@/utils/types/bagType";
-import { toastifyError, toastifySuccess } from "@/utils/alerts";
+import { toastifyError } from "@/utils/alerts";
 import { Profile } from "./Profile";
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
@@ -39,7 +39,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
         });
         if (response.status === 200) {
           const { accessToken } = response.data;
-          toastifySuccess("Successfully enter");
+          alert("Successfully enter");
           document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
           setIsLoggedIn(true);
         } else {
