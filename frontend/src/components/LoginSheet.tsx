@@ -11,6 +11,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { CartProps } from "@/utils/types/bagType";
+
+import { toastifyError } from "@/utils/alerts";
 import { Profile } from "./Profile";
 import { instance } from "@/utils/instance";
 import { UserValueContext } from "@/contexts/UserContext";
@@ -40,6 +42,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
         });
         if (response.status === 200) {
           const { accessToken } = response.data;
+          alert("Successfully enter");
           document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
           setIsLoggedIn(true);
           toastifySuccess("Successfully enter");
