@@ -1,20 +1,19 @@
 /** @format */
 
+import { UserValueContext } from "@/contexts/UserContext";
 import { instance } from "@/utils/instance";
 import { Orders, User } from "@/utils/types/bagType";
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { useContext, useEffect, useState } from "react";
 
 export const UserHistory = () => {
   const [orderData, setOrderData] = useState<Orders[]>([]);
+  const { user } = useContext(UserValueContext);
   const fetchData = async () => {
-    const token = Cookies.get("accessToken");
-    if (token) {
+    if (user) {
       try {
-        const decoded: User = jwtDecode(token);
         const response = await instance.post("/order", {
-          userId: decoded.id,
+          userId: user,
         });
         setOrderData(response.data.data);
       } catch (error) {

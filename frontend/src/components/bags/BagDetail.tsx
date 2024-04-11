@@ -13,6 +13,7 @@ import { toastifyInfo } from "@/utils/alerts";
 export const BagDetail = ({ bag }: { bag: Bag }) => {
   const [selectedColor, setSelectedColor] = useState(0);
   const [decodedToken, setDecodedToken] = useState<any>(null);
+
   useEffect(() => {
     try {
       const token = Cookies.get("accessToken");
@@ -31,9 +32,6 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
 
   const handleAddOrder = async () => {
     try {
-      if (!decodedToken) {
-        toastifyInfo("Login first");
-      }
       const colorId = bag.colors[selectedColor]._id;
       const orderData = {
         bagId: bag._id,
@@ -42,8 +40,9 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
       };
       console.log("first");
       const res = await instance.post("/addOrder", orderData);
-      if (res.status === 201) return toastifySuccess("amjilttai sagsand nemle");
-      if (res.status === 403) toastifyInfo("sagsand nemegdsen baraa baina");
+      if (res.status === 208) return toastifyInfo("Unable to access again");
+      if (res.status === 201)
+        return toastifySuccess("Successfully created new order");
     } catch (error) {
       toastifyInfo("Please login first");
     }
