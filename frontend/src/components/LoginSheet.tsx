@@ -10,10 +10,11 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { instance } from "@/utils/instance";
+
 import { CartProps } from "@/utils/types/bagType";
 import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { Profile } from "./Profile";
+import { instance } from "@/utils/instance";
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -59,6 +60,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+  console.log("first");
 
   return (
     <Sheet>
