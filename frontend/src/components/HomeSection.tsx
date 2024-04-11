@@ -17,12 +17,10 @@ export const HomeSection = () => {
       path: "/bag/gucci",
     },
     {
-      backgroundImage: "/assets/hermes.jpeg",
-      path: "/bag/gucci",
-    },
-    {
-      backgroundImage: "/assets/prada.jpeg",
-      path: "/bag/gucci",
+      brand: "𝕃𝕠𝕦𝕚𝕤 𝕍𝕦𝕚𝕥𝕥𝕠𝕟",
+      backgroundImage: "/assets/louisVuitton.jpeg",
+      path: "/bag/lv",
+
     },
   ];
 
