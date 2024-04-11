@@ -38,6 +38,7 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
         colorId: colorId,
         userId: decodedToken.id,
       };
+      console.log("first");
       const res = await instance.post("/addOrder", orderData);
       if (res.status === 208) return toastifyInfo("Unable to access again");
       if (res.status === 201)
