@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toastifyError, toastifySuccess } from "@/utils/alerts";
-import { Link } from "lucide-react";
 import { bank } from "@/utils/types/bagType";
 
 export default function PaymentOrder({
@@ -19,11 +18,13 @@ export default function PaymentOrder({
   pay,
   colorId,
   bank,
+  user,
 }: {
   qr: string;
   pay: () => Promise<void>;
   colorId: string[];
   bank: bank;
+  user: string;
 }) {
   const { Canvas } = useQRCode();
   const check = async () => {
@@ -31,10 +32,13 @@ export default function PaymentOrder({
       invoiceId: localStorage.getItem("invoiceId"),
       token: localStorage.getItem("paymentToken"),
     });
+    console.log("user", user);
+    await instance.post("/updateOrderPayment", { user });
     if (checkRes.data.check.rows.length == 0) {
       toastifyError("Not paid");
     } else {
       await instance.post("/updateOrderPayment", colorId);
+      await instance.post("/mail", { id: user });
       toastifySuccess("Paid");
     }
   };
