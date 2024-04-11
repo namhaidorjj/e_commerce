@@ -17,15 +17,13 @@ import Cookies from "js-cookie";
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { signin, setUser } = useContext(UserValueContext);
-
+  const [showPassword, setShowPassword] = useState(false);
   const validationSchema = Yup.object({
     email: Yup.string().email("Error email failed").required("required"),
     password: Yup.string()
       .min(8, "Must be at least 8 characters")
       .required("required"),
   });
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -33,8 +31,23 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      await signin({ email: values.email, password: values.password });
-      setIsLoggedIn(true);
+      try {
+        const response = await instance.post("signin", {
+          email: values.email,
+          password: values.password,
+        });
+        if (response.status === 200) {
+          const { accessToken } = response.data;
+          toastifySuccess("Successfully enter");
+          document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
+          setIsLoggedIn(true);
+        } else {
+          throw new Error("Signin failed");
+        }
+      } catch (error) {
+        setIsLoggedIn(false);
+        toastifyError("Please check your Username or Password");
+      }
     },
   });
   const handleLogout = () => {
@@ -42,6 +55,10 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     Cookies.remove("accessToken");
     setIsLoggedIn(false);
     alert("out");
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   return (
@@ -92,13 +109,13 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                   <input
                     id="password"
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter Password"
                     className="outline-0 bg-opacity-30 h-10 bg-black w-[280px] rounded-3xl pl-4"
                     onChange={formik.handleChange}
                     value={formik.values.password}
                   />
-                  <button>
+                  <button type="button" onClick={togglePasswordVisibility}>
                     <img
                       className="w-5 h-5"
                       src="/assets/icons/openEYE.svg"
@@ -125,29 +142,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                 <p className="border-b w-full"></p>
                 <p>OR</p>
                 <p className="border-b w-full"></p>
-              </div>
-              <div className="flex items-center justify-center gap-3">
-                <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                  <img
-                    className="w-5 h-5"
-                    src="/assets/icons/google.svg"
-                    alt=""
-                  />
-                </button>
-                <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                  <img
-                    className="w-5 h-5"
-                    src="/assets/icons/facebook.svg"
-                    alt=""
-                  />
-                </button>
-                <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                  <img
-                    className="w-5 h-5"
-                    src="/assets/icons/apple.svg"
-                    alt=""
-                  />
-                </button>
               </div>
               <SheetFooter>
                 <SheetClose asChild>
