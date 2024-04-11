@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -10,23 +10,22 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
 import { CartProps } from "@/utils/types/bagType";
-import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { Profile } from "./Profile";
 import { instance } from "@/utils/instance";
+import { UserValueContext } from "@/contexts/UserContext";
+import Cookies from "js-cookie";
+
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const validationSchema = Yup.object({
     email: Yup.string().email("Error email failed").required("required"),
     password: Yup.string()
       .min(8, "Must be at least 8 characters")
       .required("required"),
   });
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -54,7 +53,10 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     },
   });
   const handleLogout = () => {
+    setUser("");
+    Cookies.remove("accessToken");
     setIsLoggedIn(false);
+    alert("out");
   };
 
   const togglePasswordVisibility = () => {

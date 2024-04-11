@@ -2,14 +2,16 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Header from "../Header";
 import { Footer } from "../Footer";
 import { instance } from "@/utils/instance";
 import { toastifyError, toastifyInfo, toastifySuccess } from "@/utils/alerts";
+import { UserValueContext } from "@/contexts/UserContext";
 
 export const Login = () => {
   const router = useRouter();
+  const { signup } = useContext(UserValueContext);
   const validationSchema = Yup.object({
     userName: Yup.string().min(2).max(30).required(),
     phoneNumber: Yup.string().required(),
@@ -44,15 +46,7 @@ export const Login = () => {
           address: values.address,
           phoneNumber: values.phoneNumber,
         };
-        const res = await instance.post("/createUser", {
-          user,
-        });
-        if (res.status === 200) {
-          toastifySuccess("Successfully enter");
-          return router.push("/");
-        } else {
-          toastifyInfo("Unable to sign up. Please try again.");
-        }
+        await signup({ user });
       } catch (error) {
         toastifyError("An error occurred. Please try again later.");
       }
