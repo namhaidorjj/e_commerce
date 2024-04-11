@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -10,21 +10,24 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { instance } from "@/utils/instance";
 import { CartProps } from "@/utils/types/bagType";
+
 import { toastifyError } from "@/utils/alerts";
 import { Profile } from "./Profile";
+import { instance } from "@/utils/instance";
+import { UserValueContext } from "@/contexts/UserContext";
+import Cookies from "js-cookie";
+
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const validationSchema = Yup.object({
     email: Yup.string().email("Error email failed").required("required"),
     password: Yup.string()
       .min(8, "Must be at least 8 characters")
       .required("required"),
   });
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -42,10 +45,12 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
           alert("Successfully enter");
           document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
           setIsLoggedIn(true);
+          toastifySuccess("Successfully enter");
         } else {
           throw new Error("Signin failed");
         }
       } catch (error) {
+        setIsLoggedIn(false);
         toastifyError("Please check your Username or Password");
       }
     },
@@ -53,8 +58,17 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   console.log("first");
 
   const handleLogout = () => {
+    setUser("");
+    Cookies.remove("accessToken");
     setIsLoggedIn(false);
+    alert("out");
   };
+  console.log("first");
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+  console.log("first");
 
   return (
     <Sheet>
@@ -104,13 +118,13 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                   <input
                     id="password"
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Enter Password"
                     className="outline-0 bg-opacity-30 h-10 bg-black w-[280px] rounded-3xl pl-4"
                     onChange={formik.handleChange}
                     value={formik.values.password}
                   />
-                  <button>
+                  <button type="button" onClick={togglePasswordVisibility}>
                     <img
                       className="w-5 h-5"
                       src="/assets/icons/openEYE.svg"
@@ -137,29 +151,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
                 <p className="border-b w-full"></p>
                 <p>OR</p>
                 <p className="border-b w-full"></p>
-              </div>
-              <div className="flex items-center justify-center gap-3">
-                <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                  <img
-                    className="w-5 h-5"
-                    src="/assets/icons/google.svg"
-                    alt=""
-                  />
-                </button>
-                <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                  <img
-                    className="w-5 h-5"
-                    src="/assets/icons/facebook.svg"
-                    alt=""
-                  />
-                </button>
-                <button className="flex items-center justify-center w-[40px] h-[40px] border rounded-full">
-                  <img
-                    className="w-5 h-5"
-                    src="/assets/icons/apple.svg"
-                    alt=""
-                  />
-                </button>
               </div>
               <SheetFooter>
                 <SheetClose asChild>

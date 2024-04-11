@@ -3,21 +3,21 @@
 import { instance } from "@/utils/instance";
 import { Orders, User } from "@/utils/types/bagType";
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { toastifySuccess } from "@/utils/alerts";
+import { UserValueContext } from "@/contexts/UserContext";
 
 export default function Order() {
   const [orderData, setOrderData] = useState<Orders[]>([]);
+  const { user } = useContext(UserValueContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = Cookies.get("accessToken");
-      if (token) {
+      if (user) {
         try {
-          const decoded: User = jwtDecode(token);
           const response = await instance.post("/order", {
-            userId: decoded.id,
+            userId: user,
           });
           setOrderData(response.data.data);
         } catch (error) {
@@ -30,7 +30,7 @@ export default function Order() {
 
   const createOrder = async (orderData: Orders[]) => {
     try {
-      const orderRes = await instance.post("/createOrder");
+      await instance.post("/createOrder");
       toastifySuccess("Order created");
     } catch (error) {
       console.error("error in create order", error);
