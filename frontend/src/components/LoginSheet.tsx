@@ -50,6 +50,8 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
       }
     },
   });
+  console.log("first");
+
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
