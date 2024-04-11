@@ -8,6 +8,7 @@ import nodemailer from "nodemailer";
 
 export const addOrder = async (req: Request, res: Response) => {
   const { bagId, colorId, userId } = req.body;
+  console.log("res");
   try {
     if (
       !mongoose.Types.ObjectId.isValid(userId) ||
@@ -21,6 +22,7 @@ export const addOrder = async (req: Request, res: Response) => {
       match: { _id: colorId },
     });
 
+    console.log("first", userId, check);
     if (check.length > 0) {
       res.status(208).json({ message: "Unable to access again" });
     } else {

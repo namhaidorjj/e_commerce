@@ -3,21 +3,20 @@
 import { instance } from "@/utils/instance";
 import { User } from "@/utils/types/bagType";
 import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Cookies from "js-cookie";
+import { UserValueContext } from "@/contexts/UserContext";
 
 export const Unsubscribe = ({
   toggleVisible,
 }: {
   toggleVisible: () => void;
 }) => {
+  const { user } = useContext(UserValueContext);
   const fetchData = async () => {
-    const token = Cookies.get("accessToken");
-
-    if (token) {
+    if (user) {
       try {
-        const decoded: User = jwtDecode(token);
-        await instance.delete(`/deleteUser/${decoded.id}`);
+        await instance.delete(`/deleteUser/${user}`);
         alert("User deleted success");
       } catch (error) {
         console.error(error);
