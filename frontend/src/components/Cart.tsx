@@ -13,17 +13,18 @@ import {
 import { jwtDecode } from "jwt-decode";
 import { instance } from "@/utils/instance";
 import Cookies from "js-cookie";
-import { CartProps, User, Orders, bank } from "@/utils/types/bagType";
+import { CartProps, User, Order, bank } from "@/utils/types/bagType";
 import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { useQRCode } from "next-qrcode";
 import PaymentOrder from "./PaymentOrder";
 
 export const Cart: React.FC<CartProps> = () => {
   const { Canvas } = useQRCode();
-  const [orderData, setOrderData] = useState<Orders[]>([]);
+  const [orderData, setOrderData] = useState<Order[]>([]);
   const [orderCount, setOrderCount] = useState<number>(0);
   const [qr, setQr] = useState("");
   const [colorId, setColorId] = useState<string[]>([]);
+  const [user, setUser] = useState<string>("");
   const bankInitial: bank = {
     urls: [{ name: "", logo: "", link: "" }],
   };
@@ -40,16 +41,18 @@ export const Cart: React.FC<CartProps> = () => {
         const response = await instance.post("/order", {
           userId: decoded.id,
         });
+        setUser(decoded.id);
         setOrderData(response.data.data);
         const colorId = orderData.map((el) => {
-          return el.colors[0]._id;
+          return el.colors._id;
         });
         setColorId(colorId);
       } catch (error) {
         error;
       }
     } else {
-      alert("Please log in");
+      setOrderData([]);
+      // alert("Please log in");
     }
   };
 
@@ -76,7 +79,6 @@ export const Cart: React.FC<CartProps> = () => {
         token: tokenRes.data.access_token,
       });
       setBank(invoice.data.invoiceId);
-      console.log("bank", invoice.data.invoiceId);
       setQr(invoice.data.invoiceId.qPay_shortUrl);
       localStorage.setItem("paymentToken", tokenRes.data.access_token);
       localStorage.setItem("invoiceId", invoice.data.invoiceId.invoice_id);
@@ -159,7 +161,13 @@ export const Cart: React.FC<CartProps> = () => {
           <p>{totalPrice}₮</p>
         </div>
         <SheetClose asChild>
-          <PaymentOrder qr={qr} pay={pay} colorId={colorId} bank={bank} />
+          <PaymentOrder
+            qr={qr}
+            pay={pay}
+            colorId={colorId}
+            bank={bank}
+            user={user}
+          />
         </SheetClose>
       </SheetContent>
     </Sheet>
