@@ -87,19 +87,22 @@ export const getOrderDetail = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Захиалагч олоход алдаа гарлаа" });
   }
 };
-// Updating Order when paid
-export const updateOrder = async (req: Request, res: Response) => {
-  const { payment, orderId } = req.body;
+// Getting Order by Date =================
+export const getOrderByDate = async (req: Request, res: Response) => {
   try {
-    const data = await Order.findByIdAndUpdate(
-      orderId,
-      { payment },
-      { new: true }
+    const currentDate = new Date();
+    const twentyFourHours = new Date(
+      currentDate.getTime() - 24 * 60 * 60 * 1000
     );
-
-    res.status(200).json({ data, message: "O" });
+    const data = await Order.find({
+      CreatedAt: { $gte: twentyFourHours },
+    })
+      .populate("colors")
+      .populate("userId")
+      .populate("bagId");
+    res.status(200).json({ data, message: "" });
   } catch (error) {
     console.error("Error deleting order:", error);
-    res.status(500).json({ message: "Failed to delete order" });
+    res.status(500).json({ message: "Failed to send data" });
   }
 };

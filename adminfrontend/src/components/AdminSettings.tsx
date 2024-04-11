@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./AuthenticationContext";
 import { SignUpUsers } from "../components/SignUpUsers";
 import { LogOutModal } from "./sub_components/LogOutModal";
+import { AdminUserList } from "../components/AdminUserList";
 
 type AdminUserData = {
   name: string;
@@ -25,9 +26,9 @@ export const AdminSettings = () => {
 
   useEffect(() => {
     if (
-      adminUser.role === "View_admin" ||
-      adminUser.role === "Update_Admin" ||
-      adminUser.role === "Create_admin"
+      adminUser?.role === "View_admin" ||
+      adminUser?.role === "Update_Admin" ||
+      adminUser?.role === "Create_admin"
     ) {
       setHideCreateAdmin(false);
     }
@@ -79,7 +80,10 @@ export const AdminSettings = () => {
           </button>
         </div>
       </div>
-      {showSignUp && <SignUpUsers />}
+      <div className="w-[1100px] m-auto flex gap-10 justify-start mt-6">
+        {hideCreateAdmin && <AdminUserList />}
+        {showSignUp && <SignUpUsers />}
+      </div>
     </div>
   );
 };

@@ -79,6 +79,9 @@ export const OrderDetail: React.FC<OrderDetailProps> = ({ _id }) => {
         email,
         userName,
       });
+      alert(
+        `Үйлчлүүлэгчийн ${email} имэйл хаяг хуу Төлөв амжилттай илгээгдлээ`
+      );
       console.log(response, "update Response in OrderDetail");
       setOrder((prevOrder) => {
         if (prevOrder) {
@@ -90,6 +93,7 @@ export const OrderDetail: React.FC<OrderDetailProps> = ({ _id }) => {
             },
           };
         }
+
         return prevOrder;
       });
     } catch (error) {
@@ -135,7 +139,6 @@ export const OrderDetail: React.FC<OrderDetailProps> = ({ _id }) => {
                       <img src={img} alt="" className="w-[150px]" />
                     </div>
                   ))}
-                  <img alt="" className="w-full h-[150px]" />
                 </div>
               </div>
               <div className="bg-stone-200 w-[430px] rounded-r-lg p-3 flex flex-col justify-between">
@@ -151,7 +154,7 @@ export const OrderDetail: React.FC<OrderDetailProps> = ({ _id }) => {
                   <div className="flex justify-between w-[200px]">
                     <span className="text-xs font-bold">Цүнхний код: </span>
                     <span className="text-xs flex flex-col items-start">
-                      {order.colors.bagCode}
+                      {order.colors.bagCode.toUpperCase()}
                       <span className="text-xs">
                         {formatDate(order.colors.CreatedAt)}
                       </span>
@@ -204,15 +207,30 @@ export const OrderDetail: React.FC<OrderDetailProps> = ({ _id }) => {
                   <div>{order.bagId.bagName}</div>
                   <div>{order.bagId.price}₮</div>
                 </div>
+                <div className="w-full flex justify-between">
+                  <div>Хүргэлт: </div>
+                  <div>3000₮</div>
+                </div>
               </div>
               <hr />
               <div className="p-4">
-                <div className="flex justify-between">
-                  <div>Нийт төлөх дүн: </div>
-                  <div>
-                    {order.payment === "Not_Paid"
-                      ? `${order.bagId.price}₮`
-                      : "0₮"}
+                <div className="">
+                  <div className="flex justify-between">
+                    <div>Нийт төлөх дүн: </div>
+                    <div>
+                      {order.colors.consumer === "false"
+                        ? `${order.bagId.price}₮`
+                        : "0₮"}
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div>Төлсөн: </div>
+                    <div>
+                      {" "}
+                      {order.colors.consumer === "false"
+                        ? `0₮`
+                        : `${order.bagId.price}₮`}
+                    </div>
                   </div>
                 </div>
               </div>

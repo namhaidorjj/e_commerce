@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setLoading(false);
     }
   };
-  // Recieving token and Decoding action ===============================================
+  // Recieving token and Decoding action ===========
   useEffect(() => {
     const token = localStorage.getItem("AdminToken");
     if (!token) {
@@ -75,7 +75,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       router.replace("/login");
     }
   }, [token]);
-  // Fetching user data =================================
+  // Fetching user data ===============================
   const fetchUserData = async (userId: string) => {
     try {
       const response = await instance.get(`/adminUser/${userId}`);

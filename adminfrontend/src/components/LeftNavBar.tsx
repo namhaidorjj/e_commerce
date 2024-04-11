@@ -15,10 +15,14 @@ export const LeftNavBar = () => {
       <div className="w-[222px] h-screen bg-white text-stone-500">
         <div className="fixed pt-6 z-10 bg-white h-screen">
           <ul className="flex flex-col">
-            <div className="m-auto">
+            <div className="m-auto p-2">
               <p>Тавтай морилно уу</p>
-              <div>{adminUser?.name}</div>
+              <div className="flex items-center gap-2">
+                <img src="/assets/icons/avatar.png" alt="" className="w-6" />
+                <div>{adminUser?.name}</div>
+              </div>
             </div>
+            <hr />
             <Link href={"/dashboard"}>
               <div className={`${navStyle} `}>
                 <i className="fa-solid fa-window-maximize"></i>
@@ -31,10 +35,6 @@ export const LeftNavBar = () => {
                 <li className="text-base font-semibold">Захиалга</li>
               </div>
             </Link>
-            <div className={`${navStyle}`}>
-              <i className="fa-solid fa-money-check-dollar"></i>
-              <li className="text-base font-semibold">Орлого</li>
-            </div>
             <Link href={"/productnav"}>
               <div className={`${navStyle}`}>
                 <i className="fa-solid fa-table-columns"></i>

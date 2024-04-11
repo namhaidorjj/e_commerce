@@ -51,18 +51,18 @@ export const ProductList = () => {
     }
   };
   useEffect(() => {
-    if (adminUser.role === "View_Admin") {
+    if (adminUser?.role === "View_Admin") {
       setHideCreateBag(false);
       setHideDelete(false);
       setHideUpdateBag(false);
-    } else if (adminUser.role === "Update_Admin") {
+    } else if (adminUser?.role === "Update_Admin") {
       setHideCreateBag(false);
       setHideDelete(false);
-    } else if (adminUser.role === "Create_Admin") {
+    } else if (adminUser?.role === "Create_Admin") {
       setHideDelete(false);
       setHideUpdateBag(false);
     }
-  }, [adminUser]);
+  }, [adminUser?.role]);
 
   useEffect(() => {
     fetchProducts();
@@ -270,7 +270,7 @@ export const ProductList = () => {
                       <div className="truncate w-[120px] absolute z-0 flex flex-col">
                         {bag.bagName}
                       </div>
-                      {/* Hovering bag name */}
+
                       <span className="absolute invisible group-hover:visible border bg-yellow-100 px-2 text-gray-400 ml-6 rounded-md font-thin">
                         {bag.bagName}
                       </span>
@@ -324,7 +324,6 @@ export const ProductList = () => {
                     </td>
                   </tr>
                 ))}
-                <div className="w-[1170px] h-5 bg-white rounded-b-xl"></div>
               </>
             )}
           </tbody>

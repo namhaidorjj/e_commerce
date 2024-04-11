@@ -67,14 +67,14 @@ export const SignUpUsers = () => {
   });
 
   return (
-    <div>
+    <div className="mb-10">
       {loading ? (
-        <div className="flex justify-center items-center h-screen flex-col">
+        <div className="flex justify-center items-center flex-col">
           <Loading />
           <div>Шинэ админ бүртгэж байна</div>
         </div>
       ) : (
-        <div className="w-[400px] m-auto my-10 bg-white p-6 text-stone-500 rounded-lg">
+        <div className="w-[400px] m-auto bg-white p-6 text-stone-500 rounded-lg">
           <div className="flex justify-center text-3xl font-bold mb-12">
             Шинэ Админ бүртгэх
           </div>

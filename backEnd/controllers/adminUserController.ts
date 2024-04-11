@@ -47,7 +47,6 @@ export const loginAdmin = async (req: Request, res: Response) => {
         message: `${email} имэйл хаягтай админ бүртгэгдээгүй байна`,
       });
     }
-
     const decryptedPassword = await bcrypt.compare(
       password,
       adminUser.password
@@ -55,7 +54,6 @@ export const loginAdmin = async (req: Request, res: Response) => {
     if (!decryptedPassword) {
       return res.status(400).send({ message: `Нууц үг таарахгүй байна` });
     }
-
     const token = jwt.sign(
       { userId: adminUser._id, email: email },
       SECRET_KEY,
@@ -80,5 +78,26 @@ export const adminUser = async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Хэрэглэгч авч ирэхэд асуудал үүсэв" });
+  }
+};
+// Sending all Admin users to Admin settings ====================
+export const adminUsers = async (req: Request, res: Response) => {
+  try {
+    const user = await AdminUser.find({});
+    res.status(200).json({ user, message: "Хэрэглэгч амжилттай ирлээ" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Хэрэглэгч авч ирэхэд асуудал үүсэв" });
+  }
+};
+// Deleting Admin user ============
+export const adminUserDelete = async (req: Request, res: Response) => {
+  const _id = req.params.id;
+  try {
+    await AdminUser.findByIdAndDelete({ _id });
+    res.status(200).json({ message: "Админ хэрэглэгч амжилттай устлаа" });
+  } catch (error) {
+    console.error("error in delete product", error);
+    return res.status(400).json({ message: "Устгахад алдаа гарлаа" });
   }
 };

@@ -99,7 +99,13 @@ export const colorEdit = async (req: Request, res: Response) => {
         from: "luxuries.bag.store4@gmail.com",
         to: email,
         subject: `Барааны төлөв: ${status}`,
-        text: `Эрхэм хүндэт ${userName}, <br/><br/> Таны бараа ${status} төлөв рүү шилжив. <br/><br/> Хүндэтгэсэн <br/>CELESTIA CARRY LLC<br/>email:luxuries.bag.store4@gmail.com`,
+        text: `Эрхэм хүндэт ${userName},
+
+        Таны бараа "${status}" төлөв рүү шилжив.
+
+        Хүндэтгэсэн
+        CELESTIA CARRY LLC
+        email: celestia.carry.mn@gmail.com`,
       };
       transporter.sendMail(mailOption, (error, info) => {
         if (error) {

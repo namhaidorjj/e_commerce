@@ -14,6 +14,7 @@ type Color = {
   color: string;
   adminColor: string;
   consumer: string;
+  status: string;
 };
 
 type Bag = {
@@ -73,6 +74,7 @@ export const ConsumerOrder = () => {
       order.bagId.bagName.toLowerCase().includes(searchInput.toLowerCase()) ||
       order.bagId.price.toString().includes(searchInput) ||
       order.colors.consumer.toLowerCase().includes(searchInput.toLowerCase())
+    // order.colors.status.toLowerCase().includes(searchInput.toLowerCase())
   );
   return (
     <div className="bg-stone-200 h-full w-full pb-10">
@@ -127,6 +129,9 @@ export const ConsumerOrder = () => {
                     Үнэ
                   </th>
                   <th className="w-[100px] h-[44px] flex justify-center items-center">
+                    Төлcөн эсэх
+                  </th>
+                  <th className="w-[100px] h-[44px] flex justify-center items-center">
                     Төлөв
                   </th>
                   <th className="w-[120px] h-[44px] flex justify-end items-center">
@@ -137,7 +142,10 @@ export const ConsumerOrder = () => {
               <tbody>
                 <>
                   {filteredOrders.map((order, orderIndex) => (
-                    <tr className="flex px-2 w-[1150px]">
+                    <tr
+                      className={`flex px-2 w-[1150px] text-sm hover:bg-[#8a6240] hover:text-white hover:font-semibold hover:text-xs duration-300 text-stone-500  ${
+                        orderIndex % 2 === 0 ? "bg-stone-100" : "bg-stone-200"
+                      }`}>
                       <td className="w-[40px] flex justify-start items-center text-xs text-stone-400">
                         {orderIndex + 1}
                       </td>
@@ -167,16 +175,19 @@ export const ConsumerOrder = () => {
                           </td>
                         </div>
                       </td>
-                      <td className="w-[130px] h-[44px] flex justify-end items-center ">
+                      <td className="w-[130px] h-[44px] flex justify-start items-center ">
                         {formatDate(order.CreatedAt)}
                       </td>
-                      <td className="w-[100px] h-[44px] flex justify-end items-center mr-2">
+                      <td className="w-[100px] h-[44px] flex justify-center items-center mr-2">
                         {order.bagId.price}₮
                       </td>
-                      <td className="w-[100px] flex justify-end items-center">
+                      <td className="w-[100px] flex justify-start items-center">
                         {order.colors.consumer}
                       </td>
                       <td className="w-[100px] flex justify-end items-center">
+                        {order.colors.status}
+                      </td>
+                      <td className="w-[100px] flex justify-center items-center">
                         <i
                           className="fa-solid fa-arrow-right-long cursor-pointer hover:scale-150 duration-300"
                           onClick={() => handleOrderDetail(order._id)}></i>

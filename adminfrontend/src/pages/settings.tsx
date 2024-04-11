@@ -2,8 +2,8 @@
 
 import React from "react";
 import { LeftNavBar } from "../components/LeftNavBar";
-import { SignUpUsers } from "../components/SignUpUsers";
 import { AdminSettings } from "../components/AdminSettings";
+import { AdminUserList } from "../components/AdminUserList";
 
 const Settings = () => {
   return (

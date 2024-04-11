@@ -1,13 +1,14 @@
 /** @format */
 
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "./AuthenticationContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export const LogIn = () => {
   const { login } = useContext(AuthContext);
-
+  const [showPassword, setShowPassword] = useState(false);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -21,6 +22,10 @@ export const LogIn = () => {
     }),
     onSubmit: login,
   });
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   return (
     <div className="bg-admin-cover bg-cover h-screen text-stone-500">
@@ -54,15 +59,22 @@ export const LogIn = () => {
           </label>
 
           <br />
-          <input
-            id="password"
-            name="password"
-            type="text"
-            className="border w-full h-[48px] rounded placeholder:text-xs px-4"
-            placeholder="Нууц үгээ оруулна уу"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
+          <div className="flex gap-1 items-center">
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              className="border w-full h-[48px] rounded placeholder:text-xs px-4"
+              placeholder="Нууц үгээ оруулна уу"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+            />
+            {showPassword ? (
+              <FaEyeSlash onClick={togglePasswordVisibility} />
+            ) : (
+              <FaEye onClick={togglePasswordVisibility} />
+            )}
+          </div>
           <div className="text-red-500 text-xs mb-4">
             {formik.touched.password && formik.errors.password ? (
               <p>{formik.errors.password}</p>

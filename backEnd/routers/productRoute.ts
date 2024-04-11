@@ -19,6 +19,8 @@ import {
   createAdminUser,
   loginAdmin,
   adminUser,
+  adminUsers,
+  adminUserDelete,
 } from "../controllers/adminUserController";
 
 export const router = Router();
@@ -41,3 +43,5 @@ router.route("/lvbag").get(LVBag);
 router.route("/createAdminUser").post(createAdminUser);
 router.route("/loginAdmin").post(loginAdmin);
 router.route("/adminUser/:id").get(adminUser);
+router.route("/adminUsers").get(adminUsers);
+router.route("/deleteAdminUser/:id").delete(adminUserDelete);
