@@ -14,13 +14,15 @@ export const HomeSection = () => {
     },
     {
       backgroundImage: "/assets/louisVuitton.jpeg",
-      path: "/bag/gucci",
+      path: "/bag/lv",
     },
     {
-      brand: "𝕃𝕠𝕦𝕚𝕤 𝕍𝕦𝕚𝕥𝕥𝕠𝕟",
-      backgroundImage: "/assets/louisVuitton.jpeg",
-      path: "/bag/lv",
-
+      backgroundImage: "/assets/hermes.jpeg",
+      path: "/bag/hermes",
+    },
+    {
+      backgroundImage: "/assets/prada.jpeg",
+      path: "/bag/prada",
     },
   ];
 
