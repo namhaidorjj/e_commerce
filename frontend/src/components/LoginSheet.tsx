@@ -26,7 +26,6 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
       .min(8, "Must be at least 8 characters")
       .required("required"),
   });
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -56,6 +55,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
+  console.log("first");
 
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
