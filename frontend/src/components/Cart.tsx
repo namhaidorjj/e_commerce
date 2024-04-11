@@ -77,7 +77,6 @@ export const Cart: React.FC<CartProps> = () => {
         token: tokenRes.data.access_token,
       });
       setBank(invoice.data.invoiceId);
-      console.log("bank", invoice.data.invoiceId);
       setQr(invoice.data.invoiceId.qPay_shortUrl);
       localStorage.setItem("paymentToken", tokenRes.data.access_token);
       localStorage.setItem("invoiceId", invoice.data.invoiceId.invoice_id);
