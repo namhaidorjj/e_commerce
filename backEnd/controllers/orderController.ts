@@ -6,6 +6,7 @@ import mongoose, { Types } from "mongoose";
 
 export const addOrder = async (req: Request, res: Response) => {
   const { bagId, colorId, userId } = req.body;
+  console.log("res");
   try {
     if (
       !mongoose.Types.ObjectId.isValid(userId) ||
@@ -14,16 +15,26 @@ export const addOrder = async (req: Request, res: Response) => {
     ) {
       return res.status(400).json({ message: "Invalid ObjectId format" });
     }
-
-    const newOrder = await Order.create({
-      userId: mongoose.Types.ObjectId.createFromHexString(userId),
-      colors: [mongoose.Types.ObjectId.createFromHexString(colorId)],
-      bagId: mongoose.Types.ObjectId.createFromHexString(bagId),
-      payment: "Not_Paid",
+    console.log("first");
+    const check = await Order.find({ userId }).populate({
+      path: "colors",
+      match: { _id: colorId },
     });
-    res
-      .status(201)
-      .json({ newOrder, message: "Successfully created new order" });
+
+    console.log("first", userId, check);
+    if (check.length > 0) {
+      res.status(208).json({ message: "Unable to access again" });
+    } else {
+      const newOrder = await Order.create({
+        userId: mongoose.Types.ObjectId.createFromHexString(userId),
+        colors: [mongoose.Types.ObjectId.createFromHexString(colorId)],
+        bagId: mongoose.Types.ObjectId.createFromHexString(bagId),
+        payment: "Not_Paid",
+      });
+      res
+        .status(201)
+        .json({ newOrder, message: "Successfully created new order" });
+    }
   } catch (error) {
     console.error("Error creating new order:", error);
     res.status(500).json({ message: "Failed to create new order" });

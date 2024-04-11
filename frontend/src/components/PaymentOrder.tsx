@@ -25,7 +25,6 @@ export default function PaymentOrder({
   colorId: string[];
   bank: bank;
 }) {
-  console.log("hey", bank);
   const { Canvas } = useQRCode();
   const check = async () => {
     const checkRes = await instance.post("/check", {
