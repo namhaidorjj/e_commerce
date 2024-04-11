@@ -66,3 +66,6 @@ export type UserData = {
   email: string;
   phoneNumber: string;
 };
+export type bank = {
+  urls: { name: string; logo: string; link: string }[];
+};

@@ -80,7 +80,7 @@ export const Footer = () => {
             placeholder="EMAIL"
             type="text"
           />
-          <button className="w-5 border-b">
+          <button className="w-8 border-b p-2">
             <img src="/assets/icons/sendMail.svg" alt="" />
           </button>
         </div>
