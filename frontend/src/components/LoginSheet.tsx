@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/sheet";
 import { CartProps } from "@/utils/types/bagType";
 import { Profile } from "./Profile";
+import { instance } from "@/utils/instance";
 import { UserValueContext } from "@/contexts/UserContext";
 import Cookies from "js-cookie";
+
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -60,6 +62,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const togglePasswordVisibility = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+  console.log("first");
 
   return (
     <Sheet>
