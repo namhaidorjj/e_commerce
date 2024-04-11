@@ -3,13 +3,15 @@
 import { instance } from "@/utils/instance";
 import { User, UserData } from "@/utils/types/bagType";
 import { jwtDecode } from "jwt-decode";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { toastifyError, toastifySuccess } from "@/utils/alerts";
+import { UserValueContext } from "@/contexts/UserContext";
 
 export const Profile = () => {
   const [userData, setUserData] = useState<UserData>();
   const [isEditing, setIsEditing] = useState(false);
+  const { user } = useContext(UserValueContext);
   const [editedData, setEditedData] = useState<UserData>({
     email: "",
     userName: "",
@@ -25,7 +27,6 @@ export const Profile = () => {
         const response = await instance.post("/user", {
           userId: decoded.id,
         });
-        console.log("user", response.data.users);
         setUserData(response.data.users);
       } catch (error) {
         console.error(error);

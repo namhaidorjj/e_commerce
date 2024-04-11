@@ -49,7 +49,8 @@ export const Cart: React.FC<CartProps> = () => {
         error;
       }
     } else {
-      alert("Please log in");
+      setOrderData([]);
+      // alert("Please log in");
     }
   };
 

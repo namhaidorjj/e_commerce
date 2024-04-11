@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -10,13 +10,14 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { instance } from "@/utils/instance";
 import { CartProps } from "@/utils/types/bagType";
-import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { Profile } from "./Profile";
+import { UserValueContext } from "@/contexts/UserContext";
+import Cookies from "js-cookie";
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { signin, setUser } = useContext(UserValueContext);
 
   const validationSchema = Yup.object({
     email: Yup.string().email("Error email failed").required("required"),
@@ -32,26 +33,15 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      try {
-        const response = await instance.post("signin", {
-          email: values.email,
-          password: values.password,
-        });
-        if (response.status === 200) {
-          const { accessToken } = response.data;
-          toastifySuccess("Successfully enter");
-          document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
-          setIsLoggedIn(true);
-        } else {
-          throw new Error("Signin failed");
-        }
-      } catch (error) {
-        toastifyError("Please check your Username or Password");
-      }
+      await signin({ email: values.email, password: values.password });
+      setIsLoggedIn(true);
     },
   });
   const handleLogout = () => {
+    setUser("");
+    Cookies.remove("accessToken");
     setIsLoggedIn(false);
+    alert("out");
   };
 
   return (
