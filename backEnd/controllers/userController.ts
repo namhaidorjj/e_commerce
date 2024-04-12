@@ -10,7 +10,6 @@ dotenv.config();
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 export const getUser = async (req: Request, res: Response) => {
-  console.log("user", req.body);
   const _id = req.body.userId;
   try {
     const users = await User.findOne({ _id });
@@ -21,8 +20,8 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 export const signIn = async (req: Request, res: Response) => {
-  const { email, password } = req.body.data;
-  console.log("user login ", req.body);
+  console.log(req.body);
+  const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
     if (!user) {

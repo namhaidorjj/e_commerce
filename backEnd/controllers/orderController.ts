@@ -8,7 +8,6 @@ import nodemailer from "nodemailer";
 
 export const addOrder = async (req: Request, res: Response) => {
   const { bagId, colorId, userId } = req.body;
-  console.log("res");
   try {
     if (
       !mongoose.Types.ObjectId.isValid(userId) ||
@@ -17,11 +16,10 @@ export const addOrder = async (req: Request, res: Response) => {
     ) {
       return res.status(400).json({ message: "Invalid ObjectId format" });
     }
-    const check = await Order.find({ userId }).populate({
-      path: "colors",
-      match: { _id: colorId },
-    });
-    if (check.length > 0) {
+    const check = await Order.findOne({ colorId });
+    console.log("first", check);
+    if (check === colorId) {
+      console.log("Wgegewefwefew");
       res.status(208).json({ message: "Unable to access again" });
     } else {
       const newOrder = await Order.create({
