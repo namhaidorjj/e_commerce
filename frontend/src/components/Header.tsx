@@ -27,7 +27,7 @@ export default function Header() {
       <div className="justify-between lg:h-[90px] h-[64px] flex w-full items-center">
         <a href="/">
           <button className="pl-10">
-            <img src="../loogo.jpg" className="w-[100px] h-[50px]" alt="" />
+            <img src="../loogo.png" className="w-[200px] h-[100px]" alt="" />
           </button>
         </a>
         <div className="uppercase justify-center text-xl lg:text-4xl ">
