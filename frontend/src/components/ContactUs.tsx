@@ -9,7 +9,7 @@ export const ContactUs = () => {
       <Header />
       <div className="  flex flex-col  border ">
         <div>
-          <p className="p-12 text-4xl"> Contact Us</p>
+          <p className="p-12 text-4xl">Contact Us</p>
           <hr />
         </div>
         <div className=" flex flex-col p-12 gap-6">
@@ -27,21 +27,21 @@ export const ContactUs = () => {
           </div>
         </div>
         <div className=" flex flex-col p-12 gap-6">
-          <div className=" flex  gap-8">
+          <div className="flex gap-8">
             <input
-              className="outline-0  w-[700px] border p-2 hover:border-black"
+              className="outline-0 w-[700px] border p-2 hover:border-black"
               placeholder=" First Name"
               type="text"
             />
             <input
-              className="outline-0  w-[700px] border p-2 hover:border-black"
+              className="outline-0 w-[700px] border p-2 hover:border-black"
               placeholder=" Last Name"
               type="text"
             />
           </div>
           <div className="outline-0 flex items-center">
             <input
-              className=" p-2  border hover:border-black "
+              className="p-2 border hover:border-black "
               placeholder="Area Code"
             />
             <span className=" p-2">-</span>

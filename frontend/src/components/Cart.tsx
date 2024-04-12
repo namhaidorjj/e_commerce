@@ -14,7 +14,7 @@ import { jwtDecode } from "jwt-decode";
 import { instance } from "@/utils/instance";
 import Cookies from "js-cookie";
 import { CartProps, User, Order, bank } from "@/utils/types/bagType";
-import { toastifyError, toastifySuccess } from "@/utils/alerts";
+import { toastifyError, toastifyInfo, toastifySuccess } from "@/utils/alerts";
 import { useQRCode } from "next-qrcode";
 import PaymentOrder from "./PaymentOrder";
 
@@ -52,7 +52,6 @@ export const Cart: React.FC<CartProps> = () => {
       }
     } else {
       setOrderData([]);
-      // alert("Please log in");
     }
   };
 

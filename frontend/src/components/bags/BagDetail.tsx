@@ -7,7 +7,7 @@ import { Bag } from "@/utils/types/bagType";
 import { instance } from "@/utils/instance";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import { toastifySuccess } from "@/utils/alerts";
+import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { toastifyInfo } from "@/utils/alerts";
 
 export const BagDetail = ({ bag }: { bag: Bag }) => {
@@ -30,6 +30,17 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
     setSelectedColor(colorIndex);
   };
 
+  const handleCopyText = (bagCode: string) => {
+    navigator.clipboard
+      .writeText(bagCode)
+      .then(() => {
+        toastifySuccess("Bag Code Copied");
+      })
+      .catch((error) => {
+        toastifyError("error copy");
+      });
+  };
+
   const handleAddOrder = async () => {
     try {
       const colorId = bag.colors[selectedColor]._id;
@@ -38,7 +49,6 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
         colorId: colorId,
         userId: decodedToken.id,
       };
-      console.log("first");
       const res = await instance.post("/addOrder", orderData);
       if (res.status === 208) return toastifyInfo("Unable to access again");
       if (res.status === 201)
@@ -65,7 +75,11 @@ export const BagDetail = ({ bag }: { bag: Bag }) => {
         </div>
         <div className="flex lg:flex-col items-center pt-6 lg:w-1/2 lg:pt-44 absolute bottom-0 lg:right-0 test mb-5 justify-center">
           <div className="lg:w-[550px] flex flex-col justify-between gap-2 ring-offset-1 bottom-0 w-4/5">
-            <h1 className="text-sm uppercase">
+            <h1
+              onClick={() =>
+                handleCopyText(bag.colors?.[selectedColor]?.bagCode)
+              }
+              className="text-sm uppercase hover:cursor-pointer">
               {bag.colors?.[selectedColor]?.bagCode}
             </h1>
             <h1 className=" font-bold text-xl text-black">{bag.bagName}</h1>

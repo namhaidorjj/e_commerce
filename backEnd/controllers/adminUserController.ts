@@ -14,6 +14,7 @@ if (!SECRET_KEY) {
 
 // Creating Admin User Scene ==============================
 export const createAdminUser = async (req: Request, res: Response) => {
+  console.log(req.body);
   const { name, email, phone, password, role } = req.body;
   try {
     const userExist = await AdminUser.findOne({ email }); // Searching email address from MongoDB
@@ -39,6 +40,7 @@ export const createAdminUser = async (req: Request, res: Response) => {
 };
 // Login Scene ===================================
 export const loginAdmin = async (req: Request, res: Response) => {
+  console.log(req.body);
   const { email, password } = req.body;
   try {
     const adminUser = await AdminUser.findOne({ email });
