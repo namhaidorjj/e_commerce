@@ -21,7 +21,8 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 export const signIn = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body.data;
+  console.log("user login ", req.body);
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -53,7 +54,8 @@ export const signIn = async (req: Request, res: Response) => {
 };
 
 export const signUp = async (req: Request, res: Response) => {
-  const { email, phoneNumber, password, address, userName } = req.body.user;
+  const { email, phoneNumber, password, address, userName } =
+    req.body.data.user;
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
