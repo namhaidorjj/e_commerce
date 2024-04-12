@@ -54,7 +54,19 @@ export type Orders = {
     bagCode: string;
     color: string;
     adminColor: string;
+    status: string;
   }[];
+};
+export type Order = {
+  bagId: { price: number; bagName: string };
+  colors: {
+    _id: string;
+    images: string[];
+    bagCode: string;
+    color: string;
+    adminColor: string;
+    status: string;
+  };
 };
 
 export type ProfileProps = {

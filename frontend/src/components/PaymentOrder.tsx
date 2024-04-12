@@ -19,22 +19,27 @@ export default function PaymentOrder({
   pay,
   colorId,
   bank,
+  user,
 }: {
   qr: string;
   pay: () => Promise<void>;
   colorId: string[];
   bank: bank;
+  user: string;
 }) {
+  console.log("first", user);
   const { Canvas } = useQRCode();
   const check = async () => {
     const checkRes = await instance.post("/check", {
       invoiceId: localStorage.getItem("invoiceId"),
       token: localStorage.getItem("paymentToken"),
     });
+
     if (checkRes.data.check.rows.length == 0) {
       toastifyError("Not paid");
     } else {
       await instance.post("/updateOrderPayment", colorId);
+      await instance.post("/mail", { id: user });
       toastifySuccess("Paid");
     }
   };

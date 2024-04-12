@@ -12,7 +12,6 @@ const userHistory = () => {
       <div>
         <UserHistory />
       </div>
-      <Footer />
     </>
   );
 };
