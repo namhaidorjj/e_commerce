@@ -1,7 +1,6 @@
 /** @format */
 
-
-import { UserValueContext } from "@/contexts/userContext";
+import { UserValueContext } from "@/contexts/UserContext";
 import { instance } from "@/utils/instance";
 import { Order, User } from "@/utils/types/bagType";
 import { jwtDecode } from "jwt-decode";
@@ -14,6 +13,7 @@ export const UserHistory = () => {
   const { user } = useContext(UserValueContext);
   const fetchData = async () => {
     if (user) {
+      const token = Cookies.get("accessToken") ?? "";
       try {
         const decoded: User = jwtDecode(token);
         const response = await instance.post("/history", {
