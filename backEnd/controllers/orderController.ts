@@ -16,10 +16,12 @@ export const addOrder = async (req: Request, res: Response) => {
     ) {
       return res.status(400).json({ message: "Invalid ObjectId format" });
     }
-    const check = await Order.findOne({ colorId });
-    console.log("first", check);
-    if (check === colorId) {
-      console.log("Wgegewefwefew");
+    const check = await Order.find({ userId }).populate({
+      path: "colors",
+      match: { _id: colorId },
+    });
+
+    if (check.length > 0) {
       res.status(208).json({ message: "Unable to access again" });
     } else {
       const newOrder = await Order.create({
@@ -127,9 +129,9 @@ export const paymentMail = async (req: Request, res: Response) => {
     to: userCheck?.email,
     subject: `Барааны төлөв:`,
     text: `Эрхэм хүндэт ${userCheck?.userName},
- 
+
     Та амжилттай худалдан авалт хийлээ.
- 
+
     Хүндэтгэсэн
     CELESTIA CARRY LLC
     email: celestia.carry.mn@gmail.com`,

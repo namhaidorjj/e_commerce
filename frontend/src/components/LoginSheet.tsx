@@ -17,8 +17,11 @@ import { Profile } from "./Profile";
 import { instance } from "@/utils/instance";
 import { UserValueContext } from "@/contexts/UserContext";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
+  const { signin, setUser } = useContext(UserValueContext);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const validationSchema = Yup.object({
@@ -34,27 +37,11 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      try {
-        const response = await instance.post("signin", {
-          email: values.email,
-          password: values.password,
-        });
-        if (response.status === 200) {
-          const { accessToken } = response.data;
-          alert("Successfully enter");
-          document.cookie = `accessToken=${accessToken}; Path=/; SameSite=Strict`;
-          setIsLoggedIn(true);
-          toastifySuccess("Successfully enter");
-        } else {
-          throw new Error("Signin failed");
-        }
-      } catch (error) {
-        setIsLoggedIn(false);
-        toastifyError("Please check your Username or Password");
-      }
+      await signin({ email: values.email, password: values.password });
+
+      setIsLoggedIn(true);
     },
   });
-  console.log("first");
 
   const handleLogout = () => {
     // setUser("");

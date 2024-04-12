@@ -20,8 +20,7 @@ export const getUser = async (req: Request, res: Response) => {
   }
 };
 export const signIn = async (req: Request, res: Response) => {
-  console.log(req.body);
-  const { email, password } = req.body;
+  const { email, password } = req.body.data;
   try {
     const user = await User.findOne({ email });
     if (!user) {
@@ -80,7 +79,7 @@ export const signUp = async (req: Request, res: Response) => {
         sameSite: "strict",
       })
       .header({ Authorization: accessToken })
-      .send(user);
+      .send({ accessToken, user });
   } catch (error) {
     console.error(error);
     res.status(400).json({ message: "Failed to create account" });

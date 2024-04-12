@@ -5,7 +5,7 @@ import { User } from "@/utils/types/bagType";
 import { jwtDecode } from "jwt-decode";
 import React, { useEffect, useState, createContext, ReactNode } from "react";
 import Cookies from "js-cookie";
-import { toastifyError, toastifyInfo, toastifySuccess } from "@/utils/alerts";
+import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { useRouter } from "next/router";
 
 type UserValueType = {

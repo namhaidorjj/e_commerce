@@ -35,7 +35,6 @@ app.post("/updateOrderPayment", async (req, res) => {
       { _id: { $in: colorId } },
       { $set: { consumer: true } }
     );
-    console.log("Updated:", data);
     res
       .status(200)
       .json({ success: true, message: "Successfully updated orders." });

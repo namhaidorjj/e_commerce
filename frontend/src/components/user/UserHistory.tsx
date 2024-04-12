@@ -9,11 +9,10 @@ import Cookies from "js-cookie";
 
 export const UserHistory = () => {
   const [orderData, setOrderData] = useState<Order[]>([]);
-
   const { user } = useContext(UserValueContext);
   const fetchData = async () => {
-    if (user) {
-      const token = Cookies.get("accessToken") ?? "";
+    const token = Cookies.get("accessToken");
+    if (token) {
       try {
         const decoded: User = jwtDecode(token);
         const response = await instance.post("/history", {

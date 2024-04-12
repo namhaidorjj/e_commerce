@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { bank } from "@/utils/types/bagType";
+import { useRouter } from "next/router";
 
 export default function PaymentOrder({
   qr,
@@ -26,20 +27,21 @@ export default function PaymentOrder({
   bank: bank;
   user: string;
 }) {
+  const router = useRouter();
   const { Canvas } = useQRCode();
   const check = async () => {
     const checkRes = await instance.post("/check", {
       invoiceId: localStorage.getItem("invoiceId"),
       token: localStorage.getItem("paymentToken"),
     });
-    console.log("user", user);
-    await instance.post("/updateOrderPayment", { user });
+
     if (checkRes.data.check.rows.length == 0) {
       toastifyError("Not paid");
     } else {
+      toastifySuccess("Paid");
       await instance.post("/updateOrderPayment", colorId);
       await instance.post("/mail", { id: user });
-      toastifySuccess("Paid");
+      router.push("/");
     }
   };
   return (

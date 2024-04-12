@@ -48,7 +48,6 @@ export const OrderDetail: React.FC<OrderDetailProps> = ({ _id }) => {
       const fetchDataId = async () => {
         try {
           const response = await instance.get(`/orderDetail/${_id}`);
-          console.log(response.data.data, "response in OrderDetail");
           setOrder(response.data.data);
         } catch (error) {
           console.error(error);
@@ -79,7 +78,6 @@ export const OrderDetail: React.FC<OrderDetailProps> = ({ _id }) => {
         email,
         userName,
       });
-      console.log(response, "update Response in OrderDetail");
       setOrder((prevOrder) => {
         if (prevOrder) {
           return {
