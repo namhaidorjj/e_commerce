@@ -10,13 +10,15 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { CartProps } from "@/utils/types/bagType";
+import { CartProps, User } from "@/utils/types/bagType";
 import { Profile } from "./Profile";
 import { UserValueContext } from "@/contexts/UserContext";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { instance } from "@/utils/instance";
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>();
   const { signin, setUser } = useContext(UserValueContext);
 
   const validationSchema = Yup.object({
@@ -34,9 +36,11 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
     validationSchema,
     onSubmit: async (values) => {
       await signin({ email: values.email, password: values.password });
+
       setIsLoggedIn(true);
     },
   });
+
   const handleLogout = () => {
     setUser("");
     Cookies.remove("accessToken");

@@ -80,8 +80,6 @@ export const colorEdit = async (req: Request, res: Response) => {
   try {
     const colorId = req.params.id;
     const { status, email, userName } = req.body;
-    console.log(colorId, "colorId");
-    console.log(status, "status");
     const updatedColor = await Color.findByIdAndUpdate(
       colorId,
       { status },

@@ -41,7 +41,6 @@ export const ConsumerOrder = () => {
     try {
       const response = await instance.get("/orderToAdmin");
       setOrders(response.data.data);
-      console.log(response.data.data, "orders");
     } catch (error) {
       console.error(error);
     } finally {
@@ -62,7 +61,6 @@ export const ConsumerOrder = () => {
   // Jumping to order detail ======================
   const handleOrderDetail = (_id: string) => {
     router.push(`/orderdetail/${_id}`);
-    console.log(_id, "id in consumerorder");
   };
   //   Filtering order =======================
   const filteredOrders = orders.filter(

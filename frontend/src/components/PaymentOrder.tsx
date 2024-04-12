@@ -13,6 +13,7 @@ import {
 import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { Link } from "lucide-react";
 import { bank } from "@/utils/types/bagType";
+import { useRouter } from "next/router";
 
 export default function PaymentOrder({
   qr,
@@ -27,7 +28,7 @@ export default function PaymentOrder({
   bank: bank;
   user: string;
 }) {
-  console.log("first", user);
+  const router = useRouter();
   const { Canvas } = useQRCode();
   const check = async () => {
     const checkRes = await instance.post("/check", {
@@ -38,9 +39,10 @@ export default function PaymentOrder({
     if (checkRes.data.check.rows.length == 0) {
       toastifyError("Not paid");
     } else {
+      toastifySuccess("Paid");
       await instance.post("/updateOrderPayment", colorId);
       await instance.post("/mail", { id: user });
-      toastifySuccess("Paid");
+      router.push("/");
     }
   };
   return (

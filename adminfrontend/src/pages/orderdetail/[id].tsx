@@ -8,7 +8,6 @@ import { OrderDetail } from "../../components/OrderDetail";
 const Orderdetail = () => {
   const router = useRouter();
   const _id = router.query.id;
-  console.log(_id, "id in [id].tsx");
   return (
     <div className="flex">
       <LeftNavBar />
