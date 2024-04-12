@@ -12,12 +12,11 @@ import {
 } from "@/components/ui/sheet";
 import { CartProps } from "@/utils/types/bagType";
 
-import { toastifyError } from "@/utils/alerts";
+import { toastifyError, toastifySuccess } from "@/utils/alerts";
 import { Profile } from "./Profile";
 import { instance } from "@/utils/instance";
 import { UserValueContext } from "@/contexts/UserContext";
 import Cookies from "js-cookie";
-
 
 export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,7 +57,7 @@ export const LoginSheet: React.FC<CartProps> = (): JSX.Element => {
   console.log("first");
 
   const handleLogout = () => {
-    setUser("");
+    // setUser("");
     Cookies.remove("accessToken");
     setIsLoggedIn(false);
     alert("out");
