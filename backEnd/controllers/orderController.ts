@@ -21,8 +21,6 @@ export const addOrder = async (req: Request, res: Response) => {
       path: "colors",
       match: { _id: colorId },
     });
-
-    console.log("first", userId, check);
     if (check.length > 0) {
       res.status(208).json({ message: "Unable to access again" });
     } else {
