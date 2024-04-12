@@ -14,15 +14,15 @@ export const HomeSection = () => {
     },
     {
       backgroundImage: "/assets/louisVuitton.jpeg",
-      path: "/bag/gucci",
+      path: "/bag/lv",
     },
     {
       backgroundImage: "/assets/hermes.jpeg",
-      path: "/bag/gucci",
+      path: "/bag/hermes",
     },
     {
       backgroundImage: "/assets/prada.jpeg",
-      path: "/bag/gucci",
+      path: "/bag/prada",
     },
   ];
 
